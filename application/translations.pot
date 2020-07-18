@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-31 13:41:16+\n"
+"POT-Creation-Date: 2020-07-18 17:35:00+\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,6 +37,11 @@ msgstr ""
 
 #: org.apache.isis.core.runtime.services.i18n.po.TranslationServicePoMenu#downloadTranslations(java.lang.String)
 msgid ".pot file name"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModelXml(java.util.List,java.lang.String)
+msgid ".xml file name"
 msgstr ""
 
 
@@ -168,6 +173,11 @@ msgstr ""
 
 #: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModel()
 msgid "Download Meta Model (CSV)"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModelXml()
+msgid "Download Meta Model (XML)"
 msgstr ""
 
 
@@ -335,6 +345,11 @@ msgstr ""
 
 #: org.apache.isis.applib.services.swagger.SwaggerServiceMenu#openSwaggerUi()
 msgid "Open Swagger Ui"
+msgstr ""
+
+
+#: org.apache.isis.applib.services.metamodel.MetaModelServicesMenu#downloadMetaModelXml(java.util.List,java.lang.String)
+msgid "Packages"
 msgstr ""
 
 
