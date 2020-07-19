@@ -20,16 +20,16 @@
 <mb3:menuBars xsi:schemaLocation="http://isis.apache.org/applib/layout/menubars/bootstrap3 http://isis.apache.org/applib/layout/menubars/bootstrap3/menubars.xsd http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/links http://isis.apache.org/applib/layout/links/links.xsd" xmlns:cpt="http://isis.apache.org/applib/layout/component" xmlns:lnk="http://isis.apache.org/applib/layout/links" xmlns:mb3="http://isis.apache.org/applib/layout/menubars/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <mb3:primary>
         <mb3:menu>
-            <mb3:named>Simple Objects</mb3:named>
+            <mb3:named>Clientes</mb3:named>
             <mb3:section>
                 <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="create">
-                    <cpt:named>Create</cpt:named>
+                    <cpt:named>Crear</cpt:named>
                 </mb3:serviceAction>
                 <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="findByName">
-                    <cpt:named>Find By Name</cpt:named>
+                    <cpt:named>Buscar por nombre</cpt:named>
                 </mb3:serviceAction>
                 <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="listAll">
-                    <cpt:named>List All</cpt:named>
+                    <cpt:named>Listar todo</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
@@ -104,7 +104,7 @@
             <mb3:named>Configuration Service Menu</mb3:named>
             <mb3:section>
                 <mb3:serviceAction objectType="isisApplib.ConfigurationServiceMenu" id="configuration">
-                    <cpt:named>Configuration</cpt:named>
+                    <cpt:named>Configuracion</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
