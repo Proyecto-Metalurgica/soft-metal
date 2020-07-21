@@ -21,30 +21,30 @@ package domainapp.modules.simple.fixture;
 
 import org.apache.isis.applib.fixturescripts.BuilderScriptAbstract;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjects;
+import domainapp.modules.simple.dom.impl.Clientes;
+import domainapp.modules.simple.dom.impl.Cliente;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
-public class SimpleObjectBuilder extends BuilderScriptAbstract<SimpleObject, SimpleObjectBuilder> {
+public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleObjectBuilder> {
 
     @Getter @Setter
     private String name;
 
     @Getter
-    private SimpleObject object;
+    private Cliente object;
 
     @Override
     protected void execute(final ExecutionContext ec) {
 
         checkParam("name", ec, String.class);
 
-        object = wrap(simpleObjects).create(name);
+        object = wrap(clientes).create(name);
     }
 
     @javax.inject.Inject
-    SimpleObjects simpleObjects;
+    Clientes clientes;
 
 }

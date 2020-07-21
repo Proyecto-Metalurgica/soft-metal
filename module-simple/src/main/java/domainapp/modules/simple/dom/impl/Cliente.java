@@ -46,26 +46,27 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
-@javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
+@javax.jdo.annotations.Unique(name="Cliente_name_UNQ", members = {"name"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class SimpleObject implements Comparable<SimpleObject> {
+public class Cliente implements Comparable<Cliente> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
-    @Title(prepend = "Object: ")
+    @Title(prepend = "Cliente: ")
     private String name;
 
+    
     @javax.jdo.annotations.Column(allowsNull = "true", length = 4000)
     @Property(editing = Editing.ENABLED)
     private String notes;
 
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "name")
-    public SimpleObject updateName(
+    public Cliente updateName(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Name")
             final String name) {
@@ -95,7 +96,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
         return getName();
     }
 
-    public int compareTo(final SimpleObject other) {
+    public int compareTo(final Cliente other) {
         return ComparisonChain.start()
                 .compare(this.getName(), other.getName())
                 .result();

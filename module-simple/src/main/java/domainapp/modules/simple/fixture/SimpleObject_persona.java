@@ -24,13 +24,13 @@ import org.apache.isis.applib.fixturescripts.PersonaWithFinder;
 import org.apache.isis.applib.fixturescripts.setup.PersonaEnumPersistAll;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjects;
+import domainapp.modules.simple.dom.impl.Cliente;
+import domainapp.modules.simple.dom.impl.Clientes;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum SimpleObject_persona implements PersonaWithBuilderScript<SimpleObject, SimpleObjectBuilder>,
-        PersonaWithFinder<SimpleObject> {
+public enum SimpleObject_persona implements PersonaWithBuilderScript<Cliente, SimpleObjectBuilder>,
+        PersonaWithFinder<Cliente> {
 
     FOO("Foo"),
     BAR("Bar"),
@@ -51,13 +51,13 @@ public enum SimpleObject_persona implements PersonaWithBuilderScript<SimpleObjec
     }
 
     //@Override
-    public SimpleObject findUsing(final ServiceRegistry2 serviceRegistry) {
-        SimpleObjects simpleObjects = serviceRegistry.lookupService(SimpleObjects.class);
-        return simpleObjects.findByNameExact(name);
+    public Cliente findUsing(final ServiceRegistry2 serviceRegistry) {
+        Clientes clientes = serviceRegistry.lookupService(Clientes.class);
+        return clientes.findByNameExact(name);
     }
 
     public static class PersistAll
-            extends PersonaEnumPersistAll<SimpleObject_persona, SimpleObject, SimpleObjectBuilder> {
+            extends PersonaEnumPersistAll<SimpleObject_persona, Cliente, SimpleObjectBuilder> {
         public PersistAll() {
             super(SimpleObject_persona.class);
         }

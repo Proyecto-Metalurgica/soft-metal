@@ -214,13 +214,7 @@
                     <name>jdbc-postgres</name>
                 </property>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <version>9.1-901.jdbc4</version>
-                </dependency>
-            </dependencies>
+
         </profile>
         <profile>
             <id>jdbc-mssql</id>

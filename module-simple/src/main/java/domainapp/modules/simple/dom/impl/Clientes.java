@@ -39,31 +39,31 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "simple.SimpleObjectMenu",
-        repositoryFor = SimpleObject.class
+        repositoryFor = Cliente.class
 )
 @DomainServiceLayout(
-        named = "Simple Objects",
+        named = "Clientes",
         menuOrder = "10"
 )
-public class SimpleObjects {
+public class Clientes {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<SimpleObject> listAll() {
-        return repositoryService.allInstances(SimpleObject.class);
+    public List<Cliente> listAll() {
+        return repositoryService.allInstances(Cliente.class);
     }
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<SimpleObject> findByName(
+    public List<Cliente> findByName(
             @ParameterLayout(named="Name")
             final String name
     ) {
-        TypesafeQuery<SimpleObject> q = isisJdoSupport.newTypesafeQuery(SimpleObject.class);
-        final QSimpleObject cand = QSimpleObject.candidate();
+        TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
+        final QCliente cand = QCliente.candidate();
         q = q.filter(
                 cand.name.indexOf(q.stringParameter("name")).ne(-1)
         );
@@ -72,9 +72,9 @@ public class SimpleObjects {
     }
 
     @Programmatic
-    public SimpleObject findByNameExact(final String name) {
-        TypesafeQuery<SimpleObject> q = isisJdoSupport.newTypesafeQuery(SimpleObject.class);
-        final QSimpleObject cand = QSimpleObject.candidate();
+    public Cliente findByNameExact(final String name) {
+        TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
+        final QCliente cand = QCliente.candidate();
         q = q.filter(
                 cand.name.eq(q.stringParameter("name"))
         );
@@ -84,20 +84,20 @@ public class SimpleObjects {
 
     @Programmatic
     public void ping() {
-        TypesafeQuery<SimpleObject> q = isisJdoSupport.newTypesafeQuery(SimpleObject.class);
-        final QSimpleObject candidate = QSimpleObject.candidate();
+        TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
+        final QCliente candidate = QCliente.candidate();
         q.range(0,2);
         q.orderBy(candidate.name.asc());
         q.executeList();
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<SimpleObjects> {}
+    public static class CreateDomainEvent extends ActionDomainEvent<Clientes> {}
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
-    public SimpleObject create(
+    public Cliente create(
             @ParameterLayout(named="Name")
             final String name) {
-        return repositoryService.persist(new SimpleObject(name));
+        return repositoryService.persist(new Cliente(name));
     }
 
     @javax.inject.Inject
