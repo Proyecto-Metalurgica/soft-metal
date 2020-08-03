@@ -59,6 +59,10 @@ public class Cliente implements Comparable<Cliente> {
     @Title(prepend = "Cliente: ")
     private String name;
 
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String apellido;
     
     @javax.jdo.annotations.Column(allowsNull = "true", length = 4000)
     @Property(editing = Editing.ENABLED)
@@ -68,9 +72,10 @@ public class Cliente implements Comparable<Cliente> {
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "name")
     public Cliente updateName(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Name")
-            final String name) {
+            @ParameterLayout(named = "Name") final String name,
+            @ParameterLayout(named = "Apellido") final String apellido){
         setName(name);
+        setApellido(apellido);
         return this;
     }
 

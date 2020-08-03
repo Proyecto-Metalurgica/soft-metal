@@ -95,9 +95,10 @@ public class Clientes {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public Cliente create(
-            @ParameterLayout(named="Name")
-            final String name) {
-        return repositoryService.persist(new Cliente(name));
+            @ParameterLayout(named="Name") final String name,
+            @ParameterLayout(named="Apellido") final String apellido
+            ) {
+        return repositoryService.persist(new Cliente(name, apellido));
     }
 
     @javax.inject.Inject

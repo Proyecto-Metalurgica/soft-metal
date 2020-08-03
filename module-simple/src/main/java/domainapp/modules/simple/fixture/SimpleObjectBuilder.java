@@ -33,6 +33,9 @@ public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleOb
     @Getter @Setter
     private String name;
 
+    @Getter @Setter
+    private String apellido;
+
     @Getter
     private Cliente object;
 
@@ -41,7 +44,7 @@ public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleOb
 
         checkParam("name", ec, String.class);
 
-        object = wrap(clientes).create(name);
+        object = wrap(clientes).create(name, apellido);
     }
 
     @javax.inject.Inject
