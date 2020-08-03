@@ -63,6 +63,26 @@ public class Cliente implements Comparable<Cliente> {
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     private String apellido;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String dni;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String telefono;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String email;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String direccion;
     
     @javax.jdo.annotations.Column(allowsNull = "true", length = 4000)
     @Property(editing = Editing.ENABLED)
@@ -73,9 +93,17 @@ public class Cliente implements Comparable<Cliente> {
     public Cliente updateName(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Name") final String name,
-            @ParameterLayout(named = "Apellido") final String apellido){
+            @ParameterLayout(named = "Apellido") final String apellido,
+            @ParameterLayout(named = "Dni") final String dni,
+            @ParameterLayout(named = "Telefono") final String telefono,
+            @ParameterLayout(named = "Email") final String email,
+            @ParameterLayout(named = "Direccion") final String direccion){
         setName(name);
         setApellido(apellido);
+        setDni(dni);
+        setTelefono(telefono);
+        setEmail(email);
+        setDireccion(direccion);
         return this;
     }
 

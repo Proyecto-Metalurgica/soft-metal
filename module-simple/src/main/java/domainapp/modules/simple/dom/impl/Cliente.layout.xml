@@ -38,6 +38,10 @@
                                     <c:action id="updateName" promptStyle="INLINE"/>
                                 </c:property>
                                 <c:property id="apellido" namedEscaped="true" />
+                                <c:property id="dni" namedEscaped="true" />
+                                <c:property id="telefono" namedEscaped="true" />
+                                <c:property id="email" namedEscaped="true" />
+                                <c:property id="direccion" namedEscaped="true" />
                                 <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
                             </c:fieldSet>
                         </bs3:col>
