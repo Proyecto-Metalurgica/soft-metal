@@ -33,6 +33,20 @@
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
+        <mb3:menu>
+            <mb3:named>Materiales</mb3:named>
+            <mb3:section>
+                <mb3:serviceAction objectType="simple.SimpleObjectMenus" id="create">
+                    <cpt:named>Crear</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleObjectMenus" id="findByName">
+                    <cpt:named>Buscar por nombre</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleObjectMenus" id="listAll">
+                    <cpt:named>Listar todo</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+        </mb3:menu>
         <mb3:menu unreferencedActions="true">
             <mb3:named>Other</mb3:named>
         </mb3:menu>
