@@ -1,5 +1,5 @@
 
-package domainapp.modules.simple.dom.impl;
+package domainapp.modules.simple.dom.impl.material;
 
         import java.util.List;
 
@@ -25,10 +25,10 @@ package domainapp.modules.simple.dom.impl;
         repositoryFor = Material.class
 )
 @DomainServiceLayout(
-        named = "Materiales",
+        named = "MaterialMenu",
         menuOrder = "10"
 )
-public class Materiales {
+public class MaterialMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
@@ -73,7 +73,7 @@ public class Materiales {
         q.executeList();
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<Materiales> {
+    public static class CreateDomainEvent extends ActionDomainEvent<MaterialMenu> {
     }
 
     @Action(domainEvent = CreateDomainEvent.class)

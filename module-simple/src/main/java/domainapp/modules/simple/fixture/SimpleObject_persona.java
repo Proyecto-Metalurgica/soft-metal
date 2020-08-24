@@ -19,13 +19,13 @@
 
 package domainapp.modules.simple.fixture;
 
+import domainapp.modules.simple.dom.impl.cliente.ClienteMenu;
 import org.apache.isis.applib.fixturescripts.PersonaWithBuilderScript;
 import org.apache.isis.applib.fixturescripts.PersonaWithFinder;
 import org.apache.isis.applib.fixturescripts.setup.PersonaEnumPersistAll;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import domainapp.modules.simple.dom.impl.Cliente;
-import domainapp.modules.simple.dom.impl.Clientes;
+import domainapp.modules.simple.dom.impl.cliente.Cliente;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -52,8 +52,8 @@ public enum SimpleObject_persona implements PersonaWithBuilderScript<Cliente, Si
 
     //@Override
     public Cliente findUsing(final ServiceRegistry2 serviceRegistry) {
-        Clientes clientes = serviceRegistry.lookupService(Clientes.class);
-        return clientes.findByNameExact(name);
+        ClienteMenu clienteMenu = serviceRegistry.lookupService(ClienteMenu.class);
+        return clienteMenu.findByNameExact(name);
     }
 
     public static class PersistAll

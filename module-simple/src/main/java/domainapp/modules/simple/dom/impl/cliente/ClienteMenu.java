@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.modules.simple.dom.impl;
+package domainapp.modules.simple.dom.impl.cliente;
 
 import java.util.List;
 
@@ -42,10 +42,10 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         repositoryFor = Cliente.class
 )
 @DomainServiceLayout(
-        named = "Clientes",
+        named = "ClienteMenu",
         menuOrder = "10"
 )
-public class Clientes {
+public class ClienteMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
@@ -91,7 +91,7 @@ public class Clientes {
         q.executeList();
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<Clientes> {}
+    public static class CreateDomainEvent extends ActionDomainEvent<ClienteMenu> {}
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public Cliente create(

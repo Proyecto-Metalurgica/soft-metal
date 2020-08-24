@@ -24,7 +24,7 @@ import org.apache.isis.applib.ModuleAbstract;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.teardown.TeardownFixtureAbstract2;
 
-import domainapp.modules.simple.dom.impl.Cliente;
+import domainapp.modules.simple.dom.impl.cliente.Cliente;
 
 @XmlRootElement(name = "module")
 public class SimpleModule extends ModuleAbstract {

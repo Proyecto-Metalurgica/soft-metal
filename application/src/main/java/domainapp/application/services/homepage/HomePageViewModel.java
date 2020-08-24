@@ -20,8 +20,8 @@ package domainapp.application.services.homepage;
 
 import java.util.List;
 
-import domainapp.modules.simple.dom.impl.Clientes;
-import domainapp.modules.simple.dom.impl.Cliente;
+import domainapp.modules.simple.dom.impl.cliente.ClienteMenu;
+import domainapp.modules.simple.dom.impl.cliente.Cliente;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -39,9 +39,9 @@ public class HomePageViewModel {
     }
 
     public List<Cliente> getObjects() {
-        return clientes.listAll();
+        return clienteMenu.listAll();
     }
 
     @javax.inject.Inject
-    Clientes clientes;
+    ClienteMenu clienteMenu;
 }

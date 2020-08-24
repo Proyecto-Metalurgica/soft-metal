@@ -21,8 +21,8 @@ package domainapp.modules.simple.fixture;
 
 import org.apache.isis.applib.fixturescripts.BuilderScriptAbstract;
 
-import domainapp.modules.simple.dom.impl.Clientes;
-import domainapp.modules.simple.dom.impl.Cliente;
+import domainapp.modules.simple.dom.impl.cliente.ClienteMenu;
+import domainapp.modules.simple.dom.impl.cliente.Cliente;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -56,10 +56,10 @@ public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleOb
 
         checkParam("name", ec, String.class);
 
-        object = wrap(clientes).create(name, apellido, dni, telefono, email, direccion);
+        object = wrap(clienteMenu).create(name, apellido, dni, telefono, email, direccion);
     }
 
     @javax.inject.Inject
-    Clientes clientes;
+    ClienteMenu clienteMenu;
 
 }
