@@ -22,28 +22,28 @@
         <mb3:menu>
             <mb3:named>Clientes</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="create">
-                    <cpt:named>Crear</cpt:named>
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="create">
+                    <cpt:named>Crear Nuevo Cliente</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="findByName">
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="findByName">
                     <cpt:named>Buscar por nombre</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="listAll">
-                    <cpt:named>Listar todo</cpt:named>
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="listAll">
+                    <cpt:named>Listar todos los Clientes</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
         <mb3:menu>
             <mb3:named>Materiales</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="simple.SimpleObjectMenus" id="create">
-                    <cpt:named>Crear</cpt:named>
+                <mb3:serviceAction objectType="simple.SimpleMaterialMenu" id="create">
+                    <cpt:named>Crear Nuevo Material</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleObjectMenus" id="findByName">
+                <mb3:serviceAction objectType="simple.SimpleMaterialMenu" id="findByName">
                     <cpt:named>Buscar por nombre</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleObjectMenus" id="listAll">
-                    <cpt:named>Listar todo</cpt:named>
+                <mb3:serviceAction objectType="simple.SimpleMaterialMenu" id="listAll">
+                    <cpt:named>Listar todos los Materiales</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>

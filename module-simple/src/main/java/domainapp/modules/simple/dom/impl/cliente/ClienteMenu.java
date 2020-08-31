@@ -38,7 +38,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "simple.SimpleObjectMenu",
+        objectType = "simple.SimpleClienteMenu",
         repositoryFor = Cliente.class
 )
 @DomainServiceLayout(

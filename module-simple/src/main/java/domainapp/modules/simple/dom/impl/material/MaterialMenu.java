@@ -21,7 +21,7 @@ package domainapp.modules.simple.dom.impl.material;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "simple.SimpleObjectMenus",
+        objectType = "simple.SimpleMaterialMenu",
         repositoryFor = Material.class
 )
 @DomainServiceLayout(
