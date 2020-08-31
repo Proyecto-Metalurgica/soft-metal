@@ -35,7 +35,7 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 public class HomePageViewModel {
 
     public TranslatableString title() {
-        return TranslatableString.tr("{num} objects", "num", getObjects().size());
+        return TranslatableString.tr("{num} clientes", "num", getObjects().size());
     }
 
     public List<Cliente> getObjects() {
