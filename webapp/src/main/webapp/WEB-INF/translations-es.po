@@ -62,12 +62,12 @@ msgstr ""
 
 #: org.apache.isis.viewer.wicket.ui.pages.entity.EntityPage
 msgid "CollectionContentsAsAjaxTablePanelFactory.Table"
-msgstr "Table"
+msgstr "Tabla"
 
 
 #: org.apache.isis.viewer.wicket.ui.pages.entity.EntityPage
 msgid "CollectionContentsAsUnresolvedPanel.Hide"
-msgstr "Hide"
+msgstr "Ocultar"
 
 
 #: org.apache.isis.applib.services.layout.LayoutService$Style#COMPLETE
@@ -97,7 +97,7 @@ msgstr ""
 
 #: domainapp.dom.simple.SimpleObject#delete()
 msgid "Delete"
-msgstr ""
+msgstr "Borrar"
 
 
 #: domainapp.dom.simple.SimpleObject#downloadJdoMetadata()

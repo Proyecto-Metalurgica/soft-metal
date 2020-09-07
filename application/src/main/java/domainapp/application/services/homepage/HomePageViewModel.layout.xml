@@ -34,7 +34,7 @@
         <bs3:col span="4" unreferencedCollections="true">
             <bs3:row>
                 <bs3:col span="12">
-                    <collection id="objects" defaultView="table"/>
+                    <collection id="Objecto" defaultView="tabla"/>
                 </bs3:col>
             </bs3:row>
         </bs3:col>

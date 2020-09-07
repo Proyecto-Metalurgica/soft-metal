@@ -59,7 +59,7 @@ public class ClienteMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<Cliente> findByName(
-            @ParameterLayout(named="Name")
+            @ParameterLayout(named="Nombre")
             final String name
     ) {
         TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
@@ -95,7 +95,7 @@ public class ClienteMenu {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public Cliente create(
-            @ParameterLayout(named="Name") final String name,
+            @ParameterLayout(named="Nombre") final String name,
             @ParameterLayout(named="Apellido") final String apellido,
             @ParameterLayout(named = "Dni") final String dni,
             @ParameterLayout(named = "Telefono") final String telefono,
