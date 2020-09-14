@@ -20,8 +20,8 @@ package domainapp.application.services.homepage;
 
 import java.util.List;
 
-import domainapp.modules.simple.dom.impl.cliente.ClienteMenu;
-import domainapp.modules.simple.dom.impl.cliente.Cliente;
+import domainapp.modules.simple.dominio.cliente.ClienteMenu;
+import domainapp.modules.simple.dominio.cliente.Cliente;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;

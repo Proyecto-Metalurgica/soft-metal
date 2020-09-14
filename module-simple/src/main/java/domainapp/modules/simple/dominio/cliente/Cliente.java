@@ -1,4 +1,22 @@
-package domainapp.modules.simple.dom.impl.material;
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package domainapp.modules.simple.dominio.cliente;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -28,59 +46,73 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
-
-@javax.jdo.annotations.Unique(name="Material_name_UNQ", members = {"tipo"})
+@javax.jdo.annotations.Unique(name="Cliente_name_UNQ", members = {"name"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-
-public class Material implements Comparable<Material> {
+public class Cliente implements Comparable<Cliente> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
-    @Title(prepend = "Material: ")
-    private String tipo;
+    @Title(prepend = "Cliente: ")
+    private String name;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String medida;
+    private String apellido;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String unidad;
+    private String dni;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String precio;
+    private String telefono;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String email;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private String direccion;
+    
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 4000)
+    @Property(editing = Editing.ENABLED)
+    private String notes;
 
 
-
-    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "tipo")
-    public Material updateTipo(
+    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "name")
+    public Cliente updateName(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Tipo") final String tipo,
-            @ParameterLayout(named = "Medida") final String medida,
-            @ParameterLayout(named = "Unidad") final String unidad,
-            @ParameterLayout(named = "Precio") final String precio){
-        setTipo(tipo);
-        setMedida(medida);
-        setUnidad(unidad);
-        setPrecio(precio);
-
+            @ParameterLayout(named = "Name") final String name,
+            @ParameterLayout(named = "Apellido") final String apellido,
+            @ParameterLayout(named = "Dni") final String dni,
+            @ParameterLayout(named = "Telefono") final String telefono,
+            @ParameterLayout(named = "Email") final String email,
+            @ParameterLayout(named = "Direccion") final String direccion){
+        setName(name);
+        setApellido(apellido);
+        setDni(dni);
+        setTelefono(telefono);
+        setEmail(email);
+        setDireccion(direccion);
         return this;
     }
 
-    public String default0UpdateTipo() {
-        return getTipo();
+    public String default0UpdateName() {
+        return getName();
     }
 
-    public TranslatableString validate0UpdateTipo(final String tipo) {
-        return tipo != null && tipo.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+    public TranslatableString validate0UpdateName(final String name) {
+        return name != null && name.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
     }
 
 
@@ -94,14 +126,12 @@ public class Material implements Comparable<Material> {
 
     @Override
     public String toString() {
-        return getTipo();
+        return getName();
     }
 
-
-
-    public int compareTo(final Material other) {
+    public int compareTo(final Cliente other) {
         return ComparisonChain.start()
-                .compare(this.getTipo(), other.getTipo())
+                .compare(this.getName(), other.getName())
                 .result();
     }
 

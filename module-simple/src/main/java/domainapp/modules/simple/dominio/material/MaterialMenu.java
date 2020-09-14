@@ -1,7 +1,8 @@
 
-package domainapp.modules.simple.dom.impl.material;
+package domainapp.modules.simple.dominio.material;
 
         import java.util.List;
+
 
         import org.datanucleus.query.typesafe.TypesafeQuery;
 

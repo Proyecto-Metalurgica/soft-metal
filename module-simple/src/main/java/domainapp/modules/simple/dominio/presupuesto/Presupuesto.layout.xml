@@ -17,11 +17,15 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
+<bs3:grid
+        xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd"
+        xmlns:cpt="http://isis.apache.org/applib/layout/component"
+        xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
     <bs3:row>
         <bs3:col span="12" unreferencedActions="true">
-            <c:domainObject bookmarking="AS_ROOT"/>
+            <cpt:domainObject bookmarking="AS_ROOT"/>
         </bs3:col>
     </bs3:row>
     <bs3:row>
@@ -30,34 +34,30 @@
                 <bs3:tab name="General">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Datos del cliente">
-                                <c:action id="delete">
-                                    <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
-                                </c:action>
-                                <c:property id="nombre" namedEscaped="true">
-                                    <c:action id="updateName" promptStyle="INLINE"/>
-                                </c:property>
-                                <c:property id="apellido" namedEscaped="true" />
-                                <c:property id="dni" namedEscaped="true" />
-                                <c:property id="telefono" namedEscaped="true" />
-                                <c:property id="email" namedEscaped="true" />
-                                <c:property id="direccion" namedEscaped="true" />
-                                <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
-                            </c:fieldSet>
+                            <cpt:fieldSet name="Datos del Prsupuesto">
+                                <cpt:action id="update"/>
+                                <cpt:property id= "fecha" namedEscaped="true"/>
+                                <cpt:property id="nro de presupuesto" namedEscaped="true"/>
+                                <cpt:property id="producto" namedEscaped="true"/>
+                                <cpt:property id="cantidad" namedEscaped="true"/>
+                                <cpt:property id="medida" namedEscaped="true"/>
+                                <cpt:property id="tipo material" namedEscaped="true"/>
+                                <cpt:property id="precio" namedEscaped="true"/>
+                            </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
                 <bs3:tab name="Metadata">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Metadata"/>
+                            <cpt:fieldSet name="Metadata"/>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
                 <bs3:tab name="Other">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Other" unreferencedProperties="true"/>
+                            <cpt:fieldSet name="Other" unreferencedProperties="true"/>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

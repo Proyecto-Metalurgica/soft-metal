@@ -16,9 +16,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.modules.simple.dom.impl.cliente;
+package domainapp.modules.simple.dominio.cliente;
 
 import java.util.List;
+
 
 import org.datanucleus.query.typesafe.TypesafeQuery;
 

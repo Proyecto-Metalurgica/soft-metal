@@ -21,8 +21,8 @@ package domainapp.modules.simple.fixture;
 
 import org.apache.isis.applib.fixturescripts.BuilderScriptAbstract;
 
-import domainapp.modules.simple.dom.impl.cliente.ClienteMenu;
-import domainapp.modules.simple.dom.impl.cliente.Cliente;
+import domainapp.modules.simple.dominio.cliente.ClienteMenu;
+import domainapp.modules.simple.dominio.cliente.Cliente;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

@@ -19,13 +19,13 @@
 
 package domainapp.modules.simple.fixture;
 
-import domainapp.modules.simple.dom.impl.cliente.ClienteMenu;
+import domainapp.modules.simple.dominio.cliente.ClienteMenu;
 import org.apache.isis.applib.fixturescripts.PersonaWithBuilderScript;
 import org.apache.isis.applib.fixturescripts.PersonaWithFinder;
 import org.apache.isis.applib.fixturescripts.setup.PersonaEnumPersistAll;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 
-import domainapp.modules.simple.dom.impl.cliente.Cliente;
+import domainapp.modules.simple.dominio.cliente.Cliente;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
