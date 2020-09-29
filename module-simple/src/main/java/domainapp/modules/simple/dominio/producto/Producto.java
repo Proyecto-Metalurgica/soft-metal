@@ -1,4 +1,4 @@
-package domainapp.modules.simple.dominio.material;
+package domainapp.modules.simple.dominio.producto;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -35,12 +35,12 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 
-public class Material implements Comparable<Material> {
+public class Producto implements Comparable<Producto> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
-    @Title(prepend = "Material: ")
+    @Title(prepend = "Producto: ")
     private String tipo;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
@@ -61,7 +61,7 @@ public class Material implements Comparable<Material> {
 
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "tipo")
-    public Material updateTipo(
+    public Producto updateTipo(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Tipo") final String tipo,
             @ParameterLayout(named = "Medida") final String medida,
@@ -99,7 +99,7 @@ public class Material implements Comparable<Material> {
 
 
 
-    public int compareTo(final Material other) {
+    public int compareTo(final Producto other) {
         return ComparisonChain.start()
                 .compare(this.getTipo(), other.getTipo())
                 .result();

@@ -81,7 +81,7 @@ public class Presupuesto {
 
             @ParameterLayout(named = "Medidas: ") final String medida,
 
-            @ParameterLayout(named = "Tipo de Material: ") final String tipoMaterial,
+            @ParameterLayout(named = "Tipo de Producto: ") final String tipoMaterial,
 
             @ParameterLayout(named = "Precio: ") final String precio
 

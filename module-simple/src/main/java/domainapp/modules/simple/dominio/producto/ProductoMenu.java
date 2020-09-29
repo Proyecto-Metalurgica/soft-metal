@@ -1,5 +1,5 @@
 
-package domainapp.modules.simple.dominio.material;
+package domainapp.modules.simple.dominio.producto;
 
         import java.util.List;
 
@@ -23,30 +23,30 @@ package domainapp.modules.simple.dominio.material;
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         objectType = "simple.SimpleMaterialMenu",
-        repositoryFor = Material.class
+        repositoryFor = Producto.class
 )
 @DomainServiceLayout(
-        named = "MaterialMenu",
+        named = "ProductoMenu",
         menuOrder = "10"
 )
-public class MaterialMenu {
+public class ProductoMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<Material> listAll() {
-        return repositoryService.allInstances(Material.class);
+    public List<Producto> listAll() {
+        return repositoryService.allInstances(Producto.class);
     }
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<Material> findByName(
+    public List<Producto> findByName(
             @ParameterLayout(named = "Tipo") final String tipo
     ) {
-        TypesafeQuery<Material> q = isisJdoSupport.newTypesafeQuery(Material.class);
-        final QMaterial cand = QMaterial.candidate();
+        TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
+        final QProducto cand = QProducto.candidate();
         q = q.filter(
                 cand.tipo.indexOf(q.stringParameter("tipo")).ne(-1)
         );
@@ -55,9 +55,9 @@ public class MaterialMenu {
     }
 
     @Programmatic
-    public Material findByNameExact(final String tipo) {
-        TypesafeQuery<Material> q = isisJdoSupport.newTypesafeQuery(Material.class);
-        final QMaterial cand = QMaterial.candidate();
+    public Producto findByNameExact(final String tipo) {
+        TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
+        final QProducto cand = QProducto.candidate();
         q = q.filter(
                 cand.tipo.eq(q.stringParameter("tipo"))
         );
@@ -67,26 +67,26 @@ public class MaterialMenu {
 
     @Programmatic
     public void ping() {
-        TypesafeQuery<Material> q = isisJdoSupport.newTypesafeQuery(Material.class);
-        final QMaterial candidate = QMaterial.candidate();
+        TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
+        final QProducto candidate = QProducto.candidate();
         q.range(0, 2);
         q.orderBy(candidate.tipo.asc());
         q.executeList();
     }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<MaterialMenu> {
+    public static class CreateDomainEvent extends ActionDomainEvent<ProductoMenu> {
     }
 
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
-    public Material create(
+    public Producto create(
             @ParameterLayout(named = "Tipo") final String tipo,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Unidad") final String unidad,
             @ParameterLayout(named = "Precio") final String precio
 
     ) {
-        return repositoryService.persist(new Material(tipo, medida, unidad, precio));
+        return repositoryService.persist(new Producto(tipo, medida, unidad, precio));
     }
 
     @javax.inject.Inject
