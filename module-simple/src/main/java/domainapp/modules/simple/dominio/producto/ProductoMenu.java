@@ -22,7 +22,7 @@ package domainapp.modules.simple.dominio.producto;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        objectType = "simple.SimpleMaterialMenu",
+        objectType = "simple.SimpleProductoMenu",
         repositoryFor = Producto.class
 )
 @DomainServiceLayout(
@@ -43,25 +43,25 @@ public class ProductoMenu {
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<Producto> findByName(
-            @ParameterLayout(named = "Tipo") final String tipo
+            @ParameterLayout(named = "Nombre") final String nombre
     ) {
         TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
         final QProducto cand = QProducto.candidate();
         q = q.filter(
-                cand.tipo.indexOf(q.stringParameter("tipo")).ne(-1)
+                cand.nombre.indexOf(q.stringParameter("nombre")).ne(-1)
         );
-        return q.setParameter("tipo", tipo)
+        return q.setParameter("nombre", nombre)
                 .executeList();
     }
 
     @Programmatic
-    public Producto findByNameExact(final String tipo) {
+    public Producto findByNameExact(final String nombre) {
         TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
         final QProducto cand = QProducto.candidate();
         q = q.filter(
-                cand.tipo.eq(q.stringParameter("tipo"))
+                cand.nombre.eq(q.stringParameter("nombre"))
         );
-        return q.setParameter("tipo", tipo)
+        return q.setParameter("nombre", nombre)
                 .executeUnique();
     }
 
@@ -70,7 +70,7 @@ public class ProductoMenu {
         TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
         final QProducto candidate = QProducto.candidate();
         q.range(0, 2);
-        q.orderBy(candidate.tipo.asc());
+        q.orderBy(candidate.nombre.asc());
         q.executeList();
     }
 
@@ -80,13 +80,13 @@ public class ProductoMenu {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public Producto create(
-            @ParameterLayout(named = "Tipo") final String tipo,
+            @ParameterLayout(named = "Nombre") final String nombre,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Unidad") final String unidad,
             @ParameterLayout(named = "Precio") final String precio
 
     ) {
-        return repositoryService.persist(new Producto(tipo, medida, unidad, precio));
+        return repositoryService.persist(new Producto(nombre, medida, unidad, precio));
     }
 
     @javax.inject.Inject

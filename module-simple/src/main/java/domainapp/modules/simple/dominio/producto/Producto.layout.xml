@@ -15,7 +15,7 @@
                                 <c:action id="delete">
                                     <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
                                 </c:action>
-                                <c:property id="tipo" namedEscaped="true">
+                                <c:property id="nombre" namedEscaped="true">
                                     <c:action id="updateName" promptStyle="INLINE"/>
                                 </c:property>
                                 <c:property id="medida" namedEscaped="true" />

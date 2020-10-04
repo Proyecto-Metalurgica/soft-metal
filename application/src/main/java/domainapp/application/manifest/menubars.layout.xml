@@ -36,13 +36,13 @@
         <mb3:menu>
             <mb3:named>Productos</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="simple.SimpleMaterialMenu" id="create">
+                <mb3:serviceAction objectType="simple.SimpleProductoMenu" id="create">
                     <cpt:named>Crear Nuevo Producto</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleMaterialMenu" id="findByName">
+                <mb3:serviceAction objectType="simple.SimpleProductoMenu" id="findByName">
                     <cpt:named>Buscar por nombre</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleMaterialMenu" id="listAll">
+                <mb3:serviceAction objectType="simple.SimpleProductoMenu" id="listAll">
                     <cpt:named>Listar todos los Productos</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>

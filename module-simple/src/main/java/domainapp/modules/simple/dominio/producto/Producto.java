@@ -29,7 +29,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
-@javax.jdo.annotations.Unique(name="Material_name_UNQ", members = {"tipo"})
+@javax.jdo.annotations.Unique(name="Producto_name_UNQ", members = {"nombre"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
@@ -41,7 +41,7 @@ public class Producto implements Comparable<Producto> {
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
     @Title(prepend = "Producto: ")
-    private String tipo;
+    private String nombre;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
@@ -60,14 +60,14 @@ public class Producto implements Comparable<Producto> {
 
 
 
-    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "tipo")
-    public Producto updateTipo(
+    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "nombre")
+    public Producto updateNombre(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Tipo") final String tipo,
+            @ParameterLayout(named = "Nombre") final String nombre,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Unidad") final String unidad,
             @ParameterLayout(named = "Precio") final String precio){
-        setTipo(tipo);
+        setNombre(nombre);
         setMedida(medida);
         setUnidad(unidad);
         setPrecio(precio);
@@ -75,12 +75,12 @@ public class Producto implements Comparable<Producto> {
         return this;
     }
 
-    public String default0UpdateTipo() {
-        return getTipo();
+    public String default0UpdateNombre() {
+        return getNombre();
     }
 
-    public TranslatableString validate0UpdateTipo(final String tipo) {
-        return tipo != null && tipo.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+    public TranslatableString validate0UpdateNombre(final String Nombre) {
+        return nombre != null && nombre.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
     }
 
 
@@ -94,14 +94,14 @@ public class Producto implements Comparable<Producto> {
 
     @Override
     public String toString() {
-        return getTipo();
+        return getNombre();
     }
 
 
 
     public int compareTo(final Producto other) {
         return ComparisonChain.start()
-                .compare(this.getTipo(), other.getTipo())
+                .compare(this.getNombre(), other.getNombre())
                 .result();
     }
 
