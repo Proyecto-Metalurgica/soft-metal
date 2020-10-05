@@ -1,26 +1,16 @@
-package domainapp.modules.simple.dominio.producto;
-
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.VersionStrategy;
+package domainapp.modules.simple.dominio.item;
 
 import com.google.common.collect.ComparisonChain;
-
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.Auditing;
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.Publishing;
-import org.apache.isis.applib.annotation.Title;
+import lombok.AccessLevel;
+import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
-import lombok.AccessLevel;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.VersionStrategy;
+
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE;
@@ -29,58 +19,58 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
-@javax.jdo.annotations.Unique(name="Producto_name_UNQ", members = {"nombre"})
+@javax.jdo.annotations.Unique(name="Item_name_UNQ", members = {"producto"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 
-public class Producto implements Comparable<Producto> {
+public class Item implements Comparable<Item> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
     @Title(prepend = "Item: ")
-    private String nombre;
+    private String producto;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String medida;
+    private String cantidad;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String unidad;
+    private String precioTotal;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String precio;
+    private String detalle;
 
 
 
-    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "nombre")
-    public Producto updateNombre(
+    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
+    public Item updateProducto(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Nombre") final String nombre,
-            @ParameterLayout(named = "Medida") final String medida,
-            @ParameterLayout(named = "Unidad") final String unidad,
-            @ParameterLayout(named = "Precio") final String precio){
-        setNombre(nombre);
-        setMedida(medida);
-        setUnidad(unidad);
-        setPrecio(precio);
+            @ParameterLayout(named = "Producto") final String producto,
+            @ParameterLayout(named = "Cantidad") final String cantidad,
+            @ParameterLayout(named = "PrecioTotal") final String precioTotal,
+            @ParameterLayout(named = "Detalle") final String detalle){
+        setProducto(producto);
+        setCantidad(cantidad);
+        setPrecioTotal(precioTotal);
+        setDetalle(detalle);
 
         return this;
     }
 
-    public String default0UpdateNombre() {
-        return getNombre();
+    public String default0UpdateProducto() {
+        return getProducto();
     }
 
-    public TranslatableString validate0UpdateNombre(final String Nombre) {
-        return nombre != null && nombre.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+    public TranslatableString validate0UpdateProducto(final String Producto) {
+        return producto != null && producto.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
     }
 
 
@@ -94,14 +84,14 @@ public class Producto implements Comparable<Producto> {
 
     @Override
     public String toString() {
-        return getNombre();
+        return getProducto();
     }
 
 
 
-    public int compareTo(final Producto other) {
+    public int compareTo(final Item other) {
         return ComparisonChain.start()
-                .compare(this.getNombre(), other.getNombre())
+                .compare(this.getProducto(), other.getProducto())
                 .result();
     }
 

@@ -47,6 +47,21 @@
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
+        <mb3:menu>
+            <mb3:named>Items</mb3:named>
+            <mb3:section>
+                <mb3:serviceAction objectType="simple.SimpleItemMenu" id="create">
+                    <cpt:named>Crear Nuevo Item</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleItemMenu" id="findByName">
+                    <cpt:named>Buscar por nombre</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleItemMenu" id="listAll">
+                    <cpt:named>Listar todos los Items</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+        </mb3:menu>
+
         <mb3:menu unreferencedActions="true">
             <mb3:named>Other</mb3:named>
         </mb3:menu>

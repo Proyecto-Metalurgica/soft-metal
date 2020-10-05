@@ -75,13 +75,13 @@ public class Presupuesto {
 
             @ParameterLayout(named = "Fecha: ") final java.time.LocalDateTime fecha,
 
-            @ParameterLayout(named = "Producto: ") final String producto,
+            @ParameterLayout(named = "Item: ") final String producto,
 
             @ParameterLayout(named = "Cantidad: ") final Integer cantidad,
 
             @ParameterLayout(named = "Medidas: ") final String medida,
 
-            @ParameterLayout(named = "Tipo de Producto: ") final String tipoMaterial,
+            @ParameterLayout(named = "Tipo de Item: ") final String tipoMaterial,
 
             @ParameterLayout(named = "Precio: ") final String precio
 
