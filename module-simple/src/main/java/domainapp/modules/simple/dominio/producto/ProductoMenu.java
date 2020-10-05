@@ -26,7 +26,7 @@ package domainapp.modules.simple.dominio.producto;
         repositoryFor = Producto.class
 )
 @DomainServiceLayout(
-        named = "ItemMenu",
+        named = "ProductoMenu",
         menuOrder = "10"
 )
 public class ProductoMenu {

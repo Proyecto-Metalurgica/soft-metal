@@ -40,7 +40,7 @@ public class Producto implements Comparable<Producto> {
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
-    @Title(prepend = "Item: ")
+    @Title(prepend = "Producto: ")
     private String nombre;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
