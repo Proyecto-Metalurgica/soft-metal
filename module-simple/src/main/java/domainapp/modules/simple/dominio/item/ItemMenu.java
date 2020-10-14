@@ -71,12 +71,15 @@ public class ItemMenu {
     @MemberOrder(sequence = "3")
     public Item create(
             @ParameterLayout(named = "Producto") final String producto,
+            @ParameterLayout(named = "Medida") final String medida,
+            @ParameterLayout(named = "Unidad") final String unidad,
+            @ParameterLayout(named = "Precio") final String precio,
             @ParameterLayout(named = "Cantidad") final String cantidad,
             @ParameterLayout(named = "PrecioTotal") final String precioTotal,
             @ParameterLayout(named = "Detalle") final String detalle
 
     ) {
-        return repositoryService.persist(new Item(producto, cantidad, precioTotal, detalle));
+        return repositoryService.persist(new Item(producto,medida,unidad,precio, cantidad, precioTotal, detalle));
     }
 
     @javax.inject.Inject

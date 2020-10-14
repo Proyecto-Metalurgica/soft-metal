@@ -15,10 +15,13 @@
                                 <c:action id="delete">
                                     <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
                                 </c:action>
-                                <c:property id="producto" namedEscaped="true">
-                                    <c:action id="updateName" promptStyle="INLINE"/>
+                                <c:property id="producto" namedEscaped="true"/>
+                                <c:property id="medida" namedEscaped="true" />
+                                <c:property id="unidad" namedEscaped="true" />
+                                <c:property id="precio" namedEscaped="true" />
+                                <c:property id="cantidad" namedEscaped="true" >
+                                    <c:action id="updateCantidad" promptStyle="INLINE"/>
                                 </c:property>
-                                <c:property id="cantidad" namedEscaped="true" />
                                 <c:property id="precioTotal" namedEscaped="true" />
                                 <c:property id="detalle" namedEscaped="true" />
                             </c:fieldSet>
@@ -44,6 +47,19 @@
             </bs3:tabGroup>
         </bs3:col>
         <bs3:col span="6">
+            <bs3:tabGroup collapseIfOne="false">
+                <bs3:tab name="Details">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <c:collection id="productos" defaultView="table"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="12">
             <bs3:tabGroup  unreferencedCollections="true">
             </bs3:tabGroup>
         </bs3:col>

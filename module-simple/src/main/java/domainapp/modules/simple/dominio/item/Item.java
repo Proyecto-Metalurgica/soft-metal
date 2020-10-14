@@ -1,8 +1,17 @@
 package domainapp.modules.simple.dominio.item;
 
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import javax.jdo.annotations.Persistent;
+
+import domainapp.modules.simple.dominio.producto.Producto;
+import domainapp.modules.simple.dominio.producto.ProductoMenu;
+import org.apache.isis.applib.annotation.Collection;
 import com.google.common.collect.ComparisonChain;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -34,13 +43,25 @@ public class Item implements Comparable<Item> {
     private String producto;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @Property()
+    private String medida;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @Property()
+    private String unidad;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @Property()
+    private String precio;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
+    @Property()
     private String cantidad;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
+    @Property()
     private String precioTotal;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
@@ -48,29 +69,26 @@ public class Item implements Comparable<Item> {
     @Property(editing = Editing.ENABLED)
     private String detalle;
 
+    public Item(String producto, String medida, String unidad, String precio, String cantidad, String precioTotal, String detalle) {
+    }
 
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
-    public Item updateProducto(
+    public Item updateCantidad(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Producto") final String producto,
-            @ParameterLayout(named = "Cantidad") final String cantidad,
-            @ParameterLayout(named = "PrecioTotal") final String precioTotal,
-            @ParameterLayout(named = "Detalle") final String detalle){
-        setProducto(producto);
+            @ParameterLayout(named = "Cantidad") final String cantidad){
         setCantidad(cantidad);
-        setPrecioTotal(precioTotal);
-        setDetalle(detalle);
+        setPrecioTotal(this.precio);
 
         return this;
     }
 
-    public String default0UpdateProducto() {
-        return getProducto();
+    public String default0UpdateCantidad() {
+        return getCantidad();
     }
 
-    public TranslatableString validate0UpdateProducto(final String Producto) {
-        return producto != null && producto.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+    public TranslatableString validate0UpdateCantidad(final String Cantidad) {
+        return cantidad != null && cantidad.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
     }
 
 
@@ -95,11 +113,29 @@ public class Item implements Comparable<Item> {
                 .result();
     }
 
+    @Action(semantics=SemanticsOf.IDEMPOTENT)
+    public Item addProducto(Producto producto) {
+        this.producto = producto.getNombre();
+        this.medida = producto.getMedida();
+        this.unidad = producto.getUnidad();
+        this.precio = producto.getPrecio();
+        return this;
+    }
+    public List<Producto> autoComplete0AddProducto(
+            @MinLength(1)
+                    String searchTerm) {
+        return productoMenu.findByName(searchTerm);
+    }
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
     RepositoryService repositoryService;
+
+    @javax.inject.Inject
+    @javax.jdo.annotations.NotPersistent
+    @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
+    ProductoMenu productoMenu;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
