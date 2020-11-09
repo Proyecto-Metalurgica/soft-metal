@@ -31,18 +31,14 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Datos del cliente:">
-                                <c:action id="delete">
-                                    <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
-                                </c:action>
-                                <c:property id="nombre" namedEscaped="true">
-                                    <c:action id="updateName" promptStyle="INLINE"/>
-                                </c:property>
-                                <c:property id="apellido" namedEscaped="true" />
-                                <c:property id="dni" namedEscaped="true" />
+                                <c:property id="nroCliente" namedEscaped="true" />
+                                <c:property id="cuil" namedEscaped="true"/>
+                                <c:property id="name" namedEscaped="true"/>
                                 <c:property id="telefono" namedEscaped="true" />
                                 <c:property id="email" namedEscaped="true" />
                                 <c:property id="direccion" namedEscaped="true" />
-                                <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
+                                <c:action id="updateName" promptStyle="INLINE"/>
+
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
