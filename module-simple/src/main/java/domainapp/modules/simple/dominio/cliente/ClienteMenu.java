@@ -34,7 +34,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         repositoryFor = Cliente.class
 )
 @DomainServiceLayout(
-        named = "ClienteMenu",
+        named = "Clientes",
         menuOrder = "10"
 )
 public class ClienteMenu {

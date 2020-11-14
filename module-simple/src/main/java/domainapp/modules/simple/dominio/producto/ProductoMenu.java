@@ -4,18 +4,10 @@ package domainapp.modules.simple.dominio.producto;
         import java.util.List;
 
 
+
+        import org.apache.isis.applib.annotation.*;
         import org.datanucleus.query.typesafe.TypesafeQuery;
 
-        import org.apache.isis.applib.annotation.Action;
-        import org.apache.isis.applib.annotation.ActionLayout;
-        import org.apache.isis.applib.annotation.BookmarkPolicy;
-        import org.apache.isis.applib.annotation.DomainService;
-        import org.apache.isis.applib.annotation.DomainServiceLayout;
-        import org.apache.isis.applib.annotation.MemberOrder;
-        import org.apache.isis.applib.annotation.NatureOfService;
-        import org.apache.isis.applib.annotation.ParameterLayout;
-        import org.apache.isis.applib.annotation.Programmatic;
-        import org.apache.isis.applib.annotation.SemanticsOf;
         import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
         import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
         import org.apache.isis.applib.services.repository.RepositoryService;
@@ -26,24 +18,39 @@ package domainapp.modules.simple.dominio.producto;
         repositoryFor = Producto.class
 )
 @DomainServiceLayout(
-        named = "ProductoMenu",
+        named = "Productos",
         menuOrder = "10"
 )
 public class ProductoMenu {
 
-    @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @Action()
+    @ActionLayout(named = "Cargar Producto")
     @MemberOrder(sequence = "1")
-    public List<Producto> listAll() {
-        return repositoryService.allInstances(Producto.class);
-    }
+    public Producto create(
 
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Codigo de Producto") final String codigo,
+
+            @Parameter(maxLength = 13)
+            @ParameterLayout(named = "Nombre de producto") final String nombre,
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Medida") final String medida,
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Precio Unitario") final String precioUnitario
+
+            ) {
+
+        return repositoryProducto.create(codigo,nombre,medida,precioUnitario);
+    }
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
     public List<Producto> findByName(
-            @ParameterLayout(named = "Nombre") final String nombre
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Nombre del producto") final String nombre
     ) {
         TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
         final QProducto cand = QProducto.candidate();
@@ -65,32 +72,17 @@ public class ProductoMenu {
                 .executeUnique();
     }
 
-    @Programmatic
-    public void ping() {
-        TypesafeQuery<Producto> q = isisJdoSupport.newTypesafeQuery(Producto.class);
-        final QProducto candidate = QProducto.candidate();
-        q.range(0, 2);
-        q.orderBy(candidate.nombre.asc());
-        q.executeList();
-    }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<ProductoMenu> {
-    }
-
-    @Action(domainEvent = CreateDomainEvent.class)
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de productos")
     @MemberOrder(sequence = "3")
-    public Producto create(
-            @ParameterLayout(named = "Nombre") final String nombre,
-            @ParameterLayout(named = "Medida") final String medida,
-            @ParameterLayout(named = "Unidad") final String unidad,
-            @ParameterLayout(named = "Precio") final String precio
-
-    ) {
-        return repositoryService.persist(new Producto(nombre, medida, unidad, precio));
+    public List<Producto> listAll() {
+        List<Producto> productos = repositoryProducto.Listar();
+        return productos;
     }
 
     @javax.inject.Inject
-    RepositoryService repositoryService;
+    ProductoRepository repositoryProducto;
 
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;

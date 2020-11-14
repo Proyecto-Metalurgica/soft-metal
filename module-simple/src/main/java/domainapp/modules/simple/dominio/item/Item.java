@@ -113,7 +113,7 @@ public class Item implements Comparable<Item> {
                 .result();
     }
 
-    @Action(semantics=SemanticsOf.IDEMPOTENT)
+    /*@Action(semantics=SemanticsOf.IDEMPOTENT)
     public Item addProducto(Producto producto) {
         this.producto = producto.getNombre();
         this.medida = producto.getMedida();
@@ -126,7 +126,7 @@ public class Item implements Comparable<Item> {
                     String searchTerm) {
         return productoMenu.findByName(searchTerm);
     }
-
+*/
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
