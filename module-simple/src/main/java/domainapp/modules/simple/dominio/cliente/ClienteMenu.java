@@ -67,7 +67,7 @@ public class ClienteMenu {
     }
 
     @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT,named = "Buscar cliente")
     @MemberOrder(sequence = "2")
     public List<Cliente> findByName(
             @Parameter(optionality = Optionality.MANDATORY)

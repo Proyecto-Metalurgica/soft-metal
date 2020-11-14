@@ -46,7 +46,7 @@ public class ProductoMenu {
     }
 
     @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Buscar productos")
     @MemberOrder(sequence = "2")
     public List<Producto> findByName(
             @Parameter(optionality = Optionality.MANDATORY)
