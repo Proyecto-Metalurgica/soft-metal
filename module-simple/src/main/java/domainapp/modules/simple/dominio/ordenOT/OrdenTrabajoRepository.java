@@ -14,11 +14,12 @@ public class OrdenTrabajoRepository {
 
     @Programmatic
     public OrdenTrabajo create(
-            final String nroOT
+            final String nroOT,
+            final EstadoOT estadoOT
 
     ) {
 
-        final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(nroOT);
+        final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(nroOT,estadoOT);
         repositoryService.persist(ordenTrabajo);
         return ordenTrabajo;
     }

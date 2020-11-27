@@ -21,12 +21,13 @@ public class OrdenTrabajoMenu {
     public OrdenTrabajo create(
 
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Nro de Orden de trabajo") final String nroOT
+            @ParameterLayout(named = "Nro de Orden de trabajo") final String nroOT,
+            @ParameterLayout(named = "Estado OT") final EstadoOT estadoOT
 
 
     ) {
 
-        return repositoryOT.create(nroOT);
+        return repositoryOT.create(nroOT,estadoOT);
     }
 
     @javax.inject.Inject

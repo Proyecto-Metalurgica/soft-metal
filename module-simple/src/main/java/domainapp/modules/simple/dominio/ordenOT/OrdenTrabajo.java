@@ -28,6 +28,11 @@ public class OrdenTrabajo {
     @Property(editing = Editing.ENABLED)
     private String nroOT;
 
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private EstadoOT estadoOT;
+
 
 
 
