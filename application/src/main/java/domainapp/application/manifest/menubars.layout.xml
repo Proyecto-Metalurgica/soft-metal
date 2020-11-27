@@ -47,7 +47,7 @@
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
-        <mb3:menu>
+        
            <!-- <mb3:named>Items</mb3:named>
             <mb3:section>
                 <mb3:serviceAction objectType="simple.SimpleItemMenu" id="create">
