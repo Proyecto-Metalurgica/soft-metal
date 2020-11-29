@@ -22,16 +22,9 @@ import javax.jdo.annotations.*;
 
 import com.google.common.collect.ComparisonChain;
 
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.NonNull;
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.Auditing;
-import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
-import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.Parameter;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Property;
-import org.apache.isis.applib.annotation.Publishing;
+import org.apache.isis.applib.annotation.*;
 
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
@@ -40,6 +33,10 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
 import lombok.AccessLevel;
+
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE;
@@ -71,8 +68,8 @@ public class Cliente implements Comparable<Cliente> {
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
+    @Title(prepend = "Cliente: ")
     private String name;
-
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
@@ -89,6 +86,13 @@ public class Cliente implements Comparable<Cliente> {
     @Property(editing = Editing.ENABLED)
     private String direccion;
 
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "cliente",
+            dependentElement = "false"
+    )
+    @Collection
+    @lombok.Getter @lombok.Setter
+    private SortedSet<Presupuesto> presupuestos = new TreeSet<Presupuesto>();
 
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "name")
@@ -117,6 +121,13 @@ public class Cliente implements Comparable<Cliente> {
         return name != null && name.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
     }
 
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public Presupuesto newPresupuesto(final String nroPresupuesto) {
+        return repositoryService.persist(new Presupuesto(this, nroPresupuesto));
+    }
 /*
 
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
@@ -127,6 +138,20 @@ public class Cliente implements Comparable<Cliente> {
     }
 */
 
+    /*@Action(semantics=SemanticsOf.IDEMPOTENT)
+    public Item addProducto(Producto producto) {
+        this.producto = producto.getNombre();
+        this.medida = producto.getMedida();
+        this.unidad = producto.getUnidad();
+        this.precio = producto.getPrecio();
+        return this;
+    }
+    public List<Producto> autoComplete0AddProducto(
+            @MinLength(1)
+                    String searchTerm) {
+        return productoMenu.findByName(searchTerm);
+    }
+*/
 
     @Override
     public String toString() {

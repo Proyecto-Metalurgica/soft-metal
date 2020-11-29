@@ -1,5 +1,7 @@
 package domainapp.modules.simple.dominio.presupuesto;
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.cliente.ClienteRepository;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.joda.time.LocalDate;
@@ -26,7 +28,7 @@ public class PresupuestoMenu {
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto,
             @ParameterLayout(named = "Fecha") final LocalDate fecha,
-            @ParameterLayout(named = "Producto") final String producto,
+            @ParameterLayout(named = "Cliente") final Cliente cliente,
             @ParameterLayout(named = "Cantidad") final String cantidad,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Tipo Material") final String tipoMaterial,
@@ -34,8 +36,9 @@ public class PresupuestoMenu {
 
 
     ) {
-        return repositoryPresupuesto.create(nroPresupuesto,fecha,producto,cantidad,medida,tipoMaterial,precio);
+        return repositoryPresupuesto.create(nroPresupuesto,fecha,cliente,cantidad,medida,tipoMaterial,precio);
     }
+
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Presupuestos")
@@ -47,6 +50,9 @@ public class PresupuestoMenu {
 
     @javax.inject.Inject
     PresupuestoRepository repositoryPresupuesto;
+
+    @javax.inject.Inject
+    ClienteRepository repositoryCliente;
 
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;

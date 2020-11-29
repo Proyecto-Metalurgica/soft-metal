@@ -9,6 +9,7 @@ import javax.jdo.annotations.VersionStrategy;
 import com.google.common.collect.ComparisonChain;
 
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
 import org.apache.isis.applib.annotation.*;
 
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -39,7 +40,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @DomainObjectLayout()
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class Presupuesto {
+public class Presupuesto implements Comparable<Presupuesto> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
@@ -54,10 +55,11 @@ public class Presupuesto {
     @Title()
     private LocalDate fecha;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @Property
-    private String producto;
+    @lombok.Getter @lombok.Setter
+    @Property(editing = Editing.DISABLED)
+    private Cliente cliente;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
@@ -158,6 +160,18 @@ public class Presupuesto {
         @javax.jdo.annotations.NotPersistent
         @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
         MessageService messageService;
+
+    public Presupuesto(Cliente cliente, String nroPresupuesto) {
+        this.nroPresupuesto = nroPresupuesto;
+        this.cliente = cliente;
     }
+
+    @Override
+    public int compareTo(final Presupuesto other) {
+        return ComparisonChain.start()
+                .compare(this.getNroPresupuesto(), other.getNroPresupuesto())
+                .result();
+    }
+}
 
 

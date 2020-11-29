@@ -1,5 +1,6 @@
 package domainapp.modules.simple.dominio.presupuesto;
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -19,7 +20,7 @@ public class PresupuestoRepository {
     public Presupuesto create(
             final String nroPresupuesto,
             final LocalDate fecha,
-            final String producto,
+            final Cliente cliente,
             final String cantidad,
             final String medida,
             final String tipoMaterial,
@@ -27,7 +28,7 @@ public class PresupuestoRepository {
 
     ) {
 
-        final Presupuesto presupuesto = new Presupuesto(nroPresupuesto,fecha,producto,cantidad,medida,tipoMaterial,precio);
+        final Presupuesto presupuesto = new Presupuesto(nroPresupuesto,fecha,cliente,cantidad,medida,tipoMaterial,precio);
         repositoryService.persist(presupuesto);
         return presupuesto;
     }
