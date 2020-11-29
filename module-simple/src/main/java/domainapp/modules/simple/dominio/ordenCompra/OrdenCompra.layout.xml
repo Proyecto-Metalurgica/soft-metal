@@ -13,6 +13,9 @@
                         <bs3:col span="12">
                             <c:fieldSet name="Orden de Compra">
                                 <c:property id="nroCompra" namedEscaped="true" />
+                                <c:property id="fechaInicio" namedEscaped="true" />
+                                <c:property id="fechaEntrega" namedEscaped="true" />
+                                <c:property id="pagos" namedEscaped="true" />
 
 
                             </c:fieldSet>

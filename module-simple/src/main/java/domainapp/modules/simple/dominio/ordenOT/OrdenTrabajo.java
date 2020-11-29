@@ -52,6 +52,9 @@ public class OrdenTrabajo {
     @Title()
     private LocalDate fecha;
 
+
+
+
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)

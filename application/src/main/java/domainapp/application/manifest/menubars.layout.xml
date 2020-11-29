@@ -77,6 +77,18 @@
             </mb3:section>
         </mb3:menu>
 
+        <mb3:menu>
+            <mb3:named>Orden de Compra</mb3:named>
+            <mb3:section>
+                <mb3:serviceAction objectType="simple.OrdenCompraMenu" id="create">
+                    <cpt:named>Crear Nueva Orden de Compra</cpt:named>
+                </mb3:serviceAction>
+
+                <mb3:serviceAction objectType="simple.OrdenCompraMenu" id="listAll">
+                    <cpt:named>Listar las ordenes de compra</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+        </mb3:menu>
         <!-- <mb3:named>Items</mb3:named>
          <mb3:section>
              <mb3:serviceAction objectType="simple.SimpleItemMenu" id="create">
