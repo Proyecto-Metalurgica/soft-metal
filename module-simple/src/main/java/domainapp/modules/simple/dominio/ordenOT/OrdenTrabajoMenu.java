@@ -2,6 +2,7 @@ package domainapp.modules.simple.dominio.ordenOT;
 
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.joda.time.LocalDate;
 
 
 @DomainService(
@@ -22,12 +23,12 @@ public class OrdenTrabajoMenu {
 
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Nro de Orden de trabajo") final String nroOT,
-            @ParameterLayout(named = "Estado OT") final EstadoOT estadoOT
+            @ParameterLayout(named = "Estado OT") final EstadoOT estadoOT,
+            @ParameterLayout(named="Fecha") final LocalDate fecha
 
+            ) {
 
-    ) {
-
-        return repositoryOT.create(nroOT,estadoOT);
+        return repositoryOT.create(nroOT,estadoOT,fecha);
     }
 
     @javax.inject.Inject

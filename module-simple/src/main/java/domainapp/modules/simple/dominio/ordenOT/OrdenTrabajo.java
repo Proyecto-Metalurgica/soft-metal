@@ -6,6 +6,10 @@ import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
+
+import org.joda.time.LocalDate;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import javax.jdo.annotations.IdentityType;
 
@@ -34,7 +38,12 @@ public class OrdenTrabajo {
     private EstadoOT estadoOT;
 
 
-
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.NonNull
+    @Property()
+    @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
+    @Title()
+    private LocalDate fecha;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
