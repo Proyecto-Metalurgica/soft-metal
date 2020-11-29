@@ -34,13 +34,13 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 )
 public class HomePageViewModel {
 
-    public TranslatableString title() {
+    /*public TranslatableString title() {
         return TranslatableString.tr("{num} clientes", "num", getObjects().size());
     }
 
     public List<Cliente> getObjects() {
         return clienteMenu.listAll();
-    }
+    }*/
 
     @javax.inject.Inject
     ClienteMenu clienteMenu;

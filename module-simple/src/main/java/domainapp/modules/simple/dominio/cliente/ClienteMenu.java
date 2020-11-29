@@ -21,19 +21,10 @@ package domainapp.modules.simple.dominio.cliente;
 import java.util.List;
 
 
+import org.apache.isis.applib.annotation.*;
 import org.datanucleus.query.typesafe.TypesafeQuery;
 
-import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.BookmarkPolicy;
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.NatureOfService;
-import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Programmatic;
-import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
+
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
@@ -43,25 +34,44 @@ import org.apache.isis.applib.services.repository.RepositoryService;
         repositoryFor = Cliente.class
 )
 @DomainServiceLayout(
-        named = "ClienteMenu",
+        named = "Clientes",
         menuOrder = "10"
 )
 public class ClienteMenu {
 
-    @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+
+    @Action()
+    @ActionLayout(named = "Alta Cliente")
     @MemberOrder(sequence = "1")
-    public List<Cliente> listAll() {
-        return repositoryService.allInstances(Cliente.class);
+    public Cliente create(
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Numero de Cliente") final String nroCliente,
+
+            @Parameter(maxLength = 13)
+            @ParameterLayout(named = "CUIT/CUIL") final String cuil,
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Nombre del Cliente") final String name,
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Telefono") final String telefono,
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Email") final String email,
+
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Direccion") final String direccion) {
+
+        return repositoryCliente.create(nroCliente, cuil, name, telefono, email, direccion);
     }
 
-
     @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT,named = "Buscar cliente")
     @MemberOrder(sequence = "2")
     public List<Cliente> findByName(
-            @ParameterLayout(named="Nombre")
-            final String name
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Nombre del Cliente") final String name
     ) {
         TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
         final QCliente cand = QCliente.candidate();
@@ -83,33 +93,21 @@ public class ClienteMenu {
                 .executeUnique();
     }
 
-    @Programmatic
-    public void ping() {
-        TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
-        final QCliente candidate = QCliente.candidate();
-        q.range(0,2);
-        q.orderBy(candidate.name.asc());
-        q.executeList();
-    }
 
-    public static class CreateDomainEvent extends ActionDomainEvent<ClienteMenu> {}
-    @Action(domainEvent = CreateDomainEvent.class)
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de clientes")
     @MemberOrder(sequence = "3")
-    public Cliente create(
-            @ParameterLayout(named="Nombre") final String name,
-            @ParameterLayout(named="Apellido") final String apellido,
-            @ParameterLayout(named = "Dni") final String dni,
-            @ParameterLayout(named = "Telefono") final String telefono,
-            @ParameterLayout(named = "Email") final String email,
-            @ParameterLayout(named = "Direccion") final String direccion
-            ) {
-        return repositoryService.persist(new Cliente(name, apellido, dni, telefono, email, direccion));
+    public List<Cliente> listAll() {
+        List<Cliente> clientes = repositoryCliente.Listar();
+        return clientes;
     }
 
     @javax.inject.Inject
-    RepositoryService repositoryService;
+    ClienteRepository repositoryCliente;
 
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;
-
 }
+
+
+

@@ -18,11 +18,11 @@
  */
 package domainapp.modules.simple.dominio.cliente;
 
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.VersionStrategy;
+import javax.jdo.annotations.*;
 
 import com.google.common.collect.ComparisonChain;
 
+import lombok.NonNull;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.Auditing;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -32,9 +32,10 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Publishing;
-import org.apache.isis.applib.annotation.Title;
+
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
+
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
@@ -46,28 +47,32 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
+@Queries({
+        @Query(
+                name = "find", language = "JDOQL",
+                value = "SELECT "),})
+
 @javax.jdo.annotations.Unique(name="Cliente_name_UNQ", members = {"name"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class Cliente implements Comparable<Cliente> {
+    @Column(allowsNull = "true", length = 40)
+    @NonNull
+    @Property(editing = Editing.ENABLED)
+    private String nroCliente;
+
+    @Column(allowsNull = "true", length = 13)
+    @NonNull
+    @Property(editing = Editing.ENABLED)
+    private String cuil;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
-    @Title(prepend = "Cliente: ")
     private String name;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
-    private String apellido;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
-    private String dni;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
@@ -83,24 +88,21 @@ public class Cliente implements Comparable<Cliente> {
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     private String direccion;
-    
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 4000)
-    @Property(editing = Editing.ENABLED)
-    private String notes;
+
 
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "name")
     public Cliente updateName(
             @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Nro de Cliente") final String nroCliente,
+            @ParameterLayout(named = "CUIL/CUIT") final String cuil,
             @ParameterLayout(named = "Name") final String name,
-            @ParameterLayout(named = "Apellido") final String apellido,
-            @ParameterLayout(named = "Dni") final String dni,
             @ParameterLayout(named = "Telefono") final String telefono,
             @ParameterLayout(named = "Email") final String email,
             @ParameterLayout(named = "Direccion") final String direccion){
+        setNroCliente(nroCliente);
+        setCuil(cuil);
         setName(name);
-        setApellido(apellido);
-        setDni(dni);
         setTelefono(telefono);
         setEmail(email);
         setDireccion(direccion);
@@ -115,13 +117,15 @@ public class Cliente implements Comparable<Cliente> {
         return name != null && name.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
     }
 
+/*
 
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
     public void delete() {
         final String title = titleService.titleOf(this);
         messageService.informUser(String.format("'%s' deleted", title));
-        repositoryService.remove(this);
+        repositoryCliente.remove(this);
     }
+*/
 
 
     @Override
@@ -136,10 +140,15 @@ public class Cliente implements Comparable<Cliente> {
     }
 
 
+    @javax.jdo.annotations.NotPersistent
+    @javax.inject.Inject
+    @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
+    RepositoryService repositoryService;
+
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
-    RepositoryService repositoryService;
+    ClienteRepository repositoryCliente;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent

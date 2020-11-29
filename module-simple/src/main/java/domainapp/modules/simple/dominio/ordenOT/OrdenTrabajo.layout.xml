@@ -1,22 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
--->
 <bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <bs3:row>
@@ -30,14 +11,10 @@
                 <bs3:tab name="General">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Datos del cliente:">
-                                <c:property id="nroCliente" namedEscaped="true" />
-                                <c:property id="cuil" namedEscaped="true"/>
-                                <c:property id="name" namedEscaped="true"/>
-                                <c:property id="telefono" namedEscaped="true" />
-                                <c:property id="email" namedEscaped="true" />
-                                <c:property id="direccion" namedEscaped="true" />
-                                <c:action id="updateName" promptStyle="INLINE"/>
+                            <c:fieldSet name="Orden de trabajo">
+                                <c:property id="nroOT" namedEscaped="true" />
+                                <c:property id="estadoOT" namedEscaped="true" />
+                                <c:property id="fecha" namedEscaped="true" />
 
                             </c:fieldSet>
                         </bs3:col>
