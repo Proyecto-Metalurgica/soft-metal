@@ -14,6 +14,7 @@
                             <c:fieldSet name="Orden de trabajo">
                                 <c:property id="nroOT" namedEscaped="true" />
                                 <c:property id="estadoOT" namedEscaped="true" />
+                                <c:property id="fecha" namedEscaped="true" />
 
                             </c:fieldSet>
                         </bs3:col>

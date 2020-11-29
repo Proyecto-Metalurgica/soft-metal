@@ -9,6 +9,9 @@ import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
 
 import org.joda.time.LocalDate;
+
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import javax.jdo.annotations.IdentityType;
@@ -19,6 +22,10 @@ import javax.jdo.annotations.VersionStrategy;
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
+@Queries({
+        @Query(
+                name = "find", language = "JDOQL",
+                value = "SELECT "),})
 
 
 @javax.jdo.annotations.Unique(name="OrdenTrabajo_name_UNQ", members = {"nroOT"})
