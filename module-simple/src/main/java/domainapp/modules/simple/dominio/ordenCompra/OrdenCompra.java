@@ -1,22 +1,22 @@
-package domainapp.modules.simple.dominio.ordenOT;
+package domainapp.modules.simple.dominio.ordenCompra;
 
 
+import domainapp.modules.simple.dominio.pagos.Pago;
+import domainapp.modules.simple.dominio.pagos.PagoRepository;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
-
 import org.joda.time.LocalDate;
 
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import javax.jdo.annotations.IdentityType;
-
 import javax.jdo.annotations.VersionStrategy;
+import java.util.List;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -28,32 +28,51 @@ import javax.jdo.annotations.VersionStrategy;
                 value = "SELECT "),})
 
 
-@javax.jdo.annotations.Unique(name="OrdenTrabajo_name_UNQ", members = {"nroOT"})
+
+@javax.jdo.annotations.Unique(name="OrdenCompra_name_UNQ", members = {"nroCompra"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class OrdenTrabajo {
+public class OrdenCompra {
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
-    private String nroOT;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
-    private EstadoOT estadoOT;
-
+    @PropertyLayout(named="Orden de Compra")
+    @Title()
+    private String nroCompra;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
-    @Title()
-    private LocalDate fecha;
+    private LocalDate fechaInicio;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.NonNull
+    @Property()
+    @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
+    private LocalDate fechaEntrega;
+
+    @javax.jdo.annotations.Column(allowsNull = "true",name = "asig_pago_Id")
+    @Property()
+    @PropertyLayout(named="Pago")
+    private Pago pago;
 
 
 
+    //Metodo para asignar el pago a Orden de compra
+    @Action()
+    @ActionLayout(named = "Asignar Pago")
+    public OrdenCompra AgregarPago(
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Pago")
+            final Pago pagos) {
+
+        this.pago = pagos;
+        return this;
+    }
+
+    public List<Pago> choices0AgregarPago() { return repositoryPago.Listar(); }
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
@@ -63,7 +82,12 @@ public class OrdenTrabajo {
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
-    OrdenTrabajoRepository repositoryOT;
+    OrdenCompraRepository repositoryOC;
+
+    @javax.inject.Inject
+    @javax.jdo.annotations.NotPersistent
+    @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
+    PagoRepository repositoryPago;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
@@ -74,7 +98,5 @@ public class OrdenTrabajo {
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
     MessageService messageService;
-
-
 
 }
