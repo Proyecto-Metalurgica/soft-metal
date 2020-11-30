@@ -84,7 +84,10 @@ public class Item implements Comparable<Item> {
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Cantidad") final Integer cantidad){
         setCantidad(cantidad);
-        setPrecioTotal(this.precio * cantidad);
+        if(this.precio !=null){
+            setPrecioTotal(this.precio * cantidad);
+        }
+
 
         return this;
     }
