@@ -36,7 +36,10 @@ public class Pago {
     @Title(prepend = "Pago: ")
     private LocalDate fechaPago;
 
-
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private Double monto;
 
 
     @javax.inject.Inject

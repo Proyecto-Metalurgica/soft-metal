@@ -19,11 +19,12 @@ public class PagoRepository {
     @Programmatic
     public Pago create(
 
-            final LocalDate fechaPago
+            final LocalDate fechaPago,
+            final  Double monto
 
     ) {
 
-        final Pago pago = new Pago(fechaPago);
+        final Pago pago = new Pago(fechaPago,monto);
         repositoryService.persist(pago);
         return pago;
     }
