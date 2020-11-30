@@ -37,8 +37,7 @@ public class ProductoMenu {
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Medida") final String medida,
 
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Precio Unitario") final String precioUnitario
+            @ParameterLayout(named = "Precio Unitario") final Double precioUnitario
 
             ) {
 

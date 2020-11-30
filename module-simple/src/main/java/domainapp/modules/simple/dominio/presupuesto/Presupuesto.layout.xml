@@ -36,12 +36,9 @@
                         <bs3:col span="12">
                             <cpt:fieldSet name="Datos del Presupuesto">
                                 <cpt:action id="update"/>
-                                <cpt:property id= "fecha" namedEscaped="true"/>
-                                <cpt:property id="nro de presupuesto" namedEscaped="true"/>
-                                <cpt:property id="producto" namedEscaped="true"/>
-                                <cpt:property id="cantidad" namedEscaped="true"/>
-                                <cpt:property id="medida" namedEscaped="true"/>
-                                <cpt:property id="tipo material" namedEscaped="true"/>
+                                <cpt:property id="nroPresupuesto" namedEscaped="true"/>
+                                <cpt:property id="fecha" namedEscaped="true"/>
+                                <cpt:property id="cliente" namedEscaped="true"/>
                                 <cpt:property id="precio" namedEscaped="true"/>
                             </cpt:fieldSet>
                         </bs3:col>

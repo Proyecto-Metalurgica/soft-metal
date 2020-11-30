@@ -5,6 +5,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.jdo.annotations.Persistent;
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import domainapp.modules.simple.dominio.producto.Producto;
 import domainapp.modules.simple.dominio.producto.ProductoMenu;
 import org.apache.isis.applib.annotation.Collection;
@@ -33,7 +35,6 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-
 public class Item implements Comparable<Item> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
@@ -43,53 +44,61 @@ public class Item implements Comparable<Item> {
     private String producto;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
     @Property()
     private String medida;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @Property()
-    private String unidad;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @Property()
-    private String precio;
-
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
-    private String cantidad;
+    private Double precio;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
-    private String precioTotal;
+    private Integer cantidad;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.NonNull
+    @Property()
+    private Double precioTotal;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     private String detalle;
 
-    public Item(String producto, String medida, String unidad, String precio, String cantidad, String precioTotal, String detalle) {
-    }
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @lombok.Getter @lombok.Setter
+    @Property(editing = Editing.DISABLED)
+    private Presupuesto presupuesto;
 
+    public Item(Presupuesto presupuesto, String producto) {
+        this.presupuesto = presupuesto;
+        this.producto = producto;
+    }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
     public Item updateCantidad(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Cantidad") final String cantidad){
+            @ParameterLayout(named = "Cantidad") final Integer cantidad){
         setCantidad(cantidad);
-        setPrecioTotal(this.precio);
+        if(this.precio !=null){
+            setPrecioTotal(this.precio * cantidad);
+        }
+
 
         return this;
     }
 
-    public String default0UpdateCantidad() {
+    public Integer default0UpdateCantidad() {
         return getCantidad();
     }
 
-    public TranslatableString validate0UpdateCantidad(final String Cantidad) {
-        return cantidad != null && cantidad.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
-    }
+//    public TranslatableString validate0UpdateCantidad(final Integer Cantidad) {
+//        return cantidad != null ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+//    }
 
 
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
@@ -113,12 +122,11 @@ public class Item implements Comparable<Item> {
                 .result();
     }
 
-    /*@Action(semantics=SemanticsOf.IDEMPOTENT)
+    @Action(semantics=SemanticsOf.IDEMPOTENT)
     public Item addProducto(Producto producto) {
         this.producto = producto.getNombre();
         this.medida = producto.getMedida();
-        this.unidad = producto.getUnidad();
-        this.precio = producto.getPrecio();
+        this.precio = producto.getPrecioUnitario();
         return this;
     }
     public List<Producto> autoComplete0AddProducto(
@@ -126,7 +134,7 @@ public class Item implements Comparable<Item> {
                     String searchTerm) {
         return productoMenu.findByName(searchTerm);
     }
-*/
+
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)

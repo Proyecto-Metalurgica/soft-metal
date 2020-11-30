@@ -9,6 +9,8 @@ import javax.jdo.annotations.VersionStrategy;
 import com.google.common.collect.ComparisonChain;
 
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.item.Item;
 import org.apache.isis.applib.annotation.*;
 
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -20,6 +22,9 @@ import lombok.AccessLevel;
 import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
 import org.joda.time.LocalDate;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
@@ -39,7 +44,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @DomainObjectLayout()
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class Presupuesto {
+public class Presupuesto implements Comparable<Presupuesto> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
@@ -54,31 +59,32 @@ public class Presupuesto {
     @Title()
     private LocalDate fecha;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @Property
-    private String producto;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
-    private String cantidad;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
-    private String medida;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
-    private String tipoMaterial;
+    @lombok.Getter @lombok.Setter
+    @Property(editing = Editing.ENABLED)
+    private Cliente cliente;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
     private String precio;
 
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "presupuesto",
+            dependentElement = "false"
+    )
+    @Collection
+    @lombok.Getter @lombok.Setter
+    private SortedSet<Item> items = new TreeSet<Item>();
+
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public Item newItem(final String producto) {
+        return repositoryService.persist(new Item(this, producto));
+    }
 
 //    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "nroPresupuesto")
 //    public Presupuesto updatePresupuesto(
@@ -158,6 +164,23 @@ public class Presupuesto {
         @javax.jdo.annotations.NotPersistent
         @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
         MessageService messageService;
+
+    public Presupuesto(Cliente cliente, String nroPresupuesto) {
+        this.nroPresupuesto = nroPresupuesto;
+        this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return getNroPresupuesto();
+    }
+
+    @Override
+    public int compareTo(final Presupuesto other) {
+        return ComparisonChain.start()
+                .compare(this.getNroPresupuesto(), other.getNroPresupuesto())
+                .result();
+    }
+}
 
 

@@ -17,7 +17,6 @@
                                 </c:action>
                                 <c:property id="producto" namedEscaped="true"/>
                                 <c:property id="medida" namedEscaped="true" />
-                                <c:property id="unidad" namedEscaped="true" />
                                 <c:property id="precio" namedEscaped="true" />
                                 <c:property id="cantidad" namedEscaped="true" >
                                     <c:action id="updateCantidad" promptStyle="INLINE"/>
