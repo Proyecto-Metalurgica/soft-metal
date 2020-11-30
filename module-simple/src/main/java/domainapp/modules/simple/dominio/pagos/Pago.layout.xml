@@ -15,6 +15,7 @@
 
                                 <c:property id="fechaPago" namedEscaped="true" />
                                 <c:property id="monto" namedEscaped="true" />
+                                <c:property id="fpago" namedEscaped="true" />
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

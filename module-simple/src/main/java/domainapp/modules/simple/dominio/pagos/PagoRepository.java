@@ -20,11 +20,12 @@ public class PagoRepository {
     public Pago create(
 
             final LocalDate fechaPago,
-            final  Double monto
+            final  Double monto,
+            final FormaPago fpago
 
     ) {
 
-        final Pago pago = new Pago(fechaPago,monto);
+        final Pago pago = new Pago(fechaPago,monto,fpago);
         repositoryService.persist(pago);
         return pago;
     }

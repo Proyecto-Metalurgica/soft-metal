@@ -27,11 +27,12 @@ public class PagoMenu {
             @Parameter(maxLength = 40)
 
             @ParameterLayout(named="Ingrese fecha de pago") final LocalDate fechaPago,
-            @ParameterLayout(named="Monto") final Double monto
+            @ParameterLayout(named="Monto") final Double monto,
+            @ParameterLayout(named= "Forma de pago") final FormaPago fpago
 
     ) {
 
-        return repositoryPago.create(fechaPago,monto);
+        return repositoryPago.create(fechaPago,monto,fpago);
     }
 
     @javax.inject.Inject

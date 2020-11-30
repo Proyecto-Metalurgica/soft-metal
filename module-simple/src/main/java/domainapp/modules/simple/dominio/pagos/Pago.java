@@ -41,6 +41,10 @@ public class Pago {
     @Property(editing = Editing.ENABLED)
     private Double monto;
 
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private FormaPago fpago;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
