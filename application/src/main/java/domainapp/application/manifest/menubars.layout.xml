@@ -70,7 +70,9 @@
                 <mb3:serviceAction objectType="simple.PresupuestoMenu" id="create">
                     <cpt:named>Crear Nuevo Presupuesto</cpt:named>
                 </mb3:serviceAction>
-
+                <mb3:serviceAction objectType="simple.PresupuestoMenu" id="findByName">
+                    <cpt:named>Buscar por nombre</cpt:named>
+                </mb3:serviceAction>
                 <mb3:serviceAction objectType="simple.PresupuestoMenu" id="listAll">
                     <cpt:named>Listar los Presupuestos</cpt:named>
                 </mb3:serviceAction>

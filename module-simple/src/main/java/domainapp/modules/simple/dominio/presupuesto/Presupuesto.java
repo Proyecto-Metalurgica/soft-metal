@@ -186,6 +186,11 @@ public class Presupuesto implements Comparable<Presupuesto> {
     }
 
     @Override
+    public String toString() {
+        return getNroPresupuesto();
+    }
+
+    @Override
     public int compareTo(final Presupuesto other) {
         return ComparisonChain.start()
                 .compare(this.getNroPresupuesto(), other.getNroPresupuesto())
