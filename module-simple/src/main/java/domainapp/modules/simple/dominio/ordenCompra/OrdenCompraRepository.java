@@ -1,8 +1,5 @@
 package domainapp.modules.simple.dominio.ordenCompra;
 
-
-
-import domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -22,12 +19,11 @@ public class OrdenCompraRepository {
     public OrdenCompra create(
             final String nroCompra,
             final LocalDate fechaInicio,
-            final LocalDate fechaEntrega,
-            final String pagos
+            final LocalDate fechaEntrega
 
             ) {
 
-        final OrdenCompra ordenCompra = new OrdenCompra(nroCompra,fechaInicio,fechaEntrega,pagos);
+        final OrdenCompra ordenCompra = new OrdenCompra(nroCompra,fechaInicio,fechaEntrega);
         repositoryService.persist(ordenCompra);
         return ordenCompra;
     }

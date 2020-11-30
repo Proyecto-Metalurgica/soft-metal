@@ -7,6 +7,8 @@ import org.apache.isis.applib.annotation.*;
 
 import javax.jdo.annotations.IdentityType;
 
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.services.message.MessageService;
@@ -20,7 +22,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
-
+@Queries({
+        @Query(
+                name = "find", language = "JDOQL",
+                value = "SELECT "),})
 
 
 @javax.jdo.annotations.Unique(name="Pago_name_UNQ", members = {"fechaPago"})

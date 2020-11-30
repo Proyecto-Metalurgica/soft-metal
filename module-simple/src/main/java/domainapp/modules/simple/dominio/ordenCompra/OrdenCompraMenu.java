@@ -3,6 +3,7 @@ package domainapp.modules.simple.dominio.ordenCompra;
 
 
 import domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo;
+import domainapp.modules.simple.dominio.pagos.Pago;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.joda.time.LocalDate;
@@ -28,14 +29,11 @@ public class OrdenCompraMenu {
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Nro de Orden de compra") final String nroCompra,
             @ParameterLayout(named = "Fecha de inicio ") final LocalDate fechaInicio,
-            @ParameterLayout(named = "Fecha de entrega ") final LocalDate fechaEntrega,
-            @ParameterLayout(named = "Lista de pagos") final String pagos
+            @ParameterLayout(named = "Fecha de entrega ") final LocalDate fechaEntrega
 
+            ) {
 
-
-    ) {
-
-        return repositoryOC.create(nroCompra,fechaInicio,fechaEntrega,pagos);
+        return repositoryOC.create(nroCompra,fechaInicio,fechaEntrega);
     }
 
     @Action(semantics = SemanticsOf.SAFE)

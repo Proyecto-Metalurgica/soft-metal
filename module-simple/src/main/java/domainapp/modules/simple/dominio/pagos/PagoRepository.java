@@ -5,9 +5,11 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.joda.time.LocalDate;
 
+import java.util.List;
 
 
 @DomainService(
@@ -30,13 +32,13 @@ public class PagoRepository {
         return pago;
     }
 
-    /*@Programmatic
-    public List<OrdenTrabajo> Listar() {
+    @Programmatic
+    public List<Pago> Listar() {
         return repositoryService.allMatches(
                 new QueryDefault<>(
-                        OrdenTrabajo.class,
+                        Pago.class,
                         "find"));
-    }*/
+    }
 
     @javax.inject.Inject
     RepositoryService repositoryService;

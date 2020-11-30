@@ -15,12 +15,23 @@
                                 <c:property id="nroCompra" namedEscaped="true" />
                                 <c:property id="fechaInicio" namedEscaped="true" />
                                 <c:property id="fechaEntrega" namedEscaped="true" />
-                                <c:property id="pagos" namedEscaped="true" />
-
-
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
+
+                    <bs3:row>
+                        <bs3:col span="12">
+                        </bs3:col>
+                            <bs3:col span="4">
+                                 <c:fieldSet name="Agregar Pago">
+                                    <c:property id="pago" hidden="ALL_TABLES">
+                                        <c:action id="AgregarPago" promptStyle="INLINE"/>
+                                    </c:property>
+                                </c:fieldSet>
+                            </bs3:col>
+                            </bs3:row>
+
+
                 </bs3:tab>
                 <bs3:tab name="Metadata">
                     <bs3:row>
