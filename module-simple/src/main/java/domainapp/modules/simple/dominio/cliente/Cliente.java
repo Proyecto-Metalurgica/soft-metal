@@ -138,20 +138,6 @@ public class Cliente implements Comparable<Cliente> {
     }
 */
 
-    /*@Action(semantics=SemanticsOf.IDEMPOTENT)
-    public Item addProducto(Producto producto) {
-        this.producto = producto.getNombre();
-        this.medida = producto.getMedida();
-        this.unidad = producto.getUnidad();
-        this.precio = producto.getPrecio();
-        return this;
-    }
-    public List<Producto> autoComplete0AddProducto(
-            @MinLength(1)
-                    String searchTerm) {
-        return productoMenu.findByName(searchTerm);
-    }
-*/
 
     @Override
     public String toString() {

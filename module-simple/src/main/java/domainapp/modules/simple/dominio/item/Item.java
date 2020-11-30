@@ -5,6 +5,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.jdo.annotations.Persistent;
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import domainapp.modules.simple.dominio.producto.Producto;
 import domainapp.modules.simple.dominio.producto.ProductoMenu;
 import org.apache.isis.applib.annotation.Collection;
@@ -33,7 +35,6 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-
 public class Item implements Comparable<Item> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
@@ -43,14 +44,17 @@ public class Item implements Comparable<Item> {
     private String producto;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
     @Property()
     private String medida;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
     @Property()
     private String unidad;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @lombok.NonNull
     @Property()
     private String precio;
 
@@ -69,9 +73,16 @@ public class Item implements Comparable<Item> {
     @Property(editing = Editing.ENABLED)
     private String detalle;
 
-    public Item(String producto, String medida, String unidad, String precio, String cantidad, String precioTotal, String detalle) {
-    }
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @lombok.Getter @lombok.Setter
+    @Property(editing = Editing.DISABLED)
+    private Presupuesto presupuesto;
 
+    public Item(Presupuesto presupuesto, String producto) {
+        this.presupuesto = presupuesto;
+        this.producto = producto;
+    }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
     public Item updateCantidad(

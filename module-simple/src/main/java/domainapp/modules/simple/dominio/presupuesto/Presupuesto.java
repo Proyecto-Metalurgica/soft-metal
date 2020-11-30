@@ -10,6 +10,7 @@ import com.google.common.collect.ComparisonChain;
 
 
 import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.item.Item;
 import org.apache.isis.applib.annotation.*;
 
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -21,6 +22,9 @@ import lombok.AccessLevel;
 import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
 import org.joda.time.LocalDate;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
@@ -81,6 +85,21 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @Property()
     private String precio;
 
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "presupuesto",
+            dependentElement = "false"
+    )
+    @Collection
+    @lombok.Getter @lombok.Setter
+    private SortedSet<Item> items = new TreeSet<Item>();
+
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public Item newItem(final String producto) {
+        return repositoryService.persist(new Item(this, producto));
+    }
 
 //    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "nroPresupuesto")
 //    public Presupuesto updatePresupuesto(

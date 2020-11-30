@@ -2,6 +2,7 @@
 package domainapp.modules.simple.dominio.item;
 
 import domainapp.modules.simple.dominio.item.QItem;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
@@ -76,14 +77,18 @@ public class ItemMenu {
             @ParameterLayout(named = "Precio") final String precio,
             @ParameterLayout(named = "Cantidad") final String cantidad,
             @ParameterLayout(named = "PrecioTotal") final String precioTotal,
-            @ParameterLayout(named = "Detalle") final String detalle
+            @ParameterLayout(named = "Detalle") final String detalle,
+            @ParameterLayout(named = "Presupuesto") final Presupuesto presupuesto
 
     ) {
-        return repositoryService.persist(new Item(producto,medida,unidad,precio, cantidad, precioTotal, detalle));
+        return repositoryItem.create(producto,medida,unidad,precio, cantidad, precioTotal, detalle, presupuesto);
     }
 
     @javax.inject.Inject
     RepositoryService repositoryService;
+
+    @javax.inject.Inject
+    ItemRepository repositoryItem;
 
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;
