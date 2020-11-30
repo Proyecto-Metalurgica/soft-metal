@@ -20,9 +20,9 @@ public class ItemRepository {
             final String producto,
             final String medida,
             final String unidad,
-            final String precio,
-            final String cantidad,
-            final String precioTotal,
+            final Double precio,
+            final Integer cantidad,
+            final Double precioTotal,
             final String detalle,
             final Presupuesto presupuesto
 

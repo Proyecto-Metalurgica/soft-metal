@@ -53,20 +53,20 @@ public class Item implements Comparable<Item> {
     @Property()
     private String unidad;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
-    private String precio;
+    private Double precio;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
-    private String cantidad;
+    private Integer cantidad;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()
-    private String precioTotal;
+    private Double precioTotal;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
     @lombok.NonNull
@@ -87,20 +87,20 @@ public class Item implements Comparable<Item> {
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
     public Item updateCantidad(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Cantidad") final String cantidad){
+            @ParameterLayout(named = "Cantidad") final Integer cantidad){
         setCantidad(cantidad);
-        setPrecioTotal(this.precio);
+        setPrecioTotal(this.precio * cantidad);
 
         return this;
     }
 
-    public String default0UpdateCantidad() {
+    public Integer default0UpdateCantidad() {
         return getCantidad();
     }
 
-    public TranslatableString validate0UpdateCantidad(final String Cantidad) {
-        return cantidad != null && cantidad.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
-    }
+//    public TranslatableString validate0UpdateCantidad(final Integer Cantidad) {
+//        return cantidad != null ? TranslatableString.tr("Exclamation mark is not allowed") : null;
+//    }
 
 
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
@@ -124,12 +124,11 @@ public class Item implements Comparable<Item> {
                 .result();
     }
 
-    /*@Action(semantics=SemanticsOf.IDEMPOTENT)
+    @Action(semantics=SemanticsOf.IDEMPOTENT)
     public Item addProducto(Producto producto) {
         this.producto = producto.getNombre();
         this.medida = producto.getMedida();
-        this.unidad = producto.getUnidad();
-        this.precio = producto.getPrecio();
+        this.precio = producto.getPrecioUnitario();
         return this;
     }
     public List<Producto> autoComplete0AddProducto(
@@ -137,7 +136,7 @@ public class Item implements Comparable<Item> {
                     String searchTerm) {
         return productoMenu.findByName(searchTerm);
     }
-*/
+
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)

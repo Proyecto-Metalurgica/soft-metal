@@ -74,9 +74,9 @@ public class ItemMenu {
             @ParameterLayout(named = "Producto") final String producto,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Unidad") final String unidad,
-            @ParameterLayout(named = "Precio") final String precio,
-            @ParameterLayout(named = "Cantidad") final String cantidad,
-            @ParameterLayout(named = "PrecioTotal") final String precioTotal,
+            @ParameterLayout(named = "Precio") final Double precio,
+            @ParameterLayout(named = "Cantidad") final Integer cantidad,
+            @ParameterLayout(named = "PrecioTotal") final Double precioTotal,
             @ParameterLayout(named = "Detalle") final String detalle,
             @ParameterLayout(named = "Presupuesto") final Presupuesto presupuesto
 

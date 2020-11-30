@@ -60,10 +60,10 @@ public class Producto implements Comparable<Producto> {
     @Property(editing = Editing.ENABLED)
     private String medida;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
-    private String precioUnitario;
+    private Double precioUnitario;
 
 
 
@@ -73,7 +73,7 @@ public class Producto implements Comparable<Producto> {
             @ParameterLayout(named = "Codigo de producto") final String codigo,
             @ParameterLayout(named = "Nombre") final String nombre,
             @ParameterLayout(named = "Medida") final String medida,
-            @ParameterLayout(named = "Precio Unitario") final String precioUnitario){
+            @ParameterLayout(named = "Precio Unitario") final Double precioUnitario){
         setCodigo(codigo);
         setNombre(nombre);
         setMedida(medida);

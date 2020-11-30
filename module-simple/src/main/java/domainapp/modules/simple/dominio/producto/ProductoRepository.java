@@ -21,7 +21,7 @@ import java.util.List;
                 final String codigo,
                 final String nombre,
                 final String medida,
-                final String precioUnitario
+                final Double precioUnitario
                 ) {
 
             final Producto producto = new Producto(codigo,nombre,medida,precioUnitario);
