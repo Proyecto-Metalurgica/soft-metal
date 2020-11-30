@@ -62,23 +62,8 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
     @lombok.Getter @lombok.Setter
-    @Property(editing = Editing.DISABLED)
+    @Property(editing = Editing.ENABLED)
     private Cliente cliente;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
-    private String cantidad;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
-    private String medida;
-
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
-    private String tipoMaterial;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull

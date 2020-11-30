@@ -31,14 +31,11 @@ public class PresupuestoMenu {
             @ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto,
             @ParameterLayout(named = "Fecha") final LocalDate fecha,
             @ParameterLayout(named = "Cliente") final Cliente cliente,
-            @ParameterLayout(named = "Cantidad") final String cantidad,
-            @ParameterLayout(named = "Medida") final String medida,
-            @ParameterLayout(named = "Tipo Material") final String tipoMaterial,
             @ParameterLayout(named = "precio") final String precio
 
 
     ) {
-        return repositoryPresupuesto.create(nroPresupuesto,fecha,cliente,cantidad,medida,tipoMaterial,precio);
+        return repositoryPresupuesto.create(nroPresupuesto,fecha,cliente,precio);
     }
 
     @Action(semantics = SemanticsOf.SAFE)

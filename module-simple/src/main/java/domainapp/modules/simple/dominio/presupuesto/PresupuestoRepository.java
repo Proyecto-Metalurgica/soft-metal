@@ -21,14 +21,11 @@ public class PresupuestoRepository {
             final String nroPresupuesto,
             final LocalDate fecha,
             final Cliente cliente,
-            final String cantidad,
-            final String medida,
-            final String tipoMaterial,
             final String precio
 
     ) {
 
-        final Presupuesto presupuesto = new Presupuesto(nroPresupuesto,fecha,cliente,cantidad,medida,tipoMaterial,precio);
+        final Presupuesto presupuesto = new Presupuesto(nroPresupuesto,fecha,cliente,precio);
         repositoryService.persist(presupuesto);
         return presupuesto;
     }
