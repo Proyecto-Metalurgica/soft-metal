@@ -48,11 +48,6 @@ public class Item implements Comparable<Item> {
     @Property()
     private String medida;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
-    @Property()
-    private String unidad;
-
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property()

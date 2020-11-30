@@ -73,7 +73,6 @@ public class ItemMenu {
     public Item create(
             @ParameterLayout(named = "Producto") final String producto,
             @ParameterLayout(named = "Medida") final String medida,
-            @ParameterLayout(named = "Unidad") final String unidad,
             @ParameterLayout(named = "Precio") final Double precio,
             @ParameterLayout(named = "Cantidad") final Integer cantidad,
             @ParameterLayout(named = "PrecioTotal") final Double precioTotal,
@@ -81,7 +80,7 @@ public class ItemMenu {
             @ParameterLayout(named = "Presupuesto") final Presupuesto presupuesto
 
     ) {
-        return repositoryItem.create(producto,medida,unidad,precio, cantidad, precioTotal, detalle, presupuesto);
+        return repositoryItem.create(producto,medida,precio, cantidad, precioTotal, detalle, presupuesto);
     }
 
     @javax.inject.Inject

@@ -19,7 +19,6 @@ public class ItemRepository {
     public Item create(
             final String producto,
             final String medida,
-            final String unidad,
             final Double precio,
             final Integer cantidad,
             final Double precioTotal,
@@ -28,7 +27,7 @@ public class ItemRepository {
 
     ) {
 
-        final Item item = new Item(producto,medida,unidad,precio,cantidad,precioTotal,detalle,presupuesto);
+        final Item item = new Item(producto,medida,precio,cantidad,precioTotal,detalle,presupuesto);
         repositoryService.persist(item);
         return item;
     }
