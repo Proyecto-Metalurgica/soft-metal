@@ -56,13 +56,13 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
-    @Title()
     private LocalDate fecha;
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
     @lombok.Getter @lombok.Setter
     @Property(editing = Editing.ENABLED)
+    @Title()
     private Cliente cliente;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
