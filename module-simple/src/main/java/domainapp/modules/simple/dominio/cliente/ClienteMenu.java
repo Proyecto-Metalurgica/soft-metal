@@ -18,7 +18,9 @@
  */
 package domainapp.modules.simple.dominio.cliente;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 import org.apache.isis.applib.annotation.*;
@@ -45,25 +47,34 @@ public class ClienteMenu {
     @MemberOrder(sequence = "1")
     public Cliente create(
 
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Numero de Cliente") final String nroCliente,
-
-            @Parameter(maxLength = 13)
+            @Parameter(maxLength = 40,
+                    regexPattern = "^[0-9]{11}$",
+                    regexPatternReplacement = "Solo numeros, sin espacios ni barras (total 11 numeros)"
+            )
             @ParameterLayout(named = "CUIT/CUIL") final String cuil,
 
-            @Parameter(maxLength = 40)
+            @Parameter(maxLength = 40,
+                    regexPattern = "[A-Za-z\\s]+",
+                    regexPatternFlags= Pattern.CASE_INSENSITIVE,
+                    regexPatternReplacement = "Debe ser un nombre valido (solo letras)")
             @ParameterLayout(named = "Nombre del Cliente") final String name,
 
-            @Parameter(maxLength = 40)
+            @Parameter(maxLength = 40,
+                    regexPattern = "[0-9]+",
+                    regexPatternReplacement = "Solo numeros y sin espacios"
+            )
             @ParameterLayout(named = "Telefono") final String telefono,
 
-            @Parameter(maxLength = 40)
+            @Parameter(maxLength = 40,
+                    regexPattern = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+",
+                    regexPatternFlags= Pattern.CASE_INSENSITIVE,
+                    regexPatternReplacement = "Debe ser un email valido (contiene un '@' simbolo)")
             @ParameterLayout(named = "Email") final String email,
 
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Direccion") final String direccion) {
 
-        return repositoryCliente.create(nroCliente, cuil, name, telefono, email, direccion);
+        return repositoryCliente.create(cuil, name, telefono, email, direccion);
     }
 
     @Action(semantics = SemanticsOf.SAFE)

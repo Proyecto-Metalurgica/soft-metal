@@ -8,7 +8,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 
 
-
+import java.math.BigInteger;
 import java.util.List;
 
 @DomainService(
@@ -20,14 +20,13 @@ public class ClienteRepository {
 
     @Programmatic
     public Cliente create(
-            final String nroCliente,
             final String cuil,
             final String name,
             final String telefono,
             final String email,
             final String direccion) {
 
-        final Cliente cliente = new Cliente(nroCliente,cuil,name,telefono,email,direccion);
+        final Cliente cliente = new Cliente(cuil,name,telefono,email,direccion);
         repositoryService.persist(cliente);
         return cliente;
     }

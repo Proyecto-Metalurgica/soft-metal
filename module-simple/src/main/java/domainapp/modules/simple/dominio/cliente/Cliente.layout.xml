@@ -37,16 +37,8 @@
                                 <c:property id="telefono" namedEscaped="true" />
                                 <c:property id="email" namedEscaped="true" />
                                 <c:property id="direccion" namedEscaped="true" />
-                                <c:action id="updateName" promptStyle="INLINE"/>
 
                             </c:fieldSet>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-                <bs3:tab name="Metadata">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <c:fieldSet name="Metadata"/>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
