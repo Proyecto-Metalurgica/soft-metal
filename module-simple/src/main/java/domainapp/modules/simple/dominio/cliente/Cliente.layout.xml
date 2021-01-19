@@ -17,7 +17,11 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<bs3:grid
+        xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd"
+        xmlns:c="http://isis.apache.org/applib/layout/component"
+        xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <bs3:row>
         <bs3:col span="12" unreferencedActions="true">
@@ -31,13 +35,16 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Datos del cliente:">
-                                <c:property id="nroCliente" namedEscaped="true" />
+                                <c:property id="nroCliente" namedEscaped="true"/>
                                 <c:property id="cuil" namedEscaped="true"/>
                                 <c:property id="name" namedEscaped="true"/>
-                                <c:property id="telefono" namedEscaped="true" />
-                                <c:property id="email" namedEscaped="true" />
-                                <c:property id="direccion" namedEscaped="true" />
-
+                                <c:property id="telefono" namedEscaped="true"/>
+                                <c:property id="email" namedEscaped="true"/>
+                                <c:property id="direccion" namedEscaped="true"/>
+                                <c:property id="activo" namedEscaped="true"/>
+                                <c:action id="updateActivo" promptStyle="INLINE">
+                                    <c:named>Desactivar/Reactivar Cliente</c:named>
+                                </c:action>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -54,7 +61,7 @@
             </bs3:tabGroup>
         </bs3:col>
         <bs3:col span="6">
-            <bs3:tabGroup  unreferencedCollections="true">
+            <bs3:tabGroup unreferencedCollections="true">
             </bs3:tabGroup>
         </bs3:col>
     </bs3:row>

@@ -106,10 +106,18 @@ public class ClienteMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de clientes")
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Clientes Activos")
     @MemberOrder(sequence = "3")
-    public List<Cliente> listAll() {
-        List<Cliente> clientes = repositoryCliente.Listar();
+    public List<Cliente> listAllActive() {
+        List<Cliente> clientes = repositoryCliente.ListarActivos();
+        return clientes;
+    }
+
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Clientes Inactivos")
+    @MemberOrder(sequence = "3")
+    public List<Cliente> listAllInactive() {
+        List<Cliente> clientes = repositoryCliente.ListarInactivos();
         return clientes;
     }
 

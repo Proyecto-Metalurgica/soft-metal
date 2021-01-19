@@ -49,8 +49,16 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 @Queries({
         @Query(
-                name = "find", language = "JDOQL",
-                value = "SELECT "),})
+                name = "findAllActives", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.modules.simple.dominio.cliente.Cliente "
+                        + "WHERE activo == true "),
+        @Query(
+                name = "findAllInactives", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.modules.simple.dominio.cliente.Cliente "
+                        + "WHERE activo == false "),
+})
 
 @javax.jdo.annotations.Unique(name="Cliente_name_UNQ", members = {"cuil"})
 @DomainObject(auditing = Auditing.ENABLED)
@@ -97,6 +105,10 @@ public class Cliente implements Comparable<Cliente> {
     @Property(editing = Editing.ENABLED)
     private String direccion;
 
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(editing = Editing.ENABLED)
+    private Boolean activo = true;
+
     @javax.jdo.annotations.Persistent(
             mappedBy = "cliente",
             dependentElement = "false"
@@ -111,6 +123,14 @@ public class Cliente implements Comparable<Cliente> {
     )
     public Presupuesto newPresupuesto(@ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto) {
         return repositoryService.persist(new Presupuesto(this, nroPresupuesto));
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "activo")
+    public Cliente updateActivo()
+    {
+        if(getActivo()){ setActivo(false); }
+        else{ setActivo(true); }
+        return this;
     }
 
     @Override

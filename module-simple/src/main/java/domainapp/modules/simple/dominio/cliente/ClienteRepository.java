@@ -32,11 +32,19 @@ public class ClienteRepository {
     }
 
     @Programmatic
-    public List<Cliente> Listar() {
+    public List<Cliente> ListarActivos() {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         Cliente.class,
-                        "find"));
+                        "findAllActives"));
+    }
+
+    @Programmatic
+    public List<Cliente> ListarInactivos() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Cliente.class,
+                        "findAllInactives"));
     }
 
 
