@@ -121,8 +121,15 @@ public class Cliente implements Comparable<Cliente> {
             semantics = SemanticsOf.NON_IDEMPOTENT,
             associateWith = "simple"
     )
-    public Presupuesto newPresupuesto(@ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto) {
-        return repositoryService.persist(new Presupuesto(this, nroPresupuesto));
+    public Cliente newPresupuesto(@ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto) {
+        if(activo){
+            repositoryService.persist(new Presupuesto(this, nroPresupuesto));
+        }
+        else{
+            messageService.warnUser(
+                    "El Cliente "+ this.getName() + " se encuentra Inactivo, no puede crear nuevos presupuestos");
+        }
+        return this;
     }
 
     @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "activo")
