@@ -118,7 +118,7 @@ public class Cliente implements Comparable<Cliente> {
     private SortedSet<Presupuesto> presupuestos = new TreeSet<Presupuesto>();
 
     @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT,
+            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE,
             associateWith = "simple"
     )
     public Cliente newPresupuesto() {
