@@ -1,10 +1,7 @@
 package domainapp.modules.simple.dominio.presupuesto;
 
 
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
-import javax.jdo.annotations.VersionStrategy;
+import javax.jdo.annotations.*;
 
 import com.google.common.collect.ComparisonChain;
 
@@ -23,6 +20,7 @@ import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
 import org.joda.time.LocalDate;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import java.math.BigInteger;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -33,6 +31,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
+@Sequence(name="presupuestoseq", datastoreSequence="YOUR_SEQUENCE_NAME2", strategy=SequenceStrategy.CONTIGUOUS, initialValue = 100, allocationSize = 1)
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 @Queries({
         @Query(
@@ -46,17 +45,17 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @lombok.RequiredArgsConstructor
 public class Presupuesto implements Comparable<Presupuesto> {
 
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
-    @lombok.NonNull
-    @Property()
+    @Column(allowsNull = "true", length = 10)
+    @Property(editing = Editing.DISABLED)
+    @Persistent(valueStrategy=IdGeneratorStrategy.SEQUENCE, sequence="presupuestoseq")
     @Title(prepend = "Presupuesto: ")
-    private String nroPresupuesto;
+    private BigInteger nroPresupuesto;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
-    private LocalDate fecha;
+    private LocalDate fecha = LocalDate.now();
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
@@ -165,20 +164,19 @@ public class Presupuesto implements Comparable<Presupuesto> {
         @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
         MessageService messageService;
 
-    public Presupuesto(Cliente cliente, String nroPresupuesto) {
-        this.nroPresupuesto = nroPresupuesto;
+    public Presupuesto(Cliente cliente) {
         this.cliente = cliente;
     }
 
     @Override
     public String toString() {
-        return getNroPresupuesto();
+        return getNroPresupuesto().toString();
     }
 
     @Override
     public int compareTo(final Presupuesto other) {
         return ComparisonChain.start()
-                .compare(this.getNroPresupuesto(), other.getNroPresupuesto())
+                .compare(this.getNroPresupuesto().toString(), other.getNroPresupuesto().toString())
                 .result();
     }
 }

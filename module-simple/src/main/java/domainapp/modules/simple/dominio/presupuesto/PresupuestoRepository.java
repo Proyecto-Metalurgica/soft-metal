@@ -18,14 +18,12 @@ public class PresupuestoRepository {
 
     @Programmatic
     public Presupuesto create(
-            final String nroPresupuesto,
-            final LocalDate fecha,
             final Cliente cliente,
             final String precio
 
     ) {
 
-        final Presupuesto presupuesto = new Presupuesto(nroPresupuesto,fecha,cliente,precio);
+        final Presupuesto presupuesto = new Presupuesto(cliente,precio);
         repositoryService.persist(presupuesto);
         return presupuesto;
     }

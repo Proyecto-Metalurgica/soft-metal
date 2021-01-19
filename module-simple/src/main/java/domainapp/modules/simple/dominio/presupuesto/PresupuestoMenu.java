@@ -8,6 +8,7 @@ import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.datanucleus.query.typesafe.TypesafeQuery;
 import org.joda.time.LocalDate;
 
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -28,14 +29,12 @@ public class PresupuestoMenu {
     public Presupuesto create(
 
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto,
-            @ParameterLayout(named = "Fecha") final LocalDate fecha,
             @ParameterLayout(named = "Cliente") final Cliente cliente,
             @ParameterLayout(named = "precio") final String precio
 
 
     ) {
-        return repositoryPresupuesto.create(nroPresupuesto,fecha,cliente,precio);
+        return repositoryPresupuesto.create(cliente,precio);
     }
 
     @Action(semantics = SemanticsOf.SAFE)
@@ -43,12 +42,12 @@ public class PresupuestoMenu {
     @MemberOrder(sequence = "2")
     public List<Presupuesto> findByName(
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Nro del Presupuesto") final String nroPresupuesto
+            @ParameterLayout(named = "Nro del Presupuesto") final BigInteger nroPresupuesto
     ) {
         TypesafeQuery<Presupuesto> q = isisJdoSupport.newTypesafeQuery(Presupuesto.class);
         final QPresupuesto cand = QPresupuesto.candidate();
         q = q.filter(
-                cand.nroPresupuesto.indexOf(q.stringParameter("name")).ne(-1)
+                cand.nroPresupuesto.eq(q.integerParameter("name"))
         );
         return q.setParameter("nroPresupuesto", nroPresupuesto)
                 .executeList();

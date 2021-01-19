@@ -121,9 +121,9 @@ public class Cliente implements Comparable<Cliente> {
             semantics = SemanticsOf.NON_IDEMPOTENT,
             associateWith = "simple"
     )
-    public Cliente newPresupuesto(@ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto) {
+    public Cliente newPresupuesto() {
         if(activo){
-            repositoryService.persist(new Presupuesto(this, nroPresupuesto));
+            repositoryService.persist(new Presupuesto(this));
         }
         else{
             messageService.warnUser(
