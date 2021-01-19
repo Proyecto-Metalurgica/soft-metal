@@ -1,9 +1,6 @@
 package domainapp.modules.simple.dominio.producto;
 
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
-import javax.jdo.annotations.VersionStrategy;
+import javax.jdo.annotations.*;
 
 import com.google.common.collect.ComparisonChain;
 
@@ -23,12 +20,17 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
 import lombok.AccessLevel;
+
+import java.math.BigInteger;
+
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
+@Sequence(name="productoseq", datastoreSequence="YOUR_SEQUENCE_NAME3", strategy=SequenceStrategy.CONTIGUOUS, initialValue = 1, allocationSize = 1)
+
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
 @Queries({
@@ -44,10 +46,10 @@ import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 @lombok.RequiredArgsConstructor
 public class Producto implements Comparable<Producto> {
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
-    private String codigo;
+    @Column(allowsNull = "true", length = 10)
+    @Property(editing = Editing.DISABLED)
+    @Persistent(valueStrategy=IdGeneratorStrategy.SEQUENCE, sequence="productoseq")
+    private BigInteger codigo;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
@@ -70,11 +72,9 @@ public class Producto implements Comparable<Producto> {
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "nombre")
     public Producto updateNombre(
             @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Codigo de producto") final String codigo,
             @ParameterLayout(named = "Nombre") final String nombre,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Precio Unitario") final Double precioUnitario){
-        setCodigo(codigo);
         setNombre(nombre);
         setMedida(medida);
         setPrecioUnitario(precioUnitario);

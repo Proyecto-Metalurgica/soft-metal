@@ -81,8 +81,8 @@ public class Presupuesto implements Comparable<Presupuesto> {
             semantics = SemanticsOf.NON_IDEMPOTENT,
             associateWith = "simple"
     )
-    public Item newItem(@ParameterLayout(named = "Nombre producto") final String producto) {
-        return repositoryService.persist(new Item(this, producto));
+    public Item newItem(@ParameterLayout(named = "Nro Item") final Integer nroItem) {
+        return repositoryService.persist(new Item(this, nroItem));
     }
 
 //    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "nroPresupuesto")

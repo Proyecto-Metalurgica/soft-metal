@@ -17,6 +17,7 @@ public class ItemRepository {
 
     @Programmatic
     public Item create(
+            final Integer nroItem,
             final String producto,
             final String medida,
             final Double precio,
@@ -27,7 +28,7 @@ public class ItemRepository {
 
     ) {
 
-        final Item item = new Item(producto,medida,precio,cantidad,precioTotal,detalle,presupuesto);
+        final Item item = new Item(nroItem,producto,medida,precio,cantidad,precioTotal,detalle,presupuesto);
         repositoryService.persist(item);
         return item;
     }

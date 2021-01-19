@@ -71,6 +71,7 @@ public class ItemMenu {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public Item create(
+            @ParameterLayout(named = "NroItem") final Integer nroItem,
             @ParameterLayout(named = "Producto") final String producto,
             @ParameterLayout(named = "Medida") final String medida,
             @ParameterLayout(named = "Precio") final Double precio,
@@ -80,7 +81,7 @@ public class ItemMenu {
             @ParameterLayout(named = "Presupuesto") final Presupuesto presupuesto
 
     ) {
-        return repositoryItem.create(producto,medida,precio, cantidad, precioTotal, detalle, presupuesto);
+        return repositoryItem.create(nroItem,producto,medida,precio, cantidad, precioTotal, detalle, presupuesto);
     }
 
     @javax.inject.Inject
