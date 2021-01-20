@@ -23,20 +23,6 @@ import java.util.List;
 )
 public class PresupuestoMenu {
 
-    @Action()
-    @ActionLayout(named = "Crear un Presupuesto")
-    @MemberOrder(sequence = "1")
-    public Presupuesto create(
-
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Cliente") final Cliente cliente,
-            @ParameterLayout(named = "precio") final String precio
-
-
-    ) {
-        return repositoryPresupuesto.create(cliente,precio);
-    }
-
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT,named = "Buscar presupuesto")
     @MemberOrder(sequence = "2")
