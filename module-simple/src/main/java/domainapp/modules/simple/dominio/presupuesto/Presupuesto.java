@@ -76,7 +76,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
             mappedBy = "presupuesto",
             dependentElement = "false"
     )
-    @Collection
+    @CollectionLayout(defaultView = "table")
     @lombok.Getter
     @lombok.Setter
     private SortedSet<Item> items = new TreeSet<Item>();
