@@ -39,6 +39,7 @@
                                 <cpt:property id="fecha" namedEscaped="true"/>
                                 <cpt:property id="cliente" namedEscaped="true"/>
                                 <cpt:property id="precio" namedEscaped="true"/>
+                                <cpt:property id="estado" namedEscaped="true"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

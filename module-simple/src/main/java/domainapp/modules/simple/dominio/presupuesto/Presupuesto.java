@@ -50,7 +50,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @Column(allowsNull = "true", length = 10)
     @Property(editing = Editing.DISABLED)
     @Persistent(valueStrategy = IdGeneratorStrategy.SEQUENCE, sequence = "presupuestoseq")
-    @Title(prepend = "Presupuesto: ")
+    @Title(prepend = "Nro: ")
     private BigInteger nroPresupuesto;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
@@ -71,6 +71,11 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @lombok.NonNull
     @Property(editing = Editing.DISABLED)
     private String precio;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private Estado estado = Estado.Espera;
 
     @javax.jdo.annotations.Persistent(
             mappedBy = "presupuesto",
