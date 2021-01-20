@@ -23,6 +23,7 @@ import javax.jdo.annotations.*;
 import com.google.common.collect.ComparisonChain;
 
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
+import domainapp.modules.simple.dominio.presupuesto.PresupuestoRepository;
 import lombok.NonNull;
 import org.apache.isis.applib.annotation.*;
 
@@ -123,7 +124,7 @@ public class Cliente implements Comparable<Cliente> {
     )
     public Cliente newPresupuesto() {
         if(activo){
-            repositoryService.persist(new Presupuesto(this));
+            repositoryPresupuesto.create(this);
         }
         else{
             messageService.warnUser(
@@ -151,11 +152,10 @@ public class Cliente implements Comparable<Cliente> {
                 .result();
     }
 
-
     @javax.jdo.annotations.NotPersistent
     @javax.inject.Inject
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
-    RepositoryService repositoryService;
+    PresupuestoRepository repositoryPresupuesto;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent

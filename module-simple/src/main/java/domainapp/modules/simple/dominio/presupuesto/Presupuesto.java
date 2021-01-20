@@ -70,7 +70,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property(editing = Editing.DISABLED)
-    private String precio;
+    private Double precio;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
