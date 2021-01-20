@@ -35,6 +35,10 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Datos del Presupuesto">
+                                <cpt:action id="updatePrecio" promptStyle="INLINE">
+                                    <cpt:named>Actualizar Precio Total</cpt:named>
+                                    <cpt:describedAs>Suma el total de los items elegidos</cpt:describedAs>
+                                </cpt:action>
                                 <cpt:property id="nroPresupuesto" namedEscaped="true"/>
                                 <cpt:property id="fecha" namedEscaped="true"/>
                                 <cpt:property id="cliente" namedEscaped="true"/>

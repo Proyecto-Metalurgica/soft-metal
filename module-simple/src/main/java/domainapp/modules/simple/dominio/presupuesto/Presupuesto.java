@@ -94,6 +94,22 @@ public class Presupuesto implements Comparable<Presupuesto> {
         return repositoryService.persist(new Item(this, nroItem));
     }
 
+    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "precio")
+    public Presupuesto updatePrecio(){
+        if(!this.items.isEmpty()){
+            Double suma = 0.0;
+            for (Item item: items) {
+                suma += item.getPrecio();
+            }
+            setPrecio(suma);
+        }
+        else{
+            messageService.warnUser(
+                    "No se ha cargado ningun Item al listado");
+        }
+        return this;
+    }
+
     public Presupuesto(Cliente cliente) {
         this.cliente = cliente;
     }
