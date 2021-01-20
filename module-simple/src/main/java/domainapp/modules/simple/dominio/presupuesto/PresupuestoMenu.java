@@ -1,12 +1,8 @@
 package domainapp.modules.simple.dominio.presupuesto;
 
-import domainapp.modules.simple.dominio.cliente.Cliente;
-import domainapp.modules.simple.dominio.cliente.ClienteRepository;
-import domainapp.modules.simple.dominio.presupuesto.QPresupuesto;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 import org.datanucleus.query.typesafe.TypesafeQuery;
-import org.joda.time.LocalDate;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -61,9 +57,6 @@ public class PresupuestoMenu {
 
     @javax.inject.Inject
     PresupuestoRepository repositoryPresupuesto;
-
-    @javax.inject.Inject
-    ClienteRepository repositoryCliente;
 
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;

@@ -89,6 +89,22 @@ public class Presupuesto implements Comparable<Presupuesto> {
         return repositoryService.persist(new Item(this, nroItem));
     }
 
+    public Presupuesto(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return getNroPresupuesto().toString();
+    }
+
+    @Override
+    public int compareTo(final Presupuesto other) {
+        return ComparisonChain.start()
+                .compare(this.getNroPresupuesto().toString(), other.getNroPresupuesto().toString())
+                .result();
+    }
+
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE)
@@ -113,21 +129,6 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @lombok.Setter(AccessLevel.NONE)
     MessageService messageService;
 
-    public Presupuesto(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    @Override
-    public String toString() {
-        return getNroPresupuesto().toString();
-    }
-
-    @Override
-    public int compareTo(final Presupuesto other) {
-        return ComparisonChain.start()
-                .compare(this.getNroPresupuesto().toString(), other.getNroPresupuesto().toString())
-                .result();
-    }
 }
 
 

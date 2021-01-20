@@ -1,20 +1,12 @@
 package domainapp.modules.simple.dominio.item;
 
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import javax.jdo.annotations.Persistent;
-
-import domainapp.modules.simple.dominio.cliente.Cliente;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import domainapp.modules.simple.dominio.producto.Producto;
 import domainapp.modules.simple.dominio.producto.ProductoMenu;
-import org.apache.isis.applib.annotation.Collection;
 import com.google.common.collect.ComparisonChain;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
@@ -99,11 +91,6 @@ public class Item implements Comparable<Item> {
     public Integer default0UpdateCantidad() {
         return getCantidad();
     }
-
-//    public TranslatableString validate0UpdateCantidad(final Integer Cantidad) {
-//        return cantidad != null ? TranslatableString.tr("Exclamation mark is not allowed") : null;
-//    }
-
 
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
     public void delete() {
