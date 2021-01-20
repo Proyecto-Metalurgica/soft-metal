@@ -15,6 +15,7 @@
                                 <c:action id="delete">
                                     <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
                                 </c:action>
+                                <c:property id="nroItem" namedEscaped="true"/>
                                 <c:property id="producto" namedEscaped="true"/>
                                 <c:property id="medida" namedEscaped="true" />
                                 <c:property id="precio" namedEscaped="true" />
@@ -23,6 +24,7 @@
                                 </c:property>
                                 <c:property id="precioTotal" namedEscaped="true" />
                                 <c:property id="detalle" namedEscaped="true" />
+                                <c:property id="presupuesto" namedEscaped="true"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
