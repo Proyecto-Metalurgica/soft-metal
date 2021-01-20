@@ -11,9 +11,14 @@
                 <bs3:tab name="General">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet tipo="Datos del Item">
-                                <c:action id="delete">
-                                    <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
+                            <c:fieldSet name="Datos del Item">
+                                <c:action id="delete" promptStyle="INLINE">
+                                    <c:named>Borrar Item</c:named>
+                                    <c:describedAs>Borra el Item de la Lista de Items en Presupuesto</c:describedAs>
+                                </c:action>
+                                <c:action id="addProducto" promptStyle="INLINE">
+                                    <c:named>Elegir Producto</c:named>
+                                    <c:describedAs>Elije el producto deseado completando las primeras letras</c:describedAs>
                                 </c:action>
                                 <c:property id="nroItem" namedEscaped="true"/>
                                 <c:property id="producto" namedEscaped="true"/>

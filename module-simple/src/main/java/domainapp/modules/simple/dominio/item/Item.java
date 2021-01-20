@@ -83,8 +83,6 @@ public class Item implements Comparable<Item> {
         if(this.precio !=null){
             setPrecioTotal(this.precio * cantidad);
         }
-
-
         return this;
     }
 
