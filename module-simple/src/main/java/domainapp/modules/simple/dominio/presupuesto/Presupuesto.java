@@ -70,7 +70,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
     @Property(editing = Editing.DISABLED)
-    private Double precio;
+    private Double precio = 0.0;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
@@ -106,12 +106,9 @@ public class Presupuesto implements Comparable<Presupuesto> {
         else{
             messageService.warnUser(
                     "No se ha cargado ningun Item al listado");
+            setPrecio(0.0);
         }
         return this;
-    }
-
-    public Presupuesto(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     @Override

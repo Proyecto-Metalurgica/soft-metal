@@ -34,33 +34,27 @@ public class Item implements Comparable<Item> {
     private Integer nroItem;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
     @Title(prepend = "Item: ")
     private String producto;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
     @Property()
     private String medida;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
     @Property()
     private Double precio;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
     @Property()
     private Integer cantidad;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
     @Property()
     private Double precioTotal;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
-    @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     private String detalle;
 
@@ -101,14 +95,14 @@ public class Item implements Comparable<Item> {
 
     @Override
     public String toString() {
-        return getProducto();
+        return getNroItem().toString();
     }
 
 
 
     public int compareTo(final Item other) {
         return ComparisonChain.start()
-                .compare(this.getProducto(), other.getProducto())
+                .compare(this.getNroItem(), other.getNroItem())
                 .result();
     }
 
