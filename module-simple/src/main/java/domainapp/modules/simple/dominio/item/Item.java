@@ -44,15 +44,15 @@ public class Item implements Comparable<Item> {
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property()
-    private Double precio;
+    private Double precio = 0.0;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property()
-    private Integer cantidad;
+    private Integer cantidad = 0;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property()
-    private Double precioTotal;
+    private Double precioTotal = 0.0;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
     @Property(editing = Editing.ENABLED)
@@ -111,6 +111,8 @@ public class Item implements Comparable<Item> {
         this.producto = producto.getNombre();
         this.medida = producto.getMedida();
         this.precio = producto.getPrecioUnitario();
+        this.cantidad = 1;
+        this.precioTotal = cantidad * precio;
         return this;
     }
     public List<Producto> autoComplete0AddProducto(
