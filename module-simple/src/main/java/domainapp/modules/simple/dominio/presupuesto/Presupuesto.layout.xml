@@ -44,6 +44,7 @@
                                 <cpt:property id="cliente" namedEscaped="true"/>
                                 <cpt:property id="precio" namedEscaped="true"/>
                                 <cpt:property id="estado" namedEscaped="true"/>
+
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -52,6 +53,22 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Other" unreferencedProperties="true"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
+        </bs3:col>
+        <bs3:col span="4">
+            <bs3:tabGroup collapseIfOne="false">
+                <bs3:tab name="Business">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <cpt:fieldSet name="Ordenes de Compra y Pagos">
+                                <cpt:action id="newOrdenCompra" promptStyle="INLINE">
+                                    <cpt:named>Crear Orden de Compra</cpt:named>
+                                </cpt:action>
+                                <cpt:property id="ordenCompra" namedEscaped="true"/>
+                            </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

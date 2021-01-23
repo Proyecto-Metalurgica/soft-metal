@@ -8,6 +8,7 @@ import com.google.common.collect.ComparisonChain;
 
 import domainapp.modules.simple.dominio.cliente.Cliente;
 import domainapp.modules.simple.dominio.item.Item;
+import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
 import org.apache.isis.applib.annotation.*;
 
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -50,7 +51,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @Column(allowsNull = "true", length = 10)
     @Property(editing = Editing.DISABLED)
     @Persistent(valueStrategy = IdGeneratorStrategy.SEQUENCE, sequence = "presupuestoseq")
-    @Title(prepend = "Nro: ")
+    @Title(prepend = "Nro Presupuesto: ")
     private BigInteger nroPresupuesto;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
@@ -64,7 +65,6 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @lombok.Getter
     @lombok.Setter
     @Property(editing = Editing.DISABLED)
-    @Title()
     private Cliente cliente;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
@@ -81,6 +81,15 @@ public class Presupuesto implements Comparable<Presupuesto> {
             mappedBy = "presupuesto",
             dependentElement = "false"
     )
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(editing = Editing.DISABLED)
+    @lombok.Getter @lombok.Setter
+    private OrdenCompra ordenCompra;
+
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "presupuesto",
+            dependentElement = "false"
+    )
     @CollectionLayout(defaultView = "table")
     @lombok.Getter
     @lombok.Setter
@@ -92,6 +101,14 @@ public class Presupuesto implements Comparable<Presupuesto> {
     )
     public Item newItem(@ParameterLayout(named = "Nro Item") final Integer nroItem) {
         return repositoryService.persist(new Item(this, nroItem));
+    }
+
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public OrdenCompra newOrdenCompra() {
+        return repositoryService.persist(new OrdenCompra(this.nroPresupuesto, this));
     }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "precio")

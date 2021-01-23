@@ -15,6 +15,7 @@
                                 <c:property id="nroCompra" namedEscaped="true" />
                                 <c:property id="fechaInicio" namedEscaped="true" />
                                 <c:property id="fechaEntrega" namedEscaped="true" />
+                                <c:property id="presupuesto" namedEscaped="true" />
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

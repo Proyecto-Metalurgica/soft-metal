@@ -3,6 +3,7 @@ package domainapp.modules.simple.dominio.ordenCompra;
 
 import domainapp.modules.simple.dominio.pagos.Pago;
 import domainapp.modules.simple.dominio.pagos.PagoRepository;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.message.MessageService;
@@ -16,6 +17,7 @@ import javax.jdo.annotations.Query;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import java.math.BigInteger;
 import java.util.List;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
@@ -35,21 +37,19 @@ import java.util.List;
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class OrdenCompra {
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @PropertyLayout(named="Orden de Compra")
-    @Title()
-    private String nroCompra;
+    @PropertyLayout(named="Nro Orden de Compra")
+    @Title(prepend = "Nro OC: ")
+    private BigInteger nroCompra;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
+    @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaInicio;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
+    @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaEntrega;
 
@@ -58,7 +58,10 @@ public class OrdenCompra {
     @PropertyLayout(named="Pago")
     private Pago pago;
 
-
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @Property(editing = Editing.DISABLED)
+    private Presupuesto presupuesto;
 
     //Metodo para asignar el pago a Orden de compra
     @Action()
