@@ -73,14 +73,11 @@
         <mb3:menu>
             <mb3:named>Presupuestos</mb3:named>
             <mb3:section>
-              <!--  <mb3:serviceAction objectType="simple.PresupuestoMenu" id="create">
-                    <cpt:named>Crear Nuevo Presupuesto</cpt:named>
-                </mb3:serviceAction>-->
-                <mb3:serviceAction objectType="simple.PresupuestoMenu" id="findByName">
-                    <cpt:named>Buscar por nombre</cpt:named>
+                <mb3:serviceAction objectType="simple.PresupuestoMenu" id="findByNroPresupuesto">
+                    <cpt:named>Buscar por Nro Presupuesto</cpt:named>
                 </mb3:serviceAction>
                 <mb3:serviceAction objectType="simple.PresupuestoMenu" id="listAll">
-                    <cpt:named>Listar los Presupuestos</cpt:named>
+                    <cpt:named>Listar todos los Presupuestos</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
