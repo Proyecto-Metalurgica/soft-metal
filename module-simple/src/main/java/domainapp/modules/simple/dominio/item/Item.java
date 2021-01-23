@@ -91,10 +91,11 @@ public class Item implements Comparable<Item> {
     }
 
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
-    public void delete() {
+    public Presupuesto delete() {
         final String title = titleService.titleOf(this);
         messageService.informUser(String.format("'%s' deleted", title));
         repositoryService.remove(this);
+        return this.presupuesto;
     }
 
 

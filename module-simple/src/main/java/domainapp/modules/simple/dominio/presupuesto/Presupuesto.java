@@ -99,7 +99,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
         if(!this.items.isEmpty()){
             Double suma = 0.0;
             for (Item item: items) {
-                suma += item.getPrecio();
+                suma += item.getPrecioTotal();
             }
             setPrecio(suma);
         }

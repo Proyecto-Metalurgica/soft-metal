@@ -107,7 +107,7 @@ public class Cliente implements Comparable<Cliente> {
     private String direccion;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property(editing = Editing.ENABLED)
+    @Property()
     private Boolean activo = true;
 
     @javax.jdo.annotations.Persistent(
