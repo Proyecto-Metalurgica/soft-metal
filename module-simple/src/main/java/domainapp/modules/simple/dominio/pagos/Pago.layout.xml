@@ -12,10 +12,11 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Pagos">
-
+                                <c:property id="nroPago" namedEscaped="true" />
                                 <c:property id="fechaPago" namedEscaped="true" />
                                 <c:property id="monto" namedEscaped="true" />
-                                <c:property id="formapago" namedEscaped="true" />
+                                <c:property id="formaPago" namedEscaped="true" />
+                                <c:property id="ordenCompra" namedEscaped="true" />
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

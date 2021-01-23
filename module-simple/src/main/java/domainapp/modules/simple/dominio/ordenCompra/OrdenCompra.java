@@ -1,6 +1,8 @@
 package domainapp.modules.simple.dominio.ordenCompra;
 
 
+import com.google.common.collect.ComparisonChain;
+import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.pagos.Pago;
 import domainapp.modules.simple.dominio.pagos.PagoRepository;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
@@ -19,6 +21,8 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -36,7 +40,8 @@ import java.util.List;
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class OrdenCompra {
+public class OrdenCompra implements Comparable<OrdenCompra>  {
+
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
     @PropertyLayout(named="Nro Orden de Compra")
@@ -53,29 +58,43 @@ public class OrdenCompra {
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaEntrega;
 
-    @javax.jdo.annotations.Column(allowsNull = "true",name = "asig_pago_Id")
-    @Property()
-    @PropertyLayout(named="Pago")
-    private Pago pago;
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "ordenCompra",
+            dependentElement = "false"
+    )
+    @CollectionLayout(defaultView = "table")
+    @lombok.Getter
+    @lombok.Setter
+    private SortedSet<Pago> pagos = new TreeSet<Pago>();
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
     @Property(editing = Editing.DISABLED)
     private Presupuesto presupuesto;
 
-    //Metodo para asignar el pago a Orden de compra
-    @Action()
-    @ActionLayout(named = "Asignar Pago")
-    public OrdenCompra AgregarPago(
-            @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Pago")
-            final Pago pagos) {
-
-        this.pago = pagos;
-        return this;
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public Pago newPago() {
+        //Se numeran los pagos de esta manera "103-1", el segundo pago "103-2", etc.
+        int size = pagos.size() + 1;
+        String nroCompra = this.nroCompra.toString()+'-'+ size;
+        return repositoryService.persist(new Pago( nroCompra,this));
     }
 
-    public List<Pago> choices0AgregarPago() { return repositoryPago.Listar(); }
+    @Override
+    public String toString() {
+        return getNroCompra().toString();
+    }
+
+
+
+    public int compareTo(final OrdenCompra other) {
+        return ComparisonChain.start()
+                .compare(this.getNroCompra(), other.getNroCompra())
+                .result();
+    }
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent

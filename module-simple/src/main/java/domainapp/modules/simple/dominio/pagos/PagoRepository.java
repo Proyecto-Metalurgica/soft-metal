@@ -1,6 +1,7 @@
 package domainapp.modules.simple.dominio.pagos;
 
 
+import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -21,13 +22,12 @@ public class PagoRepository {
     @Programmatic
     public Pago create(
 
-            final LocalDate fechaPago,
-            final  Double monto,
-            final FormaPago fpago
+            final String nroPago,
+            final OrdenCompra ordenCompra
 
-    ) {
+            ) {
 
-        final Pago pago = new Pago(fechaPago,monto,fpago);
+        final Pago pago = new Pago(nroPago,ordenCompra);
         repositoryService.persist(pago);
         return pago;
     }
