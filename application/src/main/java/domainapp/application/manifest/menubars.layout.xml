@@ -33,8 +33,14 @@
                 <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="findByName">
                     <cpt:named>Buscar por nombre</cpt:named>
                 </mb3:serviceAction>
-                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="listAll">
-                    <cpt:named>Listar todos los Clientes</cpt:named>
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="findByCuilExact">
+                    <cpt:named>Buscar por CUIT/CUIL</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="listAllActive">
+                    <cpt:named>Listar todos los Clientes Activos</cpt:named>
+                </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="listAllInactive">
+                    <cpt:named>Listar todos los Clientes Inactivos</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>

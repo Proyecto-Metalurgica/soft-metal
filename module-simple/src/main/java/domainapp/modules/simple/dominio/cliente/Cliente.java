@@ -23,6 +23,7 @@ import javax.jdo.annotations.*;
 import com.google.common.collect.ComparisonChain;
 
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
+import domainapp.modules.simple.dominio.presupuesto.PresupuestoRepository;
 import lombok.NonNull;
 import org.apache.isis.applib.annotation.*;
 
@@ -34,35 +35,47 @@ import org.apache.isis.applib.services.title.TitleService;
 
 import lombok.AccessLevel;
 
+import java.math.BigInteger;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE, schema = "simple")
-@javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
+@javax.jdo.annotations.DatastoreIdentity(strategy= IdGeneratorStrategy.IDENTITY, column="id")
+@Sequence(name="clienteseq", datastoreSequence="YOUR_SEQUENCE_NAME", strategy=SequenceStrategy.CONTIGUOUS, initialValue = 10000, allocationSize = 1)
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 @Queries({
         @Query(
-                name = "find", language = "JDOQL",
-                value = "SELECT "),})
+                name = "findAllActives", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.modules.simple.dominio.cliente.Cliente "
+                        + "WHERE activo == true "),
+        @Query(
+                name = "findAllInactives", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.modules.simple.dominio.cliente.Cliente "
+                        + "WHERE activo == false "),
+})
 
-@javax.jdo.annotations.Unique(name="Cliente_name_UNQ", members = {"name"})
+@javax.jdo.annotations.Unique(name="Cliente_name_UNQ", members = {"cuil"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class Cliente implements Comparable<Cliente> {
-    @Column(allowsNull = "true", length = 40)
-    @NonNull
-    @Property(editing = Editing.ENABLED)
-    private String nroCliente;
+
+    @Column(allowsNull = "true", length = 10)
+    @Property(editing = Editing.DISABLED)
+    @Persistent(valueStrategy=IdGeneratorStrategy.SEQUENCE, sequence="clienteseq")
+    private BigInteger nroCliente;
 
     @Column(allowsNull = "true", length = 13)
     @NonNull
-    @Property(editing = Editing.ENABLED)
+    @Property()
     private String cuil;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
@@ -73,18 +86,29 @@ public class Cliente implements Comparable<Cliente> {
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.ENABLED,
+            regexPattern = "[0-9]+",
+            regexPatternReplacement = "Solo numeros y sin espacios"
+    )
     private String telefono;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.ENABLED,
+            regexPattern = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+",
+            regexPatternFlags= Pattern.CASE_INSENSITIVE,
+            regexPatternReplacement = "Debe ser un email valido (contiene un '@' simbolo)"
+    )
     private String email;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     private String direccion;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property()
+    private Boolean activo = true;
 
     @javax.jdo.annotations.Persistent(
             mappedBy = "cliente",
@@ -94,50 +118,28 @@ public class Cliente implements Comparable<Cliente> {
     @lombok.Getter @lombok.Setter
     private SortedSet<Presupuesto> presupuestos = new TreeSet<Presupuesto>();
 
-
-    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "name")
-    public Cliente updateName(
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Nro de Cliente") final String nroCliente,
-            @ParameterLayout(named = "CUIL/CUIT") final String cuil,
-            @ParameterLayout(named = "Name") final String name,
-            @ParameterLayout(named = "Telefono") final String telefono,
-            @ParameterLayout(named = "Email") final String email,
-            @ParameterLayout(named = "Direccion") final String direccion){
-        setNroCliente(nroCliente);
-        setCuil(cuil);
-        setName(name);
-        setTelefono(telefono);
-        setEmail(email);
-        setDireccion(direccion);
+    @Action(
+            semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE,
+            associateWith = "simple"
+    )
+    public Cliente newPresupuesto() {
+        if(activo){
+            repositoryPresupuesto.create(this);
+        }
+        else{
+            messageService.warnUser(
+                    "El Cliente "+ this.getName() + " se encuentra Inactivo, no puede crear nuevos presupuestos");
+        }
         return this;
     }
 
-    public String default0UpdateName() {
-        return getName();
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "activo")
+    public Cliente updateActivo()
+    {
+        if(getActivo()){ setActivo(false); }
+        else{ setActivo(true); }
+        return this;
     }
-
-    public TranslatableString validate0UpdateName(final String name) {
-        return name != null && name.contains("!") ? TranslatableString.tr("Exclamation mark is not allowed") : null;
-    }
-
-    @Action(
-            semantics = SemanticsOf.NON_IDEMPOTENT,
-            associateWith = "simple"
-    )
-    public Presupuesto newPresupuesto(@ParameterLayout(named = "Nro de Presupuesto") final String nroPresupuesto) {
-        return repositoryService.persist(new Presupuesto(this, nroPresupuesto));
-    }
-/*
-
-    @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
-    public void delete() {
-        final String title = titleService.titleOf(this);
-        messageService.informUser(String.format("'%s' deleted", title));
-        repositoryCliente.remove(this);
-    }
-*/
-
 
     @Override
     public String toString() {
@@ -150,11 +152,10 @@ public class Cliente implements Comparable<Cliente> {
                 .result();
     }
 
-
     @javax.jdo.annotations.NotPersistent
     @javax.inject.Inject
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
-    RepositoryService repositoryService;
+    PresupuestoRepository repositoryPresupuesto;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent

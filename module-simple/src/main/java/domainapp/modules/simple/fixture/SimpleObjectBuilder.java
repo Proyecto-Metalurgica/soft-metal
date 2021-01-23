@@ -27,6 +27,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.math.BigInteger;
+
 @Accessors(chain = true)
 public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleObjectBuilder> {
 
@@ -34,16 +36,13 @@ public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleOb
     private String name;
 
     @Getter @Setter
-    private String apellido;
-
-    @Getter @Setter
-    private String dni;
-
-    @Getter @Setter
-    private String telefono;
+    private String cuil;
 
     @Getter @Setter
     private String email;
+
+    @Getter @Setter
+    private String telefono;
 
     @Getter @Setter
     private String direccion;
@@ -56,7 +55,7 @@ public class SimpleObjectBuilder extends BuilderScriptAbstract<Cliente, SimpleOb
 
         checkParam("name", ec, String.class);
 
-        object = wrap(clienteMenu).create(name, apellido, dni, telefono, email, direccion);
+        object = wrap(clienteMenu).create(name, cuil, telefono, email, direccion);
     }
 
     @javax.inject.Inject

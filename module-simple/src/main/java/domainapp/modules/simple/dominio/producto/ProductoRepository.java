@@ -18,13 +18,12 @@ import java.util.List;
 
         @Programmatic
         public Producto create(
-                final String codigo,
                 final String nombre,
                 final String medida,
                 final Double precioUnitario
                 ) {
 
-            final Producto producto = new Producto(codigo,nombre,medida,precioUnitario);
+            final Producto producto = new Producto(nombre,medida,precioUnitario);
             repositoryService.persist(producto);
             return producto;
         }

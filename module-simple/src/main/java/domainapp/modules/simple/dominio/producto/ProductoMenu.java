@@ -28,9 +28,6 @@ public class ProductoMenu {
     @MemberOrder(sequence = "1")
     public Producto create(
 
-            @Parameter(maxLength = 40)
-            @ParameterLayout(named = "Codigo de Producto") final String codigo,
-
             @Parameter(maxLength = 13)
             @ParameterLayout(named = "Nombre de producto") final String nombre,
 
@@ -41,7 +38,7 @@ public class ProductoMenu {
 
             ) {
 
-        return repositoryProducto.create(codigo,nombre,medida,precioUnitario);
+        return repositoryProducto.create(nombre,medida,precioUnitario);
     }
 
     @Action(semantics = SemanticsOf.SAFE)

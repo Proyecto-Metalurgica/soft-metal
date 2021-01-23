@@ -1,20 +1,12 @@
 package domainapp.modules.simple.dominio.item;
 
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import javax.jdo.annotations.Persistent;
-
-import domainapp.modules.simple.dominio.cliente.Cliente;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import domainapp.modules.simple.dominio.producto.Producto;
 import domainapp.modules.simple.dominio.producto.ProductoMenu;
-import org.apache.isis.applib.annotation.Collection;
 import com.google.common.collect.ComparisonChain;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.query.QueryDefault;
-import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
@@ -30,14 +22,18 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
-@javax.jdo.annotations.Unique(name="Item_name_UNQ", members = {"producto"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class Item implements Comparable<Item> {
 
-    @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @Property()
+    private Integer nroItem;
+
+    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
     @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
     @Title(prepend = "Item: ")
@@ -74,9 +70,9 @@ public class Item implements Comparable<Item> {
     @Property(editing = Editing.DISABLED)
     private Presupuesto presupuesto;
 
-    public Item(Presupuesto presupuesto, String producto) {
+    public Item(Presupuesto presupuesto, Integer nroItem) {
         this.presupuesto = presupuesto;
-        this.producto = producto;
+        this.nroItem = nroItem;
     }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
@@ -87,8 +83,6 @@ public class Item implements Comparable<Item> {
         if(this.precio !=null){
             setPrecioTotal(this.precio * cantidad);
         }
-
-
         return this;
     }
 
@@ -96,16 +90,12 @@ public class Item implements Comparable<Item> {
         return getCantidad();
     }
 
-//    public TranslatableString validate0UpdateCantidad(final Integer Cantidad) {
-//        return cantidad != null ? TranslatableString.tr("Exclamation mark is not allowed") : null;
-//    }
-
-
     @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
-    public void delete() {
+    public Presupuesto delete() {
         final String title = titleService.titleOf(this);
         messageService.informUser(String.format("'%s' deleted", title));
         repositoryService.remove(this);
+        return this.presupuesto;
     }
 
 

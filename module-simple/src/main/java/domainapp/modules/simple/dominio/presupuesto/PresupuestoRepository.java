@@ -6,7 +6,6 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -18,14 +17,9 @@ public class PresupuestoRepository {
 
     @Programmatic
     public Presupuesto create(
-            final String nroPresupuesto,
-            final LocalDate fecha,
-            final Cliente cliente,
-            final String precio
-
+            final Cliente cliente
     ) {
-
-        final Presupuesto presupuesto = new Presupuesto(nroPresupuesto,fecha,cliente,precio);
+        final Presupuesto presupuesto = new Presupuesto(cliente);
         repositoryService.persist(presupuesto);
         return presupuesto;
     }
