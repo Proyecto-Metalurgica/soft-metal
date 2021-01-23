@@ -104,6 +104,21 @@ public class ClienteMenu {
                 .executeUnique();
     }
 
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Busqueda por CUIT/CUIL")
+    @MemberOrder(sequence = "3")
+    public Cliente findByCuilExact(
+            @Parameter(optionality = Optionality.MANDATORY)
+            @ParameterLayout(named = "Nro CUIL/CUIT") final String cuil) {
+        TypesafeQuery<Cliente> q = isisJdoSupport.newTypesafeQuery(Cliente.class);
+        final QCliente cand = QCliente.candidate();
+        q = q.filter(
+                cand.cuil.eq(q.stringParameter("cuil"))
+        );
+        return q.setParameter("cuil", cuil)
+                .executeUnique();
+    }
+
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Clientes Activos")
