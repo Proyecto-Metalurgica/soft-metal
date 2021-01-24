@@ -32,8 +32,7 @@ import java.math.BigInteger;
                 name = "find", language = "JDOQL",
                 value = "SELECT "),})
 
-
-@javax.jdo.annotations.Unique(name="Pago_name_UNQ", members = {"fechaPago"})
+@javax.jdo.annotations.Unique(name="Pago_name_UNQ", members = {"nroPago"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
@@ -43,25 +42,28 @@ public class Pago implements Comparable<Pago> {
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
     @PropertyLayout(named="Nro de Pago")
-    @Title(prepend = "Nro Pago: ")
+    @Title(prepend = "Nro de Pago: ")
     private String nroPago;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property()
+    @PropertyLayout(named="Fecha de Pago: ")
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
-    @Title(prepend = "Pago: ")
+    @Property(editing = Editing.ENABLED)
     private LocalDate fechaPago;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
+    @PropertyLayout(named="Monto Abonado: ")
     @Property(editing = Editing.ENABLED)
     private Double monto;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
+    @PropertyLayout(named="Forma de Pago: ")
     @Property(editing = Editing.ENABLED)
     private FormaPago formaPago;
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
+    @PropertyLayout(named="Orden de Compra: ")
     @Property(editing = Editing.DISABLED)
     private OrdenCompra ordenCompra;
 

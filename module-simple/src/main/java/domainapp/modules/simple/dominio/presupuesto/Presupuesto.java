@@ -62,8 +62,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @lombok.Getter
-    @lombok.Setter
+    @lombok.Getter @lombok.Setter
     @Property(editing = Editing.DISABLED)
     private Cliente cliente;
 
@@ -115,7 +114,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
     public Object newOrdenCompra() {
         if(this.getEstado().equals(Estado.Aprobado)){
             if(this.getOrdenCompra() == null){
-                return repositoryService.persist(new OrdenCompra(this.nroPresupuesto, this));
+                return repositoryService.persist(new OrdenCompra(this.nroPresupuesto,this.precio, this));
             }
             else{
                 messageService.warnUser("Ya existe una OC para este presupuesto");

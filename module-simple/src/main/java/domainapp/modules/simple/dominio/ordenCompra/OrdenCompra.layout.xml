@@ -13,8 +13,10 @@
                         <bs3:col span="12">
                             <c:fieldSet name="Orden de Compra">
                                 <c:property id="nroCompra" namedEscaped="true" />
+                                <c:property id="fechaCreacionOC" namedEscaped="true" />
                                 <c:property id="fechaInicio" namedEscaped="true" />
                                 <c:property id="fechaEntrega" namedEscaped="true" />
+                                <c:property id="valorTotalOC" namedEscaped="true" />
                                 <c:property id="presupuesto" namedEscaped="true" />
                             </c:fieldSet>
                         </bs3:col>

@@ -20,10 +20,11 @@ public class OrdenCompraRepository {
     @Programmatic
     public OrdenCompra create(
             final BigInteger nroCompra,
+            final Double valorTotalOC,
             final Presupuesto presupuesto
             ) {
 
-        final OrdenCompra ordenCompra = new OrdenCompra(nroCompra, presupuesto);
+        final OrdenCompra ordenCompra = new OrdenCompra(nroCompra,valorTotalOC, presupuesto);
         repositoryService.persist(ordenCompra);
         return ordenCompra;
     }

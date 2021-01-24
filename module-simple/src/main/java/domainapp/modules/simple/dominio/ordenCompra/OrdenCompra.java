@@ -33,8 +33,6 @@ import java.util.TreeSet;
                 name = "find", language = "JDOQL",
                 value = "SELECT "),})
 
-
-
 @javax.jdo.annotations.Unique(name="OrdenCompra_name_UNQ", members = {"nroCompra"})
 @DomainObject(auditing = Auditing.ENABLED)
 @DomainObjectLayout()  // causes UI events to be triggered
@@ -48,24 +46,38 @@ public class OrdenCompra implements Comparable<OrdenCompra>  {
     @Title(prepend = "Nro OC: ")
     private BigInteger nroCompra;
 
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @PropertyLayout(named="Fecha Creacion de OC: ")
+    @Property(editing = Editing.DISABLED)
+    @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
+    private LocalDate fechaCreacionOC = LocalDate.now();
+
     @javax.jdo.annotations.Column(allowsNull = "true")
+    @PropertyLayout(named="Fecha Inicio de Trabajos: ")
     @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaInicio;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
+    @PropertyLayout(named="Fecha Entrega de Trabajos: ")
     @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaEntrega;
+
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @PropertyLayout(named="Valor Total de Compra: ")
+    @Property(editing = Editing.DISABLED)
+    private Double valorTotalOC;
 
     @javax.jdo.annotations.Persistent(
             mappedBy = "ordenCompra",
             dependentElement = "false"
     )
     @CollectionLayout(defaultView = "table")
-    @lombok.Getter
-    @lombok.Setter
-    private SortedSet<Pago> pagos = new TreeSet<Pago>();
+    @lombok.Getter @lombok.Setter
+    private SortedSet<Pago> pagosRecibidos = new TreeSet<Pago>();
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
@@ -78,7 +90,7 @@ public class OrdenCompra implements Comparable<OrdenCompra>  {
     )
     public Pago newPago() {
         //Se numeran los pagos de esta manera "103-1", el segundo pago "103-2", etc.
-        int size = pagos.size() + 1;
+        int size = pagosRecibidos.size() + 1;
         String nroCompra = this.nroCompra.toString()+'-'+ size;
         return repositoryService.persist(new Pago( nroCompra,this));
     }
