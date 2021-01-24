@@ -81,7 +81,7 @@
      -->
     <context-param>
         <param-name>isis.viewers</param-name>
-        <param-value>wicket,restfulobjects</param-value>
+        <param-value>wicket,restfulobjects,</param-value>
     </context-param>
 
 
