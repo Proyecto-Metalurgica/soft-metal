@@ -1,4 +1,8 @@
-<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<bs3:grid
+        xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd"
+        xmlns:c="http://isis.apache.org/applib/layout/component"
+        xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <bs3:row>
         <bs3:col span="12" unreferencedActions="true">
@@ -12,29 +16,15 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Orden de Compra">
-                                <c:property id="nroCompra" namedEscaped="true" />
-                                <c:property id="fechaCreacionOC" namedEscaped="true" />
-                                <c:property id="fechaInicio" namedEscaped="true" />
-                                <c:property id="fechaEntrega" namedEscaped="true" />
-                                <c:property id="valorTotalOC" namedEscaped="true" />
-                                <c:property id="presupuesto" namedEscaped="true" />
+                                <c:property id="nroCompra" namedEscaped="true"/>
+                                <c:property id="fechaCreacionOC" namedEscaped="true"/>
+                                <c:property id="fechaInicio" namedEscaped="true"/>
+                                <c:property id="fechaEntrega" namedEscaped="true"/>
+                                <c:property id="valorTotalOC" namedEscaped="true"/>
+                                <c:property id="presupuesto" namedEscaped="true"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
-
-                    <bs3:row>
-                        <bs3:col span="12">
-                        </bs3:col>
-                            <bs3:col span="4">
-                                 <c:fieldSet name="Agregar Pago">
-                                    <c:property id="pago" hidden="ALL_TABLES">
-                                        <c:action id="AgregarPago" promptStyle="INLINE"/>
-                                    </c:property>
-                                </c:fieldSet>
-                            </bs3:col>
-                            </bs3:row>
-
-
                 </bs3:tab>
                 <bs3:tab name="Metadata">
                     <bs3:row>
@@ -51,11 +41,25 @@
                     </bs3:row>
                 </bs3:tab>
             </bs3:tabGroup>
-            <bs3:tabGroup>
+        </bs3:col>
+        <bs3:col span="6">
+            <bs3:tabGroup collapseIfOne="false">
+                <bs3:tab name="Payments">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <c:collection id="pagosRecibidos">
+                                <c:named>Listado de Pagos Recibidos</c:named>
+                                <c:action id="newPago" promptStyle="INLINE">
+                                    <c:named>Agregar Pago</c:named>
+                                </c:action>
+                            </c:collection>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
             </bs3:tabGroup>
         </bs3:col>
         <bs3:col span="6">
-            <bs3:tabGroup  unreferencedCollections="true">
+            <bs3:tabGroup unreferencedCollections="true">
             </bs3:tabGroup>
         </bs3:col>
     </bs3:row>
