@@ -99,33 +99,52 @@ public class Presupuesto implements Comparable<Presupuesto> {
             semantics = SemanticsOf.NON_IDEMPOTENT,
             associateWith = "simple"
     )
-    public Item newItem(@ParameterLayout(named = "Nro Item") final Integer nroItem) {
-        return repositoryService.persist(new Item(this, nroItem));
+    public Object newItem(@ParameterLayout(named = "Nro Item") final Integer nroItem) {
+        if (this.getEstado().equals(Estado.Espera)) {
+            return repositoryService.persist(new Item(this, nroItem));
+        }
+        else { messageService.warnUser("Solo se pueden agregar items a un presupuesto en Espera");
+            return this;
+        }
     }
 
     @Action(
             semantics = SemanticsOf.NON_IDEMPOTENT,
             associateWith = "simple"
     )
-    public OrdenCompra newOrdenCompra() {
-        return repositoryService.persist(new OrdenCompra(this.nroPresupuesto, this));
+    public Object newOrdenCompra() {
+        if(this.getEstado().equals(Estado.Aprobado)){
+            if(this.getOrdenCompra() == null){
+                return repositoryService.persist(new OrdenCompra(this.nroPresupuesto, this));
+            }
+            else{
+                messageService.warnUser("Ya existe una OC para este presupuesto");
+                return this;
+            }
+
+        }
+        else{
+            messageService.warnUser("Solo se pueden crear OC para presupuestos Aprobados");
+            return this;
+        }
     }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "precio")
-    public Presupuesto updatePrecio(){
-        if(!this.items.isEmpty()){
-            Double suma = 0.0;
-            for (Item item: items) {
-                if (!item.getPrecioTotal().isNaN()){
+    public Object updatePrecio() {
+        if (this.getEstado().equals(Estado.Espera)) {
+            if (!this.items.isEmpty()) {
+                Double suma = 0.0;
+                for (Item item : items) {
                     suma += item.getPrecioTotal();
                 }
+                setPrecio(suma);
+            } else {
+                messageService.warnUser("El Listado de Items se encuentra vacio");
+                setPrecio(0.0);
             }
-            setPrecio(suma);
         }
-        else{
-            messageService.warnUser(
-                    "No se ha cargado ningun Item al listado");
-            setPrecio(0.0);
+        else {
+            messageService.warnUser("Solo los presupuestos en Espera pueden modificar su precio");
         }
         return this;
     }
