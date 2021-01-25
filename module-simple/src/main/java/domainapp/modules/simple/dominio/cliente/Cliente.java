@@ -114,7 +114,7 @@ public class Cliente implements Comparable<Cliente> {
             mappedBy = "cliente",
             dependentElement = "false"
     )
-    @Collection
+    @CollectionLayout(defaultView = "table")
     @lombok.Getter @lombok.Setter
     private SortedSet<Presupuesto> presupuestos = new TreeSet<Presupuesto>();
 
