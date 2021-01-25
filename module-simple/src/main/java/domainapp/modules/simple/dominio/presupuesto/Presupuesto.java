@@ -42,7 +42,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 
 @javax.jdo.annotations.Unique(name = "Presupuesto_name_UNQ", members = {"nroPresupuesto"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()
+@DomainObjectLayout(cssClassFa="file-text-o" )
 @lombok.Getter
 @lombok.Setter
 @lombok.RequiredArgsConstructor

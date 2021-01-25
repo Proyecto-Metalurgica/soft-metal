@@ -34,7 +34,7 @@ import java.math.BigInteger;
 
 @javax.jdo.annotations.Unique(name="Pago_name_UNQ", members = {"nroPago"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()  // causes UI events to be triggered
+@DomainObjectLayout( cssClassFa="money")  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class Pago implements Comparable<Pago> {

@@ -35,7 +35,7 @@ import java.util.TreeSet;
 
 @javax.jdo.annotations.Unique(name="OrdenCompra_name_UNQ", members = {"nroCompra"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()  // causes UI events to be triggered
+@DomainObjectLayout(cssClassFa="file-o" )  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class OrdenCompra implements Comparable<OrdenCompra>  {
