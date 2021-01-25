@@ -9,6 +9,7 @@ import com.google.common.collect.ComparisonChain;
 import domainapp.modules.simple.dominio.cliente.Cliente;
 import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
+import domainapp.modules.simple.dominio.pagos.Pago;
 import org.apache.isis.applib.annotation.*;
 
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -73,7 +74,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.DISABLED)
     private Estado estado = Estado.Espera;
 
     @javax.jdo.annotations.Persistent(
@@ -98,9 +99,9 @@ public class Presupuesto implements Comparable<Presupuesto> {
             semantics = SemanticsOf.NON_IDEMPOTENT,
             associateWith = "simple"
     )
-    public Object newItem(@ParameterLayout(named = "Nro Item") final Integer nroItem) {
+    public Object newItem() {
         if (this.getEstado().equals(Estado.Espera)) {
-            return repositoryService.persist(new Item(this, nroItem));
+            return repositoryService.persist(new Item(this, items.size()+1));
         }
         else { messageService.warnUser("Solo se pueden agregar items a un presupuesto en Espera");
             return this;
@@ -112,24 +113,27 @@ public class Presupuesto implements Comparable<Presupuesto> {
             associateWith = "simple"
     )
     public Object newOrdenCompra() {
-        if(this.getEstado().equals(Estado.Aprobado)){
+        if(this.getEstado().equals(Estado.Espera)){
             if(this.getOrdenCompra() == null){
+                this.updatePreciosItems();
+                this.setEstado(Estado.Aprobado);
                 return repositoryService.persist(new OrdenCompra(this.nroPresupuesto,this.precio, this));
             }
             else{
                 messageService.warnUser("Ya existe una OC para este presupuesto");
-                return this;
             }
-
         }
-        else{
-            messageService.warnUser("Solo se pueden crear OC para presupuestos Aprobados");
-            return this;
+        else if(this.getEstado().equals(Estado.Anulado)){
+            messageService.warnUser("No se pueden crear OC para presupuestos Anulados");
         }
+        else {
+            messageService.warnUser("Solo se pueden crear OC para presupuestos en Espera");
+        }
+        return this;
     }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "precio")
-    public Object updatePrecio() {
+    public Presupuesto updatePrecio() {
         if (this.getEstado().equals(Estado.Espera)) {
             if (!this.items.isEmpty()) {
                 Double suma = 0.0;
@@ -146,6 +150,19 @@ public class Presupuesto implements Comparable<Presupuesto> {
             messageService.warnUser("Solo los presupuestos en Espera pueden modificar su precio");
         }
         return this;
+    }
+
+    public void updatePreciosItems() {
+        if (!this.items.isEmpty()) {
+            Double suma = 0.0;
+            for (Item item : items) {
+                suma += item.getPrecioTotal();
+            }
+            setPrecio(suma);
+        } else {
+            messageService.warnUser("El Listado de Items se encuentra vacio");
+            setPrecio(0.0);
+        }
     }
 
     @Override

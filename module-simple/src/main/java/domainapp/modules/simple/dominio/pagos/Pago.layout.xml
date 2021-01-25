@@ -12,6 +12,9 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Pagos">
+                                <c:action id="updateMonto" promptStyle="INLINE">
+                                    <c:named>Cargar Monto</c:named>
+                                </c:action>
                                 <c:property id="nroPago" namedEscaped="true" />
                                 <c:property id="fechaPago" namedEscaped="true" />
                                 <c:property id="monto" namedEscaped="true" />

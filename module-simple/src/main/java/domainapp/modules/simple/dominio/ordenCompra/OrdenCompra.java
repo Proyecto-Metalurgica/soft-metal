@@ -5,6 +5,7 @@ import com.google.common.collect.ComparisonChain;
 import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.pagos.Pago;
 import domainapp.modules.simple.dominio.pagos.PagoRepository;
+import domainapp.modules.simple.dominio.presupuesto.Estado;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
@@ -71,6 +72,11 @@ public class OrdenCompra implements Comparable<OrdenCompra>  {
     @Property(editing = Editing.DISABLED)
     private Double valorTotalOC;
 
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @PropertyLayout(named="Total Abonado: ")
+    @Property(editing = Editing.DISABLED)
+    private Double totalAbonado = 0.0;
+
     @javax.jdo.annotations.Persistent(
             mappedBy = "ordenCompra",
             dependentElement = "false"
@@ -93,6 +99,19 @@ public class OrdenCompra implements Comparable<OrdenCompra>  {
         int size = pagosRecibidos.size() + 1;
         String nroCompra = this.nroCompra.toString()+'-'+ size;
         return repositoryService.persist(new Pago( nroCompra,this));
+    }
+
+    public void updatePagos() {
+            if (!this.pagosRecibidos.isEmpty()) {
+                Double suma = 0.0;
+                for (Pago pago : pagosRecibidos) {
+                    suma += pago.getMonto();
+                }
+                setTotalAbonado(suma);
+            } else {
+                messageService.warnUser("El Listado de Pagos se encuentra vacio");
+                setTotalAbonado(0.0);
+            }
     }
 
     @Override

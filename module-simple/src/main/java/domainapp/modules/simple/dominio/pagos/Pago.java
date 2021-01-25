@@ -4,6 +4,7 @@ package domainapp.modules.simple.dominio.pagos;
 import com.google.common.collect.ComparisonChain;
 import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
+import domainapp.modules.simple.dominio.presupuesto.Estado;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
@@ -22,6 +23,10 @@ import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
 import org.joda.time.LocalDate;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigInteger;
+import java.text.Normalizer;
+
+import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
+import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -48,17 +53,17 @@ public class Pago implements Comparable<Pago> {
     @javax.jdo.annotations.Column(allowsNull = "true")
     @PropertyLayout(named="Fecha de Pago: ")
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.DISABLED)
     private LocalDate fechaPago;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @PropertyLayout(named="Monto Abonado: ")
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.DISABLED)
     private Double monto;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @PropertyLayout(named="Forma de Pago: ")
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.DISABLED)
     private FormaPago formaPago;
 
     @javax.jdo.annotations.Column(allowsNull = "false")
@@ -70,6 +75,23 @@ public class Pago implements Comparable<Pago> {
     @Override
     public String toString() {
         return getNroPago();
+    }
+
+    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "monto")
+    public Object updateMonto(
+            @ParameterLayout(named = "Monto: ") final Double monto,
+            @ParameterLayout(named = "Forma de Pago: ") final FormaPago formaPago,
+            @ParameterLayout(named = "Fecha de Pago: ") final LocalDate fechaPago) {
+        if(this.ordenCompra.getTotalAbonado()+monto <= this.ordenCompra.getValorTotalOC()){
+            this.setMonto(monto);
+            this.setFormaPago(formaPago);
+            this.setFechaPago(fechaPago);
+            this.ordenCompra.updatePagos();
+        }
+        else{
+            messageService.warnUser("El monto a pagar supera el valor adeudado de la OC");
+        }
+        return this;
     }
 
     public int compareTo(final Pago other) {
