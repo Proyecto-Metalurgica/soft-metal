@@ -20,32 +20,20 @@ import java.util.List;
 public class PresupuestoMenu {
 
     @Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT,named = "Buscar presupuesto")
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT,named = "Buscar por Nro Presupuesto")
     @MemberOrder(sequence = "2")
-    public List<Presupuesto> findByName(
+    public List<Presupuesto> findByNroPresupuesto(
             @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Nro del Presupuesto") final BigInteger nroPresupuesto
+            @ParameterLayout(named = "Nro de Presupuesto") final BigInteger nroPresupuesto
     ) {
         TypesafeQuery<Presupuesto> q = isisJdoSupport.newTypesafeQuery(Presupuesto.class);
         final QPresupuesto cand = QPresupuesto.candidate();
         q = q.filter(
-                cand.nroPresupuesto.eq(q.integerParameter("name"))
+                cand.nroPresupuesto.eq(q.integerParameter("nroPresupuesto"))
         );
         return q.setParameter("nroPresupuesto", nroPresupuesto)
                 .executeList();
     }
-
-    @Programmatic
-    public Presupuesto findByNameExact(final String nroPresupuesto) {
-        TypesafeQuery<Presupuesto> q = isisJdoSupport.newTypesafeQuery(Presupuesto.class);
-        final QPresupuesto cand = QPresupuesto.candidate();
-        q = q.filter(
-                cand.nroPresupuesto.eq(q.stringParameter("nroPresupuesto"))
-        );
-        return q.setParameter("nroPresupuesto", nroPresupuesto)
-                .executeUnique();
-    }
-
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Presupuestos")

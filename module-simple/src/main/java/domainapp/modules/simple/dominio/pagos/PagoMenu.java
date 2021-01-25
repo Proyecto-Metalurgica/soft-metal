@@ -22,7 +22,7 @@ import java.util.List;
 
 public class PagoMenu {
 
-    @Action()
+    /*@Action()
     @ActionLayout(named = "Cargar Pago")
     @MemberOrder(sequence = "1")
     public Pago create(
@@ -36,7 +36,7 @@ public class PagoMenu {
     ) {
 
         return repositoryPago.create(fechaPago,monto,fpago);
-    }
+    }*/
 
 
     @Action(semantics = SemanticsOf.SAFE)

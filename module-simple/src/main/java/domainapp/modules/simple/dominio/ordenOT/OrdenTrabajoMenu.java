@@ -27,7 +27,7 @@ public class OrdenTrabajoMenu {
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Nro de Orden de trabajo") final String nroOT,
             @ParameterLayout(named = "Estado OT") final EstadoOT estadoOT,
-            @ParameterLayout(named="Fecha") final LocalDate fecha
+            @ParameterLayout(named="Fecha",cssClass="x-key" ) final LocalDate fecha
 
             ) {
 

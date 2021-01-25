@@ -1,8 +1,12 @@
 package domainapp.modules.simple.dominio.ordenCompra;
 
 
+import com.google.common.collect.ComparisonChain;
+import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.pagos.Pago;
 import domainapp.modules.simple.dominio.pagos.PagoRepository;
+import domainapp.modules.simple.dominio.presupuesto.Estado;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.message.MessageService;
@@ -16,7 +20,10 @@ import javax.jdo.annotations.Query;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -27,52 +34,98 @@ import java.util.List;
                 name = "find", language = "JDOQL",
                 value = "SELECT "),})
 
-
-
 @javax.jdo.annotations.Unique(name="OrdenCompra_name_UNQ", members = {"nroCompra"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()  // causes UI events to be triggered
+@DomainObjectLayout(cssClassFa="file-o" )  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class OrdenCompra {
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+public class OrdenCompra implements Comparable<OrdenCompra>  {
+
+    @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @PropertyLayout(named="Orden de Compra")
-    @Title()
-    private String nroCompra;
+    @PropertyLayout(named="Nro Orden de Compra")
+    @Title(prepend = "Nro OC: ")
+    private BigInteger nroCompra;
+
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @PropertyLayout(named="Fecha Creacion de OC: ")
+    @Property(editing = Editing.DISABLED)
+    @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
+    private LocalDate fechaCreacionOC = LocalDate.now();
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
+    @PropertyLayout(named="Fecha Inicio de Trabajos: ")
+    @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaInicio;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
+    @PropertyLayout(named="Fecha Entrega de Trabajos: ")
+    @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     private LocalDate fechaEntrega;
 
-    @javax.jdo.annotations.Column(allowsNull = "true",name = "asig_pago_Id")
-    @Property()
-    @PropertyLayout(named="Pago")
-    private Pago pago;
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @PropertyLayout(named="Valor Total de Compra: ")
+    @Property(editing = Editing.DISABLED)
+    private Double valorTotalOC;
 
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @PropertyLayout(named="Total Abonado: ")
+    @Property(editing = Editing.DISABLED)
+    private Double totalAbonado = 0.0;
 
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "ordenCompra",
+            dependentElement = "false"
+    )
+    @CollectionLayout(defaultView = "table")
+    @lombok.Getter @lombok.Setter
+    private SortedSet<Pago> pagosRecibidos = new TreeSet<Pago>();
 
-    //Metodo para asignar el pago a Orden de compra
-    @Action()
-    @ActionLayout(named = "Asignar Pago")
-    public OrdenCompra AgregarPago(
-            @Parameter(optionality = Optionality.MANDATORY)
-            @ParameterLayout(named = "Pago")
-            final Pago pagos) {
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @Property(editing = Editing.DISABLED)
+    private Presupuesto presupuesto;
 
-        this.pago = pagos;
-        return this;
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public Pago newPago() {
+        //Se numeran los pagos de esta manera "103-1", el segundo pago "103-2", etc.
+        int size = pagosRecibidos.size() + 1;
+        String nroCompra = this.nroCompra.toString()+'-'+ size;
+        return repositoryService.persist(new Pago( nroCompra,this));
     }
 
-    public List<Pago> choices0AgregarPago() { return repositoryPago.Listar(); }
+    public void updatePagos() {
+            if (!this.pagosRecibidos.isEmpty()) {
+                Double suma = 0.0;
+                for (Pago pago : pagosRecibidos) {
+                    suma += pago.getMonto();
+                }
+                setTotalAbonado(suma);
+            } else {
+                messageService.warnUser("El Listado de Pagos se encuentra vacio");
+                setTotalAbonado(0.0);
+            }
+    }
+
+    @Override
+    public String toString() {
+        return getNroCompra().toString();
+    }
+
+
+
+    public int compareTo(final OrdenCompra other) {
+        return ComparisonChain.start()
+                .compare(this.getNroCompra(), other.getNroCompra())
+                .result();
+    }
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent

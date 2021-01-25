@@ -23,7 +23,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()  // causes UI events to be triggered
+@DomainObjectLayout(cssClassFa="list-alt")  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class Item implements Comparable<Item> {
@@ -34,33 +34,27 @@ public class Item implements Comparable<Item> {
     private Integer nroItem;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
     @Property() // editing disabled by default, see isis.properties
     @Title(prepend = "Item: ")
     private String producto;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
     @Property()
     private String medida;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
     @Property()
-    private Double precio;
+    private Double precio = 0.0;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
     @Property()
-    private Integer cantidad;
+    private Integer cantidad = 0;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
     @Property()
-    private Double precioTotal;
+    private Double precioTotal = 0.0;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
-    @lombok.NonNull
     @Property(editing = Editing.ENABLED)
     private String detalle;
 
@@ -76,14 +70,14 @@ public class Item implements Comparable<Item> {
     }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
-    public Item updateCantidad(
+    public void updateCantidad(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Cantidad") final Integer cantidad){
         setCantidad(cantidad);
         if(this.precio !=null){
             setPrecioTotal(this.precio * cantidad);
+            this.presupuesto.updatePreciosItems();
         }
-        return this;
     }
 
     public Integer default0UpdateCantidad() {
@@ -101,14 +95,14 @@ public class Item implements Comparable<Item> {
 
     @Override
     public String toString() {
-        return getProducto();
+        return getNroItem().toString();
     }
 
 
 
     public int compareTo(final Item other) {
         return ComparisonChain.start()
-                .compare(this.getProducto(), other.getProducto())
+                .compare(this.getNroItem(), other.getNroItem())
                 .result();
     }
 
@@ -117,6 +111,9 @@ public class Item implements Comparable<Item> {
         this.producto = producto.getNombre();
         this.medida = producto.getMedida();
         this.precio = producto.getPrecioUnitario();
+        this.cantidad = 1;
+        this.precioTotal = cantidad * precio;
+        this.presupuesto.updatePreciosItems();
         return this;
     }
     public List<Producto> autoComplete0AddProducto(

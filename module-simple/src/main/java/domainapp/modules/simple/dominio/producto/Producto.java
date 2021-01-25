@@ -32,7 +32,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 
 @javax.jdo.annotations.Unique(name="Producto_name_UNQ", members = {"nombre"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()  // causes UI events to be triggered
+@DomainObjectLayout(cssClassFa="archive")   // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class Producto implements Comparable<Producto> {
