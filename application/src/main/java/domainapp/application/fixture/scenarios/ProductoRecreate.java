@@ -15,23 +15,23 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 public class ProductoRecreate extends FixtureScript {
 
     public final List<String> nombres = Collections.unmodifiableList(Arrays.asList(
-            "Mesa",
-            "Silla",
-            "Puerta",
+            "Cenefas",
+            "Bajadas",
+            "Rejas",
             "Porton"
     ));
 
     public final List<String> medidas = Collections.unmodifiableList(Arrays.asList(
-            "2x2",
-            "1x1",
-            "220x3",
+            "DES 30",
+            "6x12,5",
+            "3x3",
             "5x5"
 
     ));
 
     public final List<Double> precios = Collections.unmodifiableList(Arrays.asList(
            2000.00,
-            100.00,
+            3000.00,
             60000.00,
             8000.50
 
