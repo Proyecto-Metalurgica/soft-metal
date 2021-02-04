@@ -42,6 +42,9 @@
                 <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="listAllInactive">
                     <cpt:named>Listar todos los Clientes Inactivos</cpt:named>
                 </mb3:serviceAction>
+                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="ExportarListado">
+                    <cpt:named>Reporte  clientes</cpt:named>
+                </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
         <mb3:menu>
@@ -94,6 +97,15 @@
                 </mb3:serviceAction>
             </mb3:section>
         </mb3:menu>
+
+        <!--<mb3:menu>
+            <mb3:named>Reportes</mb3:named>
+            <mb3:section>
+                <mb3:serviceAction objectType="ReporteMenu" id="">
+                    <cpt:named>Reportes Clientes</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+        </mb3:menu>-->
         <!-- <mb3:named>Items</mb3:named>
          <mb3:section>
              <mb3:serviceAction objectType="simple.SimpleItemMenu" id="create">
