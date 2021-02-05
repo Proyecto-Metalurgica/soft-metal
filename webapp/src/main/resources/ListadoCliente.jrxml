@@ -102,7 +102,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 			<componentElement>
-				<reportElement x="0" y="5" width="521" height="50" backcolor="#B5DBFF" uuid="2874ff22-c284-4b07-a753-c293ff75fc17">
+				<reportElement x="17" y="5" width="521" height="50" backcolor="#B5DBFF" uuid="2874ff22-c284-4b07-a753-c293ff75fc17">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
