@@ -61,7 +61,7 @@
 				<reportElement positionType="Float" x="0" y="0" width="555" height="50" backcolor="#B5DBFF" uuid="1203a796-3dcc-4bf4-a0f3-9d357399cb9f"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="506" height="30" forecolor="#000000" backcolor="#000000" uuid="70cbfd21-c3a2-49eb-bed3-f3fe6db7ecd0">
+				<reportElement x="0" y="0" width="555" height="30" forecolor="#000000" backcolor="#000000" uuid="70cbfd21-c3a2-49eb-bed3-f3fe6db7ecd0">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -83,12 +83,9 @@
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="429" y="30" width="76" height="20" uuid="6d7d548d-3754-4e11-8a46-1683502ab951"/>
+				<reportElement x="429" y="30" width="127" height="20" uuid="6d7d548d-3754-4e11-8a46-1683502ab951"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="505" y="0" width="1" height="50" uuid="4722a04a-8763-4e3c-a28b-3169b3adb286"/>
-			</line>
 			<line>
 				<reportElement x="506" y="0" width="49" height="1" uuid="2ee282b9-252c-46f5-b52d-3176491bb6da"/>
 			</line>
@@ -105,7 +102,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 			<componentElement>
-				<reportElement x="77" y="5" width="401" height="50" backcolor="#B5DBFF" uuid="2874ff22-c284-4b07-a753-c293ff75fc17">
+				<reportElement x="0" y="5" width="521" height="50" backcolor="#B5DBFF" uuid="2874ff22-c284-4b07-a753-c293ff75fc17">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -115,12 +112,12 @@
 					<datasetRun subDataset="Dataset1" uuid="7eab730d-1c59-435c-9ed7-2ffa84b9df0b">
 						<dataSourceExpression><![CDATA[$P{ds}]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="50" uuid="c2e295f1-d2a5-4633-b289-f67339bb1221">
+					<jr:column width="80" uuid="c2e295f1-d2a5-4633-b289-f67339bb1221">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="50" height="20" uuid="d1368a76-defd-4881-93a7-50724d520bfa">
+								<reportElement x="0" y="0" width="80" height="20" uuid="d1368a76-defd-4881-93a7-50724d520bfa">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -132,7 +129,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement style="Table_TH" x="0" y="0" width="50" height="30" isPrintInFirstWholeBand="true" uuid="0188c561-8952-47fe-abb5-cca97ce73136">
+								<reportElement style="Table_TH" x="0" y="0" width="80" height="30" isPrintInFirstWholeBand="true" uuid="0188c561-8952-47fe-abb5-cca97ce73136">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement verticalAlignment="Middle">
@@ -143,12 +140,12 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="79" uuid="9a332155-6f9d-45a1-b3ee-81f0da7ebeac">
+					<jr:column width="100" uuid="9a332155-6f9d-45a1-b3ee-81f0da7ebeac">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="79" height="20" uuid="efb07251-7c39-44f9-8005-93238d88cc97">
+								<reportElement x="0" y="0" width="100" height="20" uuid="efb07251-7c39-44f9-8005-93238d88cc97">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -160,7 +157,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement style="Table_TH" x="0" y="0" width="79" height="30" isPrintInFirstWholeBand="true" uuid="107962fd-1eb8-4523-818e-c1bc423a44e9">
+								<reportElement style="Table_TH" x="0" y="0" width="100" height="30" isPrintInFirstWholeBand="true" uuid="107962fd-1eb8-4523-818e-c1bc423a44e9">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 								</reportElement>
@@ -201,12 +198,12 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="70" uuid="78c71e2a-b472-4bb6-ab3e-24a0d0ba7d8f">
+					<jr:column width="139" uuid="78c71e2a-b472-4bb6-ab3e-24a0d0ba7d8f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="70" height="20" uuid="f1e7abc9-ed85-4243-8183-cb0753cce78f">
+								<reportElement x="0" y="0" width="139" height="20" uuid="f1e7abc9-ed85-4243-8183-cb0753cce78f">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -218,7 +215,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement style="Table_TH" x="0" y="0" width="70" height="30" isPrintInFirstWholeBand="true" uuid="cfa79c05-338b-4d46-83fe-07a44e227c90">
+								<reportElement style="Table_TH" x="0" y="0" width="139" height="30" isPrintInFirstWholeBand="true" uuid="cfa79c05-338b-4d46-83fe-07a44e227c90">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement verticalAlignment="Middle">
