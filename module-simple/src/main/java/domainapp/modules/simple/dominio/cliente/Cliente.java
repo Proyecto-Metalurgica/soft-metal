@@ -110,6 +110,14 @@ public class Cliente implements Comparable<Cliente> {
     @Property()
     private Boolean activo = true;
 
+
+    public String ReporCuil(){ return this.cuil; }
+    public String ReporName(){ return this.name; }
+    public String ReporTelefono(){ return this.telefono; }
+    public String ReporEmail(){ return this.email; }
+    public String ReporDireccion(){ return this.direccion; }
+    public String ReporActivo(){ return this.activo.toString(); }
+
     @javax.jdo.annotations.Persistent(
             mappedBy = "cliente",
             dependentElement = "false"

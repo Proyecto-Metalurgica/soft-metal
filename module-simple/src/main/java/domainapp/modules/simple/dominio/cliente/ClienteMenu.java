@@ -18,12 +18,17 @@
  */
 package domainapp.modules.simple.dominio.cliente;
 
-import java.math.BigInteger;
+
+import java.io.IOException;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
 
+import domainapp.modules.simple.dominio.reportes.EjecutarReportes;
+import net.sf.jasperreports.engine.JRException;
 import org.apache.isis.applib.annotation.*;
+import org.apache.isis.applib.value.Blob;
 import org.datanucleus.query.typesafe.TypesafeQuery;
 
 
@@ -128,12 +133,22 @@ public class ClienteMenu {
         return clientes;
     }
 
+
+
+
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Clientes Inactivos")
     @MemberOrder(sequence = "3")
     public List<Cliente> listAllInactive() {
         List<Cliente> clientes = repositoryCliente.ListarInactivos();
         return clientes;
+    }
+
+    @Action()
+    @ActionLayout(named = "Listado Exportado")
+    public Blob ExportarListado() throws JRException, IOException {
+        EjecutarReportes ejecutar = new EjecutarReportes();
+        return ejecutar.ListadoClientesPDF(repositoryCliente.ListarActivos());
     }
 
     @javax.inject.Inject

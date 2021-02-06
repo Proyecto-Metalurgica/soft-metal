@@ -1,14 +1,20 @@
 package domainapp.modules.simple.dominio.cliente;
 
 
+import domainapp.modules.simple.dominio.reportes.EjecutarReportes;
+import net.sf.jasperreports.engine.JRException;
 import org.apache.isis.applib.query.QueryDefault;
+
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.value.Blob;
 
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @DomainService(
@@ -47,10 +53,26 @@ public class ClienteRepository {
                         "findAllInactives"));
     }
 
+    @Programmatic
+    public Blob generarReporteClientes()throws JRException, IOException
+    {
 
+        List<Cliente> clientes = new ArrayList<Cliente>();
+
+        EjecutarReportes ejecutarReportes=new EjecutarReportes();
+
+        clientes = repositoryService.allInstances(Cliente.class);
+
+        return ejecutarReportes.ListadoClientesPDF(clientes);
+    }
+
+    @javax.inject.Inject
+    EjecutarReportes ejecutarReportes;
 
     @javax.inject.Inject
     RepositoryService repositoryService;
+
+
 
 }
 
