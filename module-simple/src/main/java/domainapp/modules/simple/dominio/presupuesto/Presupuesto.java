@@ -114,12 +114,15 @@ public class Presupuesto implements Comparable<Presupuesto> {
     )
     public Object newOrdenCompra() {
         if(this.getEstado().equals(Estado.Espera)){
-            if(this.getOrdenCompra() == null){
+            if(this.getOrdenCompra() == null && !this.items.isEmpty()){
                 this.updatePreciosItems();
                 this.setEstado(Estado.Aprobado);
                 return repositoryService.persist(new OrdenCompra(this.nroPresupuesto,this.precio, this));
             }
-            else{
+            else if(this.items.isEmpty()){
+                messageService.warnUser("No se puede crear OC sin tener items cargados");
+            }
+            else {
                 messageService.warnUser("Ya existe una OC para este presupuesto");
             }
         }
@@ -163,6 +166,22 @@ public class Presupuesto implements Comparable<Presupuesto> {
             messageService.warnUser("El Listado de Items se encuentra vacio");
             setPrecio(0.0);
         }
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED)
+    public Presupuesto anularPresupuesto()
+    {
+        if(getEstado().equals(Estado.Espera)){
+            setEstado(Estado.Anulado);
+            messageService.warnUser("Se a Anulado el presupuesto");
+        }
+        else if(getEstado().equals(Estado.Aprobado)){
+            messageService.warnUser("No se puede Anular un presupuesto Aprobado");
+        }
+        else {
+            messageService.warnUser("El presupuesto ya estaba previamente Anulado");
+        }
+        return this;
     }
 
     @Override

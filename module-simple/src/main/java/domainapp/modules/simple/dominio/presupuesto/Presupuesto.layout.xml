@@ -35,6 +35,9 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Datos del Presupuesto">
+                                <cpt:action id="anularPresupuesto" promptStyle="INLINE">
+                                    <cpt:named>Anular Presupuesto</cpt:named>
+                                </cpt:action>
                                 <cpt:action id="updatePrecio" promptStyle="INLINE">
                                     <cpt:named>Actualizar Precio Total</cpt:named>
                                     <cpt:describedAs>Suma el total de los items elegidos</cpt:describedAs>

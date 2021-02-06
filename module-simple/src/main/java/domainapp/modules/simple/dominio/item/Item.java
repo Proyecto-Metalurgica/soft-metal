@@ -70,7 +70,7 @@ public class Item implements Comparable<Item> {
     }
 
     @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
-    public void updateCantidad(
+    public Item updateCantidad(
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Cantidad") final Integer cantidad){
         setCantidad(cantidad);
@@ -78,6 +78,7 @@ public class Item implements Comparable<Item> {
             setPrecioTotal(this.precio * cantidad);
             this.presupuesto.updatePreciosItems();
         }
+        return this;
     }
 
     public Integer default0UpdateCantidad() {
