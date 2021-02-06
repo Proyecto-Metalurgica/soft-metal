@@ -71,6 +71,10 @@
                                     <cpt:named>Crear Orden de Compra</cpt:named>
                                 </cpt:action>
                                 <cpt:property id="ordenCompra" namedEscaped="true"/>
+                                <cpt:action id="newOrdenTrabajo" promptStyle="INLINE">
+                                    <cpt:named>Crear Orden de Trabajo</cpt:named>
+                                </cpt:action>
+                                <cpt:property id="ordenTrabajo" namedEscaped="true"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

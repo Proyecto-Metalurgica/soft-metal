@@ -1,6 +1,7 @@
 package domainapp.modules.simple.dominio.ordenOT;
 
 
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.message.MessageService;
@@ -17,6 +18,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.jdo.annotations.IdentityType;
 
 import javax.jdo.annotations.VersionStrategy;
+import java.math.BigInteger;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -34,26 +36,26 @@ import javax.jdo.annotations.VersionStrategy;
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class OrdenTrabajo {
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
+    @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @Property(editing = Editing.ENABLED)
-    private String nroOT;
+    @PropertyLayout(named="Nro Orden de Compra")
+    @Title(prepend = "Nro OT: ")
+    private BigInteger nroOT;
 
-    @javax.jdo.annotations.Column(allowsNull = "true", length = 40)
-    @lombok.NonNull
+    @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(editing = Editing.ENABLED)
     private EstadoOT estadoOT;
 
-
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @lombok.NonNull
-    @Property()
+    @Property(editing = Editing.ENABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
     @Title()
     private LocalDate fecha;
 
-
-
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @Property(editing = Editing.DISABLED)
+    private Presupuesto presupuesto;
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent
