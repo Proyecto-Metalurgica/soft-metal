@@ -23,91 +23,66 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>SoftMetal- Sistema de Gestion Metalurgica</title>
         
+        <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+        
         <style type="text/css">
-
-
 
 body {
     background-color: #1A467B;
     font-family: Verdana, Helvetica, Arial;
     font-size: 90%;
+    background-image: url("about/images/desktop-tools.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-
-li {
-    margin-top: 6px;
-    margin-bottom: 6px;
+#header1 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    color: white;
+	font-size: 40px;
+	-webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
-table {
-    border-collapse: collapse;
+#b1{
+    position: relative;
+    top: 50%;
+    left: 25%;
+    color:white;
 }
-table, th, td {
-    border: 1px;
-    border-style: solid;
-    border-color: lightgray;
-}
-th, td {
-    padding: 10px;
-}
-#wrapper {
-    background-color: #ffffff;
-    width: 900px;
-    margin: 8px auto;
-    padding: 12px;
+#a1, a1:visited{
+    color:white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
         </style>
     </head>
     <body>
-        <div id="wrapper">
-            <img alt="Isis Logo" src="about/images/isis-logo.png" />
-             
-            <p>
-                This is the SoftMetal app.
+        <div>
+             <br/>
+                <br/>
+                <br/>
+            <h1 id=header1>
+                Sistema de Gestion de Presupuestos
                 <br/>
                 <br/>
                 <br/>
-            </p>
-
-            <p>To access the app:</p>
-            <ul>
-                <li>
-                    <p>
-                        <b><a href="wicket/">wicket/</a></b>
-                    </p>
-                    <p>
-                        provides access to a generic UI for end-users,
-                        Apache Isis' <a href="http://isis.apache.org/guides/ugvw/ugvw.html" target="_blank">Wicket Viewer</a>.
-                        As its name suggests, this viewer is built on top of <a href="http://wicket.apache.org" target="_blank">Apache Wicket</a>&trade;.
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        <b>
-                            <a href="swagger-ui/index.html">swagger-ui/</a>
-                        </b>
-                    </p>
-                    <p>
-                        provides access to a Swagger UI which uses a subset of the framework's automatically
-                        generated <a href="restful/">RESTful API</a> (provided by the 
-                        <a href="http://isis.apache.org/guides/ugvro/ugvro.html"  target="_blank">Restful Objects viewer</a>).  There are 
-                        three versions of the Swagger spec files (that drive the UI): 
-                        <a href="restful/swagger/public">public</a> (for use by "third-party" apps), 
-                        <a href="restful/swagger/private">private</a> (for use by internal apps), and 
-                        <a href="restful/swagger/prototyping">prototyping</a> (an extended version of the private
-                        API).  The Swagger spec files are themselves dynamically generated and can be used to generate
-                        client-side stubs.
-                    </p>
-                    <p>The RESTful API can return both simple representations and also richer hypermedia representations
-                        that are conformant with the <a href="http://restfulobjects.org"  target="_blank">Restful Objects</a> spec.
-                        The HTTP <code>Accept</code> header is used to select which representation should be generated.
-                    </p>
-                </li>
-            </ul>
-
-            <p>
-            The default user/password is <b><i>sven/pass</i></b> (as configured in the
-            <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/webapp/src/main/webapp/WEB-INF/shiro.ini" target="_blank">shiro.ini</a> file).
-            </p>
-            
+                <b id=b1><a id=a1 href="wicket/">Entrar al Sistema</a></b>
+            </h1>
         </div>
     </body>
 </html>

@@ -35,6 +35,9 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <cpt:fieldSet name="Datos del Presupuesto">
+                                <cpt:action id="anularPresupuesto" promptStyle="INLINE">
+                                    <cpt:named>Anular Presupuesto</cpt:named>
+                                </cpt:action>
                                 <cpt:action id="updatePrecio" promptStyle="INLINE">
                                     <cpt:named>Actualizar Precio Total</cpt:named>
                                     <cpt:describedAs>Suma el total de los items elegidos</cpt:describedAs>
@@ -68,6 +71,10 @@
                                     <cpt:named>Crear Orden de Compra</cpt:named>
                                 </cpt:action>
                                 <cpt:property id="ordenCompra" namedEscaped="true"/>
+                                <cpt:action id="newOrdenTrabajo" promptStyle="INLINE">
+                                    <cpt:named>Crear Orden de Trabajo</cpt:named>
+                                </cpt:action>
+                                <cpt:property id="ordenTrabajo" namedEscaped="true"/>
                             </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>

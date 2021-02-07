@@ -9,6 +9,7 @@ import com.google.common.collect.ComparisonChain;
 import domainapp.modules.simple.dominio.cliente.Cliente;
 import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
+import domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo;
 import domainapp.modules.simple.dominio.pagos.Pago;
 import org.apache.isis.applib.annotation.*;
 
@@ -39,11 +40,16 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @Queries({
         @Query(
                 name = "find", language = "JDOQL",
-                value = "SELECT "),})
+                value = "SELECT "),
+        @Query(
+                name = "findLast", language = "JDOQL",
+                value = "SELECT "
+                        + "ORDER BY nroPresupuesto DESC"),
+})
 
 @javax.jdo.annotations.Unique(name = "Presupuesto_name_UNQ", members = {"nroPresupuesto"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout(cssClassFa="file-text-o" )
+@DomainObjectLayout(cssClassFa = "file-text-o")
 @lombok.Getter
 @lombok.Setter
 @lombok.RequiredArgsConstructor
@@ -63,7 +69,8 @@ public class Presupuesto implements Comparable<Presupuesto> {
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
-    @lombok.Getter @lombok.Setter
+    @lombok.Getter
+    @lombok.Setter
     @Property(editing = Editing.DISABLED)
     private Cliente cliente;
 
@@ -83,8 +90,19 @@ public class Presupuesto implements Comparable<Presupuesto> {
     )
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(editing = Editing.DISABLED)
-    @lombok.Getter @lombok.Setter
+    @lombok.Getter
+    @lombok.Setter
     private OrdenCompra ordenCompra;
+
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "presupuesto",
+            dependentElement = "false"
+    )
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property(editing = Editing.DISABLED)
+    @lombok.Getter
+    @lombok.Setter
+    private OrdenTrabajo ordenTrabajo;
 
     @javax.jdo.annotations.Persistent(
             mappedBy = "presupuesto",
@@ -101,9 +119,9 @@ public class Presupuesto implements Comparable<Presupuesto> {
     )
     public Object newItem() {
         if (this.getEstado().equals(Estado.Espera)) {
-            return repositoryService.persist(new Item(this, items.size()+1));
-        }
-        else { messageService.warnUser("Solo se pueden agregar items a un presupuesto en Espera");
+            return repositoryService.persist(new Item(this, items.size() + 1));
+        } else {
+            messageService.warnUser("Solo se pueden agregar items a un presupuesto en Espera");
             return this;
         }
     }
@@ -113,22 +131,39 @@ public class Presupuesto implements Comparable<Presupuesto> {
             associateWith = "simple"
     )
     public Object newOrdenCompra() {
-        if(this.getEstado().equals(Estado.Espera)){
-            if(this.getOrdenCompra() == null){
+        if (this.getEstado().equals(Estado.Espera)) {
+            if (this.getOrdenCompra() == null && !this.items.isEmpty()) {
                 this.updatePreciosItems();
                 this.setEstado(Estado.Aprobado);
-                return repositoryService.persist(new OrdenCompra(this.nroPresupuesto,this.precio, this));
-            }
-            else{
+                return repositoryService.persist(new OrdenCompra(this.nroPresupuesto, this.precio, this));
+            } else if (this.items.isEmpty()) {
+                messageService.warnUser("No se puede crear OC sin tener items cargados");
+            } else {
                 messageService.warnUser("Ya existe una OC para este presupuesto");
             }
-        }
-        else if(this.getEstado().equals(Estado.Anulado)){
+        } else if (this.getEstado().equals(Estado.Anulado)) {
             messageService.warnUser("No se pueden crear OC para presupuestos Anulados");
-        }
-        else {
+        } else {
             messageService.warnUser("Solo se pueden crear OC para presupuestos en Espera");
         }
+        return this;
+    }
+
+    @Action(
+            semantics = SemanticsOf.NON_IDEMPOTENT,
+            associateWith = "simple"
+    )
+    public Object newOrdenTrabajo() {
+        if (this.getOrdenCompra() != null && this.getOrdenTrabajo() == null) {
+            return repositoryService.persist(new OrdenTrabajo(this.nroPresupuesto, this));
+        }
+        else if (this.getOrdenTrabajo() != null) {
+            messageService.warnUser("Ya existe una OT para este presupuesto");
+        }
+        else {
+            messageService.warnUser("No se puede crear una OT sin haber creado antes una OC");
+        }
+
         return this;
     }
 
@@ -145,8 +180,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
                 messageService.warnUser("El Listado de Items se encuentra vacio");
                 setPrecio(0.0);
             }
-        }
-        else {
+        } else {
             messageService.warnUser("Solo los presupuestos en Espera pueden modificar su precio");
         }
         return this;
@@ -163,6 +197,19 @@ public class Presupuesto implements Comparable<Presupuesto> {
             messageService.warnUser("El Listado de Items se encuentra vacio");
             setPrecio(0.0);
         }
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED)
+    public Presupuesto anularPresupuesto() {
+        if (getEstado().equals(Estado.Espera)) {
+            setEstado(Estado.Anulado);
+            messageService.warnUser("Se a Anulado el presupuesto");
+        } else if (getEstado().equals(Estado.Aprobado)) {
+            messageService.warnUser("No se puede Anular un presupuesto Aprobado");
+        } else {
+            messageService.warnUser("El presupuesto ya estaba previamente Anulado");
+        }
+        return this;
     }
 
     @Override
