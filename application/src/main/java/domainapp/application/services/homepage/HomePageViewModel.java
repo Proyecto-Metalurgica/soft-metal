@@ -20,11 +20,13 @@ package domainapp.application.services.homepage;
 
 import java.util.List;
 
-import domainapp.modules.simple.dominio.cliente.ClienteMenu;
-import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
+import domainapp.modules.simple.dominio.presupuesto.PresupuestoRepository;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.HomePage;
 
 
 
@@ -34,14 +36,17 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 )
 public class HomePageViewModel {
 
-    /*public TranslatableString title() {
-        return TranslatableString.tr("{num} clientes", "num", getObjects().size());
+    public TranslatableString title() {
+        //return TranslatableString.tr("Presupuestos Totales: {num} ", "num", getObjects().size());
+        return TranslatableString.tr("Ultimos Presupuestos");
     }
 
-    public List<Cliente> getObjects() {
-        return clienteMenu.listAll();
-    }*/
+    @HomePage()
+    @CollectionLayout(named="Ultimos Presupuestos")
+    public List<Presupuesto> getObjects() {
+        return presupuestoRepository.ListarUltimos();
+    }
 
     @javax.inject.Inject
-    ClienteMenu clienteMenu;
+    PresupuestoRepository presupuestoRepository;
 }

@@ -40,7 +40,12 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @Queries({
         @Query(
                 name = "find", language = "JDOQL",
-                value = "SELECT "),})
+                value = "SELECT "),
+        @Query(
+                name = "findLast", language = "JDOQL",
+                value = "SELECT "
+                        + "ORDER BY nroPresupuesto DESC"),
+})
 
 @javax.jdo.annotations.Unique(name = "Presupuesto_name_UNQ", members = {"nroPresupuesto"})
 @DomainObject(auditing = Auditing.ENABLED)

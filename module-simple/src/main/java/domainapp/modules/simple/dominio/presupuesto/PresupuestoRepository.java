@@ -32,6 +32,14 @@ public class PresupuestoRepository {
                         "find"));
     }
 
+    @Programmatic
+    public List<Presupuesto> ListarUltimos() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Presupuesto.class,
+                        "findLast"));
+    }
+
     @javax.inject.Inject
     RepositoryService repositoryService;
 }
