@@ -2,10 +2,7 @@ package domainapp.modules.simple.dominio.pagos;
 
 
 import com.google.common.collect.ComparisonChain;
-import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
-import domainapp.modules.simple.dominio.presupuesto.Estado;
-import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
 
@@ -22,8 +19,6 @@ import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.schema.utils.jaxbadapters.JodaDateTimeStringAdapter;
 import org.joda.time.LocalDate;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.math.BigInteger;
-import java.text.Normalizer;
 
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;

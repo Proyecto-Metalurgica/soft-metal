@@ -2,10 +2,8 @@ package domainapp.modules.simple.dominio.ordenCompra;
 
 
 import com.google.common.collect.ComparisonChain;
-import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.pagos.Pago;
 import domainapp.modules.simple.dominio.pagos.PagoRepository;
-import domainapp.modules.simple.dominio.presupuesto.Estado;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
@@ -21,7 +19,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import java.math.BigInteger;
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 

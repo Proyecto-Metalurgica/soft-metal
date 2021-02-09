@@ -7,13 +7,11 @@ import com.google.common.collect.ComparisonChain;
 
 
 import domainapp.modules.simple.dominio.cliente.Cliente;
-import domainapp.modules.simple.dominio.item.Item;
+import domainapp.modules.simple.dominio.presupuesto.item.Item;
 import domainapp.modules.simple.dominio.ordenCompra.OrdenCompra;
 import domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo;
-import domainapp.modules.simple.dominio.pagos.Pago;
 import org.apache.isis.applib.annotation.*;
 
-import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
@@ -30,7 +28,6 @@ import java.util.TreeSet;
 
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
-import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE;
 
 
 @javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE, schema = "simple")
@@ -155,7 +152,13 @@ public class Presupuesto implements Comparable<Presupuesto> {
     )
     public Object newOrdenTrabajo() {
         if (this.getOrdenCompra() != null && this.getOrdenTrabajo() == null) {
-            return repositoryService.persist(new OrdenTrabajo(this.nroPresupuesto, this));
+            if(this.getOrdenCompra().getFechaInicio() != null && this.getOrdenCompra().getFechaEntrega() !=null){
+                return repositoryService.persist(new OrdenTrabajo(this));
+            }
+            else{
+                messageService.warnUser("Falta coordinar las Fechas de Inicio/Entrega en la Orden de Compra");
+            }
+
         }
         else if (this.getOrdenTrabajo() != null) {
             messageService.warnUser("Ya existe una OT para este presupuesto");

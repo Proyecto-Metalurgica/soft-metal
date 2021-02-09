@@ -1,4 +1,4 @@
-package domainapp.modules.simple.dominio.item;
+package domainapp.modules.simple.dominio.presupuesto.item;
 
 import java.util.List;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
