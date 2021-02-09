@@ -1,7 +1,8 @@
 package domainapp.modules.simple.dominio.ordenOT;
 
 
-import domainapp.modules.simple.dominio.item.Item;
+import domainapp.modules.simple.dominio.ordenOT.itemOT.ItemOT;
+import domainapp.modules.simple.dominio.presupuesto.item.Item;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
@@ -35,7 +36,7 @@ import java.util.TreeSet;
 
 @javax.jdo.annotations.Unique(name="OrdenTrabajo_name_UNQ", members = {"nroOT"})
 @DomainObject(auditing = Auditing.ENABLED)
-@DomainObjectLayout()  // causes UI events to be triggered
+@DomainObjectLayout(cssClassFa = "dropbox")  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
 public class OrdenTrabajo {
@@ -46,14 +47,20 @@ public class OrdenTrabajo {
     private BigInteger nroOT;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property(editing = Editing.ENABLED)
+    @Property(editing = Editing.DISABLED)
     private EstadoOT estadoOT = EstadoOT.Espera;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property(editing = Editing.ENABLED)
+    @PropertyLayout(named="Fecha Inicio de Trabajos: ")
+    @Property(editing = Editing.DISABLED)
     @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
-    @Title()
-    private LocalDate fecha;
+    private LocalDate fechaInicio;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @PropertyLayout(named="Fecha Entrega de Trabajos: ")
+    @Property(editing = Editing.DISABLED)
+    @XmlJavaTypeAdapter(JodaDateTimeStringAdapter.ForJaxb.class)
+    private LocalDate fechaEntrega;
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
@@ -69,10 +76,12 @@ public class OrdenTrabajo {
     @lombok.Setter
     private SortedSet<ItemOT> itemsOT = new TreeSet<ItemOT>();
 
-    public OrdenTrabajo(Presupuesto presupuesto, SortedSet<Item> items) {
+    public OrdenTrabajo(Presupuesto presupuesto) {
         this.nroOT = presupuesto.getNroPresupuesto();
         this.presupuesto = presupuesto;
-        for (Item item : items)
+        this.fechaInicio = presupuesto.getOrdenCompra().getFechaInicio();
+        this.fechaEntrega = presupuesto.getOrdenCompra().getFechaEntrega();
+        for (Item item : presupuesto.getItems())
         {
             itemsOT.add(new ItemOT(this,item));
         }

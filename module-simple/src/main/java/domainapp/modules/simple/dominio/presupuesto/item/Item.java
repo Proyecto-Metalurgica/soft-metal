@@ -1,10 +1,10 @@
-package domainapp.modules.simple.dominio.ordenOT;
+package domainapp.modules.simple.dominio.presupuesto.item;
 
-import com.google.common.collect.ComparisonChain;
-import domainapp.modules.simple.dominio.item.Item;
+import java.util.List;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import domainapp.modules.simple.dominio.producto.Producto;
 import domainapp.modules.simple.dominio.producto.ProductoMenu;
+import com.google.common.collect.ComparisonChain;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.message.MessageService;
@@ -13,7 +13,6 @@ import org.apache.isis.applib.services.title.TitleService;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
-import java.util.List;
 
 import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
@@ -27,7 +26,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_Y
 @DomainObjectLayout(cssClassFa="list-alt")  // causes UI events to be triggered
 @lombok.Getter @lombok.Setter
 @lombok.RequiredArgsConstructor
-public class ItemOT implements Comparable<ItemOT> {
+public class Item implements Comparable<Item> {
 
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
@@ -45,39 +44,83 @@ public class ItemOT implements Comparable<ItemOT> {
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property()
-    private Integer cantidad;
+    private Double precio = 0.0;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property()
+    private Integer cantidad = 0;
+
+    @javax.jdo.annotations.Column(allowsNull = "true")
+    @Property()
+    private Double precioTotal = 0.0;
 
     @javax.jdo.annotations.Column(allowsNull = "true", length = 800)
     @Property(editing = Editing.ENABLED)
     private String detalle;
 
-    @javax.jdo.annotations.Column(allowsNull = "true")
-    @Property(editing = Editing.ENABLED)
-    private EstadoOT estadoOT = EstadoOT.Espera;
-
     @javax.jdo.annotations.Column(allowsNull = "false")
     @lombok.NonNull
     @lombok.Getter @lombok.Setter
     @Property(editing = Editing.DISABLED)
-    private OrdenTrabajo ordenTrabajo;
+    private Presupuesto presupuesto;
 
-    public ItemOT(OrdenTrabajo ordenTrabajo, Item item) {
-        this.ordenTrabajo = ordenTrabajo;
-        this.nroItem = item.getNroItem();
-        this.producto = item.getProducto();
-        this.medida = item.getMedida();
-        this.cantidad = item.getCantidad();
+    public Item(Presupuesto presupuesto, Integer nroItem) {
+        this.presupuesto = presupuesto;
+        this.nroItem = nroItem;
     }
+
+    @Action(semantics = IDEMPOTENT, command = ENABLED, publishing = Publishing.ENABLED, associateWith = "producto")
+    public Item updateCantidad(
+            @Parameter(maxLength = 40)
+            @ParameterLayout(named = "Cantidad") final Integer cantidad){
+        setCantidad(cantidad);
+        if(this.precio !=null){
+            setPrecioTotal(this.precio * cantidad);
+            this.presupuesto.updatePreciosItems();
+        }
+        return this;
+    }
+
+    public Integer default0UpdateCantidad() {
+        return getCantidad();
+    }
+
+    @Action(semantics = NON_IDEMPOTENT_ARE_YOU_SURE)
+    public Presupuesto delete() {
+        final String title = titleService.titleOf(this);
+        messageService.informUser(String.format("'%s' deleted", title));
+        repositoryService.remove(this);
+        return this.presupuesto;
+    }
+
 
     @Override
     public String toString() {
         return getNroItem().toString();
     }
 
-    public int compareTo(final ItemOT other) {
+
+
+    public int compareTo(final Item other) {
         return ComparisonChain.start()
                 .compare(this.getNroItem(), other.getNroItem())
                 .result();
+    }
+
+    @Action(semantics=SemanticsOf.IDEMPOTENT)
+    public Item addProducto(Producto producto) {
+        this.producto = producto.getNombre();
+        this.medida = producto.getMedida();
+        this.precio = producto.getPrecioUnitario();
+        this.cantidad = 1;
+        this.precioTotal = cantidad * precio;
+        this.presupuesto.updatePreciosItems();
+        return this;
+    }
+    public List<Producto> autoComplete0AddProducto(
+            @MinLength(1)
+                    String searchTerm) {
+        return productoMenu.findByName(searchTerm);
     }
 
     @javax.inject.Inject
