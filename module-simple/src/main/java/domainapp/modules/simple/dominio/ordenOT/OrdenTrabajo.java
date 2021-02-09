@@ -1,6 +1,7 @@
 package domainapp.modules.simple.dominio.ordenOT;
 
 
+import domainapp.modules.simple.dominio.item.Item;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import lombok.AccessLevel;
 import org.apache.isis.applib.annotation.*;
@@ -19,6 +20,8 @@ import javax.jdo.annotations.IdentityType;
 
 import javax.jdo.annotations.VersionStrategy;
 import java.math.BigInteger;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -44,7 +47,7 @@ public class OrdenTrabajo {
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(editing = Editing.ENABLED)
-    private EstadoOT estadoOT;
+    private EstadoOT estadoOT = EstadoOT.Espera;
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(editing = Editing.ENABLED)
@@ -56,6 +59,24 @@ public class OrdenTrabajo {
     @lombok.NonNull
     @Property(editing = Editing.DISABLED)
     private Presupuesto presupuesto;
+
+    @javax.jdo.annotations.Persistent(
+            mappedBy = "ordenTrabajo",
+            dependentElement = "false"
+    )
+    @CollectionLayout(defaultView = "table")
+    @lombok.Getter
+    @lombok.Setter
+    private SortedSet<ItemOT> itemsOT = new TreeSet<ItemOT>();
+
+    public OrdenTrabajo(Presupuesto presupuesto, SortedSet<Item> items) {
+        this.nroOT = presupuesto.getNroPresupuesto();
+        this.presupuesto = presupuesto;
+        for (Item item : items)
+        {
+            itemsOT.add(new ItemOT(this,item));
+        }
+    }
 
     @javax.inject.Inject
     @javax.jdo.annotations.NotPersistent

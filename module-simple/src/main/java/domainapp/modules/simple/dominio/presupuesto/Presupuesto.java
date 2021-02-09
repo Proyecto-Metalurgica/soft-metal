@@ -155,7 +155,7 @@ public class Presupuesto implements Comparable<Presupuesto> {
     )
     public Object newOrdenTrabajo() {
         if (this.getOrdenCompra() != null && this.getOrdenTrabajo() == null) {
-            return repositoryService.persist(new OrdenTrabajo(this.nroPresupuesto, this));
+            return repositoryService.persist(new OrdenTrabajo(this, getItems()));
         }
         else if (this.getOrdenTrabajo() != null) {
             messageService.warnUser("Ya existe una OT para este presupuesto");
