@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -8,32 +9,41 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class Tab1Page {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
 
-      public resultadosArray : any = null;;
+  public resultadosArray: any = null;;
 
 
-       ngOnInit() {
-        this.listarTodasLasOT();
-      }
+  ngOnInit() {
+    this.listarTodasLasOT();
+  }
 
-     listarTodasLasOT(){
-           const httpOptions = {
-             headers: new HttpHeaders({
-               'Accept':  'application/json;profile=urn:org.apache.isis/v1',
-               'Authorization': 'Basic c3ZlbjpwYXNz',
-             })
-           }
-           const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAll/invoke';
-           this.http.get(URL, httpOptions)
-           .subscribe(resultados => (this.resultadosArray = resultados)
-           );
+  listarTodasLasOT() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json;profile=urn:org.apache.isis/v1',
+        'Authorization': 'Basic c3ZlbjpwYXNz',
+      })
+    }
+    const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAll/invoke';
+    this.http.get(URL, httpOptions)
+      .subscribe((resultados: Array<any>) => {
+        var array = resultados;
+        array.pop();
+        this.resultadosArray = array;
+        //debugger;
+      });
 
-         }
+  }
 
-      filterItemsOfType(){
-        return this.resultadosArray.filter(resultado => resultado.titulo != null);
-      }
+  goToOrdenTrabajo() { 
+    this.router.navigate(['/tabs/tab2'])
+  }
+
+
+  filterItemsOfType() {
+    return this.resultadosArray.filter(resultado => resultado.title != null);
+  }
 
 }

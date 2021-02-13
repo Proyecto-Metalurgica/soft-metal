@@ -8,7 +8,7 @@
 
 
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="secondary">
     <ion-title>
       Todas las Ordenes de Trabajo
     </ion-title>
@@ -25,11 +25,13 @@
     <ion-label>
       <h1>{{resultado.$$title}}</h1>
       <p> Solicitado por <strong>operador</strong></p>
+      
     </ion-label>
+    <ion-button (click)="goToOrdenTrabajo()" color="secondary">Ver OT </ion-button>
 
   </ion-item>
 
 
-  <pre>Contenido obtenido: {{ resultadosArray | json }}</pre>
+  <!-- <pre>Contenido obtenido: {{ resultadosArray | json }}</pre> -->
 
 </ion-content>
