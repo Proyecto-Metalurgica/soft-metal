@@ -42,7 +42,44 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
+    <!-- Filtro de la extension dependencia "org.ebaysf.web" para evitar CORS usando Ionic y Swagger -->
+    <filter>
+        <filter-name>CORS Filter</filter-name>
+        <filter-class>org.ebaysf.web.cors.CORSFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowed.origins</param-name>
+            <param-value>http://apacheisis.ddns.net:8000, http://192.168.0.66:8100,http://localhost,https://localhost,http://localhost:8100,https://localhost:8100,file://</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.methods</param-name>
+            <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.headers</param-name>
+            <param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.exposed.headers</param-name>
+            <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Authorization</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.support.credentials</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.preflight.maxage</param-name>
+            <param-value>1800</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.logging.enabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CORS Filter</filter-name>
+        <url-pattern>/restful/*</url-pattern>
+    </filter-mapping>
+    <!-- end Filtro-->
 
     <!-- which configuration directory to read overloaded property files from -->
     <!-- 
