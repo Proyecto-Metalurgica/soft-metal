@@ -12,7 +12,7 @@ export class Tab1Page {
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  public resultadosArray: any = null;;
+  public resultadosArray: any = null;
 
 
   ngOnInit() {
@@ -32,15 +32,13 @@ export class Tab1Page {
         var array = resultados;
         array.pop();
         this.resultadosArray = array;
-        //debugger;
       });
 
   }
 
-  goToOrdenTrabajo() { 
-    this.router.navigate(['/tabs/tab2'])
+  goToOrdenTrabajo(id_ot) { 
+    this.router.navigate(['/tabs/tab2', { idOT: id_ot }])
   }
-
 
   filterItemsOfType() {
     return this.resultadosArray.filter(resultado => resultado.title != null);
