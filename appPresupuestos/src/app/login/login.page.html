@@ -1,12 +1,22 @@
 <ion-header [translucent]="true">
+
   <ion-toolbar color="secondary">
+    <ion-buttons slot="end">
+      <ion-button (click)="cierraApp()">
+        <ion-icon name="close-circle-sharp"></ion-icon>
+        Cerrar App
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       Login
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true">       
 
-  <ion-button (click)="goToTabs()" color="secondary">Conectarse</ion-button>
+
+    <ion-button (click)="goToTabs()" color="secondary">Conectarse</ion-button>    
+
+
 </ion-content>

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,14 @@ export class LoginPage {
   idOT;
   otData;
   param : any;
-  
+
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute, private router: Router) {}
-  
+
   ngOnInit() {
-    
+
   }
 
-  goToTabs() { 
+  goToTabs() {
     this.router.navigate(['/tabs'])
   }
 
