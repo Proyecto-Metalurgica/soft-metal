@@ -8,7 +8,7 @@
 
 
 <ion-header [translucent]="true">
-  <ion-toolbar color="secondary">
+  <ion-toolbar color="tertiary">
     <ion-title>
       Todas las Ordenes de Trabajo
     </ion-title>
@@ -16,21 +16,24 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item *ngFor="let resultado of resultadosArray">
+  <ion-list>
 
-    <ion-avatar slot="start">
-      <img src="https://img.icons8.com/plasticine/100/000000/task-completed.png">
-    </ion-avatar>
 
-    <ion-label>
-      <h1>{{resultado.$$title}}</h1>
-      <p> Solicitado por <strong>operador</strong></p>
-      
-    </ion-label>
-    <ion-button (click)="goToOrdenTrabajo(resultado.$$instanceId)" color="secondary">Ver OT </ion-button>
+    <ion-item *ngFor="let resultado of resultadosArray">
 
-  </ion-item>
+      <ion-avatar slot="start">
+        <img src="https://img.icons8.com/bubbles/50/000000/task.png"/>
+      </ion-avatar>
 
+      <ion-label>
+        <h1>{{resultado.$$title}}</h1>
+          <p> Solicitado por <strong>operador</strong></p>
+      </ion-label>
+
+        <ion-button (click)="goToOrdenTrabajo(resultado.$$instanceId)"  shape="round">VER</ion-button>
+
+    </ion-item>
+  </ion-list>
 
   <!-- <pre>Contenido obtenido: {{ resultadosArray | json }}</pre> -->
 
