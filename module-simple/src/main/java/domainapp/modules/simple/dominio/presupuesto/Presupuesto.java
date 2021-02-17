@@ -251,6 +251,20 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @lombok.Setter(AccessLevel.NONE)
     MessageService messageService;
 
+    public BigInteger ReporNro() {
+    }
+
+    public LocalDate ReporFecha() {
+    }
+
+    public Cliente ReporCliente() {
+    }
+
+    public Double ReporPrecio() {
+    }
+
+    public Estado ReporEstado() {
+    }
 }
 
 
