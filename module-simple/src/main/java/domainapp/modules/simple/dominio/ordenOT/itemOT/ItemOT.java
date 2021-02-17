@@ -62,6 +62,7 @@ public class ItemOT implements Comparable<ItemOT> {
         this.producto = item.getProducto();
         this.medida = item.getMedida();
         this.cantidad = item.getCantidad();
+        this.detalle = item.getDetalle();
     }
 
     @Override
