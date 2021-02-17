@@ -3,13 +3,14 @@
     --ion-safe-area-top: 20px;
     --ion-safe-area-bottom: 22px;
   }
-
 </style>
 
 
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
-    
+    <!-- <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons> -->
     <ion-title size="small">
       Listado Ordenes de Trabajo
     </ion-title>
@@ -23,15 +24,15 @@
     <ion-item *ngFor="let resultado of resultadosArray">
 
       <ion-avatar slot="start">
-        <img src="https://img.icons8.com/bubbles/50/000000/task.png"/>
+        <img src="https://img.icons8.com/bubbles/50/000000/task.png" />
       </ion-avatar>
 
       <ion-label>
         <h1>{{resultado.$$title}}</h1>
-          <p> Solicitado por <strong>operador</strong></p>
+        <p>Entrega <strong>{{resultado.fechaEntrega}}</strong></p>
       </ion-label>
 
-        <ion-button (click)="goToOrdenTrabajo(resultado.$$instanceId)"  shape="round">VER</ion-button>
+      <ion-button (click)="goToOrdenTrabajo(resultado.$$instanceId)" shape="round">VER</ion-button>
 
     </ion-item>
   </ion-list>
