@@ -32,6 +32,7 @@ export class Tab1Page {
         var array = resultados;
         array.pop();
         this.resultadosArray = array;
+        console.log(this.resultadosArray)
       });
 
   }

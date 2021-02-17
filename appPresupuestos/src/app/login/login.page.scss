@@ -1,10 +1,12 @@
+  ion-content {
+    --background: #999999 url("/assets/desktop-tools.png") no-repeat center center / cover;
 
+  }
   .vertical-center{
-      display: flex;
+       display: ruby;
       align-items: center;
       justify-content: center;
-      height: 40%;
-      /*margin-bottom: -30px;*/
+      margin-top: 300px;
     }
   
     #rounded {
