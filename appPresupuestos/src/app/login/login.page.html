@@ -1,22 +1,41 @@
 <ion-header [translucent]="true">
-
   <ion-toolbar color="secondary">
-    <ion-buttons slot="end">
-      <ion-button (click)="cierraApp()">
+    <ion-buttons slot="end" >
+      <ion-button (click)="cierraApp()" >
         <ion-icon name="close-circle-sharp"></ion-icon>
-        Cerrar App
+        Cerrar
       </ion-button>
     </ion-buttons>
-    <ion-title>
-      Login
+    <ion-title size="small">
+      Iniciar sesion
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">       
+<ion-content center text-center class="background">
+  <ion-list>
+    <ion-item>
+      <ion-icon name="person-circle" item-start></ion-icon>
+      <ion-input
+        placeholder= "Usuario">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="lock-closed" item-start></ion-icon>
+      <ion-input
+        placeholder= "Contraseña">
+      </ion-input>
+    </ion-item>
 
 
-    <ion-button (click)="goToTabs()" color="secondary">Conectarse</ion-button>    
+  </ion-list>
 
-
+  <ion-button type="submit" icon-left size="medium" expand="full" shape="round"  (click)="goToTabs()"
+  color="secondary" >
+      <ion-icon name="log-in"></ion-icon>
+      Ingresar
+      </ion-button>
+    
+ 
 </ion-content>
