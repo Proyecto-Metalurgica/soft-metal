@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListadoVehiculo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be469045-f533-4ae7-8938-c2128d59d4bf">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListadoPresupuesto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be469045-f533-4ae7-8938-c2128d59d4bf">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prueba"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -36,7 +36,7 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="nroPresupuesto" class="java.lang.String"/>
+		<field name="nroPresupuesto" class="java.lang.Number"/>
 		<field name="fecha" class="java.lang.String"/>
 		<field name="cliente" class="java.lang.String"/>
 		<field name="precio" class="java.lang.Double"/>
@@ -46,7 +46,7 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="nroPresupuesto" class="java.lang.String"/>
+	<field name="nroPresupuesto" class="java.lang.Number"/>
 	<field name="fecha" class="java.lang.String"/>
 	<field name="cliente" class="java.lang.String"/>
 	<field name="precio" class="java.lang.Double"/>
@@ -169,12 +169,12 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="81" uuid="098d6cd6-a359-40cc-9ad5-9117a3fc52bf">
+					<jr:column width="120" uuid="098d6cd6-a359-40cc-9ad5-9117a3fc52bf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="81" height="20" uuid="0509bd0f-1ba4-4b6a-a556-d57e3725fc51">
+								<reportElement x="0" y="0" width="120" height="20" uuid="0509bd0f-1ba4-4b6a-a556-d57e3725fc51">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 								</reportElement>
@@ -187,7 +187,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement style="Table_TH" x="0" y="0" width="81" height="30" isPrintInFirstWholeBand="true" uuid="c0591d0f-f25a-44ed-8504-6b19d047a6dd">
+								<reportElement style="Table_TH" x="0" y="0" width="120" height="30" isPrintInFirstWholeBand="true" uuid="c0591d0f-f25a-44ed-8504-6b19d047a6dd">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement verticalAlignment="Middle">
@@ -198,12 +198,12 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="139" uuid="78c71e2a-b472-4bb6-ab3e-24a0d0ba7d8f">
+					<jr:column width="70" uuid="78c71e2a-b472-4bb6-ab3e-24a0d0ba7d8f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="139" height="20" uuid="f1e7abc9-ed85-4243-8183-cb0753cce78f">
+								<reportElement x="0" y="0" width="70" height="20" uuid="f1e7abc9-ed85-4243-8183-cb0753cce78f">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -215,7 +215,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement style="Table_TH" x="0" y="0" width="139" height="30" isPrintInFirstWholeBand="true" uuid="cfa79c05-338b-4d46-83fe-07a44e227c90">
+								<reportElement style="Table_TH" x="0" y="0" width="70" height="30" isPrintInFirstWholeBand="true" uuid="cfa79c05-338b-4d46-83fe-07a44e227c90">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement verticalAlignment="Middle">

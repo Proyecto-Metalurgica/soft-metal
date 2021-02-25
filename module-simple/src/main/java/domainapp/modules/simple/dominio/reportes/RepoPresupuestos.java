@@ -13,14 +13,14 @@ public class RepoPresupuestos {
 
 
     private BigInteger nroPresupuesto;
-    private LocalDate fecha;
-    private Cliente cliente;
+    private String fecha;
+    private String cliente;
     private Double precio;
-    private Estado estado;
+    private String estado;
 
 
 
-    public RepoPresupuestos(BigInteger nroPresupuesto,LocalDate fecha,Cliente cliente,Double precio, Estado estado){
+    public RepoPresupuestos(BigInteger nroPresupuesto,String fecha,String cliente,Double precio, String estado){
         this.nroPresupuesto=nroPresupuesto;
         this.fecha=fecha;
         this.cliente=cliente;
@@ -32,19 +32,19 @@ public class RepoPresupuestos {
 
     public RepoPresupuestos(){}
 
-    public BigInteger getNroPresupuesto() { return this.nroPresupuesto;}
+    public Number getNroPresupuesto() { return this.nroPresupuesto;}
 
-    public LocalDate getFecha(){ return  this.fecha;}
+    public String getFecha(){ return  this.fecha;}
 
 
-    public Cliente getCliente(){
+    public String getCliente(){
         return this.cliente;
     }
 
     public Double getPrecio(){return  this.precio;}
 
 
-    public Estado getEstado(){
+    public String getEstado(){
         return this.estado;
     }
 

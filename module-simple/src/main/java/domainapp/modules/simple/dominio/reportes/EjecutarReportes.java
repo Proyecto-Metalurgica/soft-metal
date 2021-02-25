@@ -44,9 +44,10 @@ public class EjecutarReportes {
 
         presupuestosDatasource.add(new RepoPresupuestos());
 
+
         for (Presupuesto pre : presupuestos) {
 
-            RepoPresupuestos repoPresupuestos = new RepoPresupuestos(pre.ReporNro(),pre.ReporFecha(),pre.ReporCliente(),pre.ReporPrecio(),pre.ReporEstado());
+            RepoPresupuestos repoPresupuestos = new RepoPresupuestos(pre.ReporNro(),pre.ReporFecha().toString(),pre.ReporCliente(),pre.ReporPrecio(),pre.ReporEstado());
 
             presupuestosDatasource.add(repoPresupuestos);
 
