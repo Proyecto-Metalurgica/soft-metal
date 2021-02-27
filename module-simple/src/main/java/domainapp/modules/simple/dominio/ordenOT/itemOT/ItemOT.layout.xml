@@ -12,6 +12,15 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Datos del Item OT">
+                                <c:action id="estadoEspera" promptStyle="INLINE">
+                                    <c:named>Estado Espera</c:named>
+                                </c:action>
+                                <c:action id="estadoEjecucion" promptStyle="INLINE">
+                                    <c:named>Estado Ejecucion</c:named>
+                                </c:action>
+                                <c:action id="estadoTerminado" promptStyle="INLINE">
+                                    <c:named>Estado Terminado</c:named>
+                                </c:action>
                                 <c:property id="nroItemOT" namedEscaped="true"/>
                                 <c:property id="producto" namedEscaped="true"/>
                                 <c:property id="medida" namedEscaped="true" />

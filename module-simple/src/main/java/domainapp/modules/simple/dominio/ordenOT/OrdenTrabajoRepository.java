@@ -2,6 +2,7 @@ package domainapp.modules.simple.dominio.ordenOT;
 
 
 
+import domainapp.modules.simple.dominio.cliente.Cliente;
 import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -32,11 +33,19 @@ public class OrdenTrabajoRepository {
     }
 
     @Programmatic
-    public List<OrdenTrabajo> Listar() {
+    public List<OrdenTrabajo> ListarActivos() {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         OrdenTrabajo.class,
-                        "find"));
+                        "findAllActives"));
+    }
+
+    @Programmatic
+    public List<OrdenTrabajo> ListarInactivos() {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        OrdenTrabajo.class,
+                        "findAllInactives"));
     }
 
     @javax.inject.Inject

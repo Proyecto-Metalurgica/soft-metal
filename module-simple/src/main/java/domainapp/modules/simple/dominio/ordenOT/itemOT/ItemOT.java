@@ -3,6 +3,8 @@ package domainapp.modules.simple.dominio.ordenOT.itemOT;
 import com.google.common.collect.ComparisonChain;
 import domainapp.modules.simple.dominio.ordenOT.EstadoOT;
 import domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo;
+import domainapp.modules.simple.dominio.presupuesto.Estado;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import domainapp.modules.simple.dominio.presupuesto.item.Item;
 import domainapp.modules.simple.dominio.producto.ProductoMenu;
 import lombok.AccessLevel;
@@ -13,6 +15,8 @@ import org.apache.isis.applib.services.title.TitleService;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
+
+import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
 
 @javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
@@ -74,6 +78,24 @@ public class ItemOT implements Comparable<ItemOT> {
         return ComparisonChain.start()
                 .compare(this.getNroItemOT(), other.getNroItemOT())
                 .result();
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED)
+    public ItemOT estadoEjecucion() {
+        setEstadoOT(EstadoOT.Ejecucion);
+        return this;
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED)
+    public ItemOT estadoEspera() {
+        setEstadoOT(EstadoOT.Espera);
+        return this;
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED)
+    public ItemOT estadoTerminado() {
+        setEstadoOT(EstadoOT.Terminado);
+        return this;
     }
 
     @javax.inject.Inject

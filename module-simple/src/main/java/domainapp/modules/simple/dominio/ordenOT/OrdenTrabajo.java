@@ -24,14 +24,24 @@ import java.math.BigInteger;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import static org.apache.isis.applib.annotation.CommandReification.ENABLED;
+
 @javax.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema = "simple")
 @javax.jdo.annotations.DatastoreIdentity(strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column="id")
 @javax.jdo.annotations.Version(strategy= VersionStrategy.DATE_TIME, column="version")
 
 @Queries({
         @Query(
-                name = "find", language = "JDOQL",
-                value = "SELECT "),})
+                name = "findAllActives", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo "
+                        + "WHERE activo == true "),
+        @Query(
+                name = "findAllInactives", language = "JDOQL",
+                value = "SELECT "
+                        + "FROM domainapp.modules.simple.dominio.ordenOT.OrdenTrabajo "
+                        + "WHERE activo == false "),
+})
 
 
 @javax.jdo.annotations.Unique(name="OrdenTrabajo_name_UNQ", members = {"nroOT"})
@@ -67,6 +77,11 @@ public class OrdenTrabajo {
     @Property(editing = Editing.DISABLED)
     private Presupuesto presupuesto;
 
+    @javax.jdo.annotations.Column(allowsNull = "false")
+    @lombok.NonNull
+    @Property(editing = Editing.ENABLED)
+    private boolean activo = true;
+
     @javax.jdo.annotations.Persistent(
             mappedBy = "ordenTrabajo",
             dependentElement = "false"
@@ -85,6 +100,27 @@ public class OrdenTrabajo {
         {
             itemsOT.add(new ItemOT(this,item));
         }
+    }
+
+    @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE, command = ENABLED, publishing = Publishing.ENABLED)
+    public OrdenTrabajo actualizarEstadoOT() {
+        boolean itemsEnTerminado = true;
+        for (ItemOT itemOT : getItemsOT()) {
+            if(!itemOT.getEstadoOT().equals(EstadoOT.Terminado)){
+                itemsEnTerminado = false;
+            }
+        }
+        if (getEstadoOT().equals(EstadoOT.Espera)) {
+            setEstadoOT(EstadoOT.Ejecucion);
+            messageService.warnUser("Se coloca la OT en Ejecucion");
+        } else if (getEstadoOT().equals(EstadoOT.Ejecucion) & itemsEnTerminado) {
+            setEstadoOT(EstadoOT.Terminado);
+            setActivo(false);
+            messageService.warnUser("La OT con todos sus items se encuentra Terminada");
+        } else {
+            messageService.warnUser("Falta finalizar items de la OT");
+        }
+        return this;
     }
 
     @javax.inject.Inject
