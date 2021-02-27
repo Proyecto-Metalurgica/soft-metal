@@ -26,7 +26,7 @@ export class Tab1Page {
         'Authorization': 'Basic c3ZlbjpwYXNz',
       })
     }
-    const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAll/invoke';
+    const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAllActive/invoke';
     this.http.get(URL, httpOptions)
       .subscribe((resultados: Array<any>) => {
         var array = resultados;

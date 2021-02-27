@@ -45,7 +45,7 @@
 
 
 
-    <ion-card *ngFor="let listado of otData.itemsOT">
+    <ion-card *ngFor="let listado of listadoData">
       <ion-item>
         <ion-label><strong>{{listado.$$title}}</strong></ion-label>
       </ion-item>
@@ -75,7 +75,9 @@
         <ion-label>{{listado.detalle}}</ion-label>
       </ion-item>
 
-
+      <ion-button (click)="estadoEspera(listado.$$instanceId)" shape="round">Espera</ion-button>
+      <ion-button (click)="estadoEjecucion(listado.$$instanceId)" shape="round">Ejecucion</ion-button>
+      <ion-button (click)="estadoTerminado(listado.$$instanceId)" shape="round">Terminado</ion-button>
 
 
 
