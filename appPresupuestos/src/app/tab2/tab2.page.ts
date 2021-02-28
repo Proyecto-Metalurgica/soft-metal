@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -16,7 +17,7 @@ export class Tab2Page {
   listadoData;
   param : any;
   
-  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,) {}
+  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,public toastController: ToastController) {}
   
   ngOnInit() {
     this.param = this.activatedRoute.snapshot.params;
@@ -55,6 +56,35 @@ export class Tab2Page {
         array.pop();
         this.listadoData = array;
       });
+  }
+
+  actualizarEstadoOT() {
+    let idOT = this.idOT;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json;profile=urn:org.apache.isis/v1',
+        'Authorization': 'Basic c3ZlbjpwYXNz',
+      })
+    }
+    const URL = 'http://localhost:8080/restful/objects/simple.OrdenTrabajo/'+idOT+'/actions/actualizarEstadoOT/invoke';
+    this.http.put(URL,{}, httpOptions)
+      .subscribe((resultados : any) => {
+        if(resultados){
+           if(resultados.estadoOT === 'Ejecucion' && this.otData.estadoOT === 'Ejecucion'){
+            this.faltaTerminarItemsToast();
+          } 
+          this.listarUnaOT(this.idOT);
+        }
+      });
+  }
+
+  async faltaTerminarItemsToast() {
+    const toast = await this.toastController.create({
+      message: 'Hay items sin Terminar, no se puede colocar la Orden de Trabajo como Terminado',
+      duration: 3500
+    });
+    toast.present();
   }
 
   estadoEspera(idItem) {
