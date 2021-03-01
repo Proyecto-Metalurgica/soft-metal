@@ -16,10 +16,14 @@ export class Tab2Page {
   otData;
   listadoData;
   param : any;
+  private autenticacion = '';
   
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,public toastController: ToastController) {}
   
   ngOnInit() {
+    if(window.localStorage.autenticacion){
+      this.autenticacion = window.localStorage.autenticacion;
+    }
     this.param = this.activatedRoute.snapshot.params;
     if (Object.keys(this.param).length) {
 			this.listarUnaOT(this.param.idOT);
@@ -32,7 +36,7 @@ export class Tab2Page {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/objects/simple.OrdenTrabajo/'+idOT;
@@ -46,7 +50,7 @@ export class Tab2Page {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/objects/simple.OrdenTrabajo/'+idOT+'/collections/itemsOT';
@@ -64,7 +68,7 @@ export class Tab2Page {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/objects/simple.OrdenTrabajo/'+idOT+'/actions/actualizarEstadoOT/invoke';
@@ -92,7 +96,7 @@ export class Tab2Page {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/objects/simple.ItemOT/'+idItem+'/actions/estadoEspera/invoke';
@@ -109,7 +113,7 @@ export class Tab2Page {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/objects/simple.ItemOT/'+idItem+'/actions/estadoEjecucion/invoke';
@@ -126,7 +130,7 @@ export class Tab2Page {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/objects/simple.ItemOT/'+idItem+'/actions/estadoTerminado/invoke';
@@ -138,5 +142,4 @@ export class Tab2Page {
       });
   }
 
-  
 }

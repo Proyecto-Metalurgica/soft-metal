@@ -13,9 +13,12 @@ export class Tab1Page {
 
 
   public resultadosArray: any = null;
-
+  private autenticacion = '';
 
   ngOnInit() {
+    if(window.localStorage.autenticacion){
+      this.autenticacion = window.localStorage.autenticacion;
+    }
     this.listarTodasLasOT();
   }
 
@@ -23,7 +26,7 @@ export class Tab1Page {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
     const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAllActive/invoke';
