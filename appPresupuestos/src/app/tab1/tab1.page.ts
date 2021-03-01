@@ -16,11 +16,14 @@ export class Tab1Page {
   private autenticacion = '';
 
   ngOnInit() {
+    
+  }
+  ionViewWillEnter(){
     if(window.localStorage.autenticacion){
       this.autenticacion = window.localStorage.autenticacion;
     }
     this.listarTodasLasOT();
-  }
+ }
 
   listarTodasLasOT() {
     const httpOptions = {
