@@ -12,11 +12,15 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Orden de trabajo">
+                                <c:action id="actualizarEstadoOT" promptStyle="INLINE">
+                                    <c:named>Actualizar Estado de OT</c:named>
+                                </c:action>
                                 <c:property id="nroOT" namedEscaped="true" />
                                 <c:property id="estadoOT" namedEscaped="true" />
                                 <c:property id="fechaInicio" namedEscaped="true" />
                                 <c:property id="fechaEntrega" namedEscaped="true" />
                                 <c:property id="presupuesto" namedEscaped="true" />
+                                <c:property id="activo" namedEscaped="true" />
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

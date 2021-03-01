@@ -13,20 +13,26 @@ export class Tab1Page {
 
 
   public resultadosArray: any = null;
-
+  private autenticacion = '';
 
   ngOnInit() {
-    this.listarTodasLasOT();
+    
   }
+  ionViewWillEnter(){
+    if(window.localStorage.autenticacion){
+      this.autenticacion = window.localStorage.autenticacion;
+    }
+    this.listarTodasLasOT();
+ }
 
   listarTodasLasOT() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept': 'application/json;profile=urn:org.apache.isis/v1',
-        'Authorization': 'Basic c3ZlbjpwYXNz',
+        'Authorization': 'Basic '+this.autenticacion,
       })
     }
-    const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAll/invoke';
+    const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAllActive/invoke';
     this.http.get(URL, httpOptions)
       .subscribe((resultados: Array<any>) => {
         var array = resultados;

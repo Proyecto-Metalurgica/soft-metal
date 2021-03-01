@@ -16,65 +16,72 @@
   <ion-label *ngIf="otData != null">
     <h1 style="text-align: center">{{otData.$$title}}</h1>
     <ion-card>
+
+      <h1 style="text-align: center; font-size: 18px;">Estado de OT <strong><em>{{ otData.estadoOT}}</em></strong> </h1>
+      
       <ion-row>
-        <ion-col size="3">
-          Estado
-        </ion-col>
-        <ion-col>
-          Fecha de Inicio
+        <ion-col style="text-align: center;">
+          Fecha Inicio
         </ion-col>
 
-        <ion-col>
-          Fecha de Entrega
+        <ion-col style="text-align: center;">
+          Fecha Entrega
         </ion-col>
       </ion-row>
 
       <ion-row>
-        <ion-col size="3">
-          {{otData.estadoOT}}
-        </ion-col>
-        <ion-col>
+        <ion-col style="text-align: center;">
           {{otData.fechaInicio}}
         </ion-col>
-        <ion-col>
+        <ion-col style="text-align: center;">
           {{otData.fechaEntrega}}
         </ion-col>
       </ion-row>
 
+      <ion-button size="small" (click)="actualizarEstadoOT()" expand="full" color="secondary">Actualizar Estado OT
+      </ion-button>
     </ion-card>
 
 
 
-    <ion-card *ngFor="let listado of otData.itemsOT">
+    <ion-card *ngFor="let listado of listadoData">
       <ion-item>
         <ion-label><strong>{{listado.$$title}}</strong></ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="resize" slot="start"></ion-icon>
-        <ion-label>Medida:</ion-label>
+        <ion-icon name="resize" size="small"></ion-icon>
+        <ion-label> Medida:</ion-label>
         <ion-label>{{listado.medida}}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="ellipsis-vertical-circle-outline" slot="start"></ion-icon>
+        <ion-icon name="ellipsis-vertical-circle-outline" size="small"></ion-icon>
 
-        <ion-label>Cantidad:</ion-label>
+        <ion-label> Cantidad:</ion-label>
         <ion-label>{{listado.cantidad}}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-        <ion-label>Estado OT:</ion-label>
+        <ion-icon name="checkbox-outline" size="small"></ion-icon>
+        <ion-label> Estado Item:</ion-label>
         <ion-label>{{listado.estadoOT}}</ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-icon name="information-circle" slot="start"></ion-icon>
-        <ion-label>Detalle:</ion-label>
+        <ion-icon name="information-circle" size="small"></ion-icon>
+        <ion-label> Detalle:</ion-label>
         <ion-label>{{listado.detalle}}</ion-label>
       </ion-item>
 
+      <div style="text-align: center">
+        <ion-button size="small" (click)="estadoEspera(listado.$$instanceId)" expand="full" color="secondary">Espera
+        </ion-button>
+        <ion-button size="small" (click)="estadoEjecucion(listado.$$instanceId)" expand="full" color="secondary">
+          Ejecucion</ion-button>
+        <ion-button size="small" (click)="estadoTerminado(listado.$$instanceId)" expand="full" color="secondary">
+          Terminado</ion-button>
+      </div>
 
 
 

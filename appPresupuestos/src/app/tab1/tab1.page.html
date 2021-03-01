@@ -30,7 +30,10 @@
       <ion-label>
         <h1>{{resultado.$$title}}</h1>
         <p>Entrega <strong>{{resultado.fechaEntrega}}</strong></p>
+        <p>Estado <strong><em>{{resultado.estadoOT}}</em></strong></p>
       </ion-label>
+
+      
 
       <ion-button (click)="goToOrdenTrabajo(resultado.$$instanceId)" shape="round">VER</ion-button>
 

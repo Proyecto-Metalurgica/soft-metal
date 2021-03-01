@@ -14,11 +14,15 @@
 
 <ion-content center text-center class="background">
   
+  
+
+  <form [formGroup]="loginForm" (ngSubmit)="logForm()">
+  <ion-img class="img" src="../../assets/otyp-logo.png"></ion-img>
   <ion-grid class="vertical-center">
     <ion-row>
       <ion-item>
         <ion-icon name="person-circle" item-start></ion-icon>
-        <ion-input placeholder="Usuario">
+        <ion-input placeholder="Usuario" type="text" formControlName="usuario" clearOnEdit="false">
         </ion-input>
       </ion-item>
     </ion-row>
@@ -26,20 +30,22 @@
     <ion-row>
       <ion-item>
         <ion-icon name="lock-closed" item-start></ion-icon>
-        <ion-input placeholder="Contraseña">
+        <ion-input placeholder="Contraseña" type="text" formControlName="password" 
+        [type]="passwordType" clearOnEdit="false">
         </ion-input>
+        <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
       </ion-item>
     </ion-row>
 
-      <ion-button type="submit" icon-left size="medium" expand="full" shape="round" (click)="goToTabs()"
-        color="secondary">
+      <ion-button type="submit" icon-left size="medium" expand="full" shape="round"
+        color="secondary" [disabled]="!loginForm.valid">
         <ion-icon name="log-in"></ion-icon>
         Ingresar
       </ion-button>
 
 
   </ion-grid>
-
+</form>
 
 
 </ion-content>
