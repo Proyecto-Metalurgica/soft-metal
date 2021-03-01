@@ -1,9 +1,13 @@
 package domainapp.modules.simple.dominio.presupuesto;
 
+import domainapp.modules.simple.dominio.reportes.EjecutarReportes;
+import net.sf.jasperreports.engine.JRException;
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
+import org.apache.isis.applib.value.Blob;
 import org.datanucleus.query.typesafe.TypesafeQuery;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -42,6 +46,15 @@ public class PresupuestoMenu {
         List<Presupuesto> presupuestos = repositoryPresupuesto.Listar();
         return presupuestos;
     }
+
+    @Action()
+    @ActionLayout(named = "Listado Exportado")
+    public Blob ExportarListado() throws JRException, IOException {
+        EjecutarReportes ejecutar = new EjecutarReportes();
+        return ejecutar.ListadoPresupuestosPDF(repositoryPresupuesto.Listar());
+    }
+
+
 
     @javax.inject.Inject
     PresupuestoRepository repositoryPresupuesto;

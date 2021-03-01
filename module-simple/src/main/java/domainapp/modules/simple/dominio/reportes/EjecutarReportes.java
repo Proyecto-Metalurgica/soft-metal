@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import domainapp.modules.simple.dominio.cliente.Cliente;
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -37,6 +38,24 @@ public class EjecutarReportes {
         return GenerarArchivoPDF("ListadoCliente.jrxml","ListadoClientes.pdf", ds);
     }
 
+    public Blob  ListadoPresupuestosPDF(List<Presupuesto> presupuestos)throws JRException, IOException{
+
+        List<RepoPresupuestos> presupuestosDatasource = new ArrayList<RepoPresupuestos>();
+
+        presupuestosDatasource.add(new RepoPresupuestos());
+
+
+        for (Presupuesto pre : presupuestos) {
+
+            RepoPresupuestos repoPresupuestos = new RepoPresupuestos(pre.ReporNro(),pre.ReporFecha().toString(),pre.ReporCliente(),pre.ReporPrecio(),pre.ReporEstado());
+
+            presupuestosDatasource.add(repoPresupuestos);
+
+        }
+
+        JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(presupuestosDatasource);
+        return GenerarArchivoPDF("listadoPresupuestos.jrxml","ListadoPresupuestos.pdf", ds);
+    }
 
     private Blob GenerarArchivoPDF(String archivoDesing, String nombreSalida, JRBeanCollectionDataSource ds) throws JRException, IOException{
 

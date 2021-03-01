@@ -2,6 +2,7 @@ package domainapp.modules.simple.dominio.reportes;
 
 import domainapp.modules.simple.dominio.cliente.ClienteRepository;
 
+import domainapp.modules.simple.dominio.presupuesto.PresupuestoRepository;
 import lombok.AccessLevel;
 import net.sf.jasperreports.engine.JRException;
 import org.apache.isis.applib.annotation.*;
@@ -42,6 +43,23 @@ public class ReporteMenu {
         return repositoryCliente.generarReporteClientes();
     }
 
+
+
+    @Action(
+            semantics = SemanticsOf.SAFE,
+            restrictTo = RestrictTo.PROTOTYPING
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT,
+            named = "Reporte de Presupuestos"
+    )
+    @MemberOrder(sequence = "2")
+    public Blob generarReportePresupuestos(
+    ) throws JRException, IOException {
+        return repositoryPresupuesto.generarReportePresupuestos();
+    }
+
+
     @javax.inject.Inject
     IsisJdoSupport isisJdoSupport;
 
@@ -49,4 +67,9 @@ public class ReporteMenu {
     @javax.jdo.annotations.NotPersistent
     @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
     ClienteRepository repositoryCliente;
+
+    @javax.inject.Inject
+    @javax.jdo.annotations.NotPersistent
+    @lombok.Getter(AccessLevel.NONE) @lombok.Setter(AccessLevel.NONE)
+    PresupuestoRepository repositoryPresupuesto;
 }

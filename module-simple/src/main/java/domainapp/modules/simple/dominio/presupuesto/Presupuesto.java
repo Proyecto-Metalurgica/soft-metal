@@ -81,6 +81,15 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @Property(editing = Editing.DISABLED)
     private Estado estado = Estado.Espera;
 
+
+
+    public BigInteger ReporNro(){ return this.nroPresupuesto; }
+    public LocalDate ReporFecha(){ return this.fecha; }
+    public String ReporCliente(){ return this.cliente.getName(); }
+    public Double ReporPrecio(){ return this.precio; }
+    public String ReporEstado(){ return this.estado.toString(); }
+
+
     @javax.jdo.annotations.Persistent(
             mappedBy = "presupuesto",
             dependentElement = "false"
@@ -215,6 +224,8 @@ public class Presupuesto implements Comparable<Presupuesto> {
         return this;
     }
 
+
+
     @Override
     public String toString() {
         return getNroPresupuesto().toString();
@@ -250,6 +261,8 @@ public class Presupuesto implements Comparable<Presupuesto> {
     @lombok.Getter(AccessLevel.NONE)
     @lombok.Setter(AccessLevel.NONE)
     MessageService messageService;
+
+
 
 }
 
