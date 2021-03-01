@@ -52,6 +52,7 @@ public class ItemOT implements Comparable<ItemOT> {
 
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property(editing = Editing.ENABLED)
+    @PropertyLayout(named="Estado de Item: ")
     private EstadoOT estadoOT = EstadoOT.Espera;
 
     @javax.jdo.annotations.Column(allowsNull = "false")

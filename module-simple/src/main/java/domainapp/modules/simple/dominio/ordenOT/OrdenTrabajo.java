@@ -113,7 +113,7 @@ public class OrdenTrabajo {
         if (getEstadoOT().equals(EstadoOT.Espera)) {
             setEstadoOT(EstadoOT.Ejecucion);
             messageService.warnUser("Se coloca la OT en Ejecucion");
-        } else if (getEstadoOT().equals(EstadoOT.Ejecucion) & itemsEnTerminado) {
+        } else if (itemsEnTerminado) {
             setEstadoOT(EstadoOT.Terminado);
             setActivo(false);
             messageService.warnUser("La OT con todos sus items se encuentra Terminada");
