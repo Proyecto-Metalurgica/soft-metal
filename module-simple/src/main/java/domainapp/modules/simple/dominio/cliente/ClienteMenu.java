@@ -145,7 +145,6 @@ public class ClienteMenu {
     }
 
     @Action()
-    @ActionLayout(named = "Listado Exportado")
     public Blob ExportarListado() throws JRException, IOException {
         EjecutarReportes ejecutar = new EjecutarReportes();
         return ejecutar.ListadoClientesPDF(repositoryCliente.ListarActivos());

@@ -48,7 +48,6 @@ public class PresupuestoMenu {
     }
 
     @Action()
-    @ActionLayout(named = "Listado Exportado")
     public Blob ExportarListado() throws JRException, IOException {
         EjecutarReportes ejecutar = new EjecutarReportes();
         return ejecutar.ListadoPresupuestosPDF(repositoryPresupuesto.Listar());

@@ -42,9 +42,6 @@
                 <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="listAllInactive">
                     <cpt:named>Listar todos los Clientes Inactivos</cpt:named>
                 </mb3:serviceAction>
-                <!-- <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="ExportarListado">
-                     <cpt:named>Reporte  clientes</cpt:named>
-                 </mb3:serviceAction>-->
             </mb3:section>
         </mb3:menu>
         <mb3:menu>
@@ -103,13 +100,22 @@
         </mb3:menu>
 
         <mb3:menu>
+            <mb3:named>Pagos</mb3:named>
+            <mb3:section>
+                <mb3:serviceAction objectType="simple.PagoMenu" id="listAll">
+                    <cpt:named>Listar todos los Pagos</cpt:named>
+                </mb3:serviceAction>
+            </mb3:section>
+        </mb3:menu>
+
+        <mb3:menu>
             <mb3:named>Reportes</mb3:named>
             <mb3:section>
                 <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="ExportarListado">
                     <cpt:named>Reportes Clientes</cpt:named>
                 </mb3:serviceAction>
 
-                <mb3:serviceAction objectType="simple.SimplePresupuestoMenu" id="ExportarListado">
+                <mb3:serviceAction objectType="simple.PresupuestoMenu" id="ExportarListado">
                     <cpt:named>Reportes Presupuestos</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>
