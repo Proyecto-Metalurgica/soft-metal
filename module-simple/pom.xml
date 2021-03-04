@@ -121,6 +121,21 @@
             <artifactId>datanucleus-core</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.isisaddons.module.security/isis-module-security-dom -->
+        <dependency>
+            <groupId>org.isisaddons.module.security</groupId>
+            <artifactId>isis-module-security-dom</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+
         <!-- TESTS -->
 
         <dependency>
