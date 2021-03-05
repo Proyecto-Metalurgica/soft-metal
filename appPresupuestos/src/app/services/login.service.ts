@@ -13,8 +13,7 @@ export class LoginService {
 
   public URLservidor: String;
   //Si no encuentra URL en la cookie usara la siguiente URL
-  public URLSecundaria: String = 'http://192.168.1.100:8080';
-  // public URLSecundaria: String =  'http://localhost:8080';
+  public URLSecundaria: String =  'http://localhost:8080';
 
   realizaLogin(usuario:String, contrasena:String){
 

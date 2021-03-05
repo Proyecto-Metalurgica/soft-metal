@@ -4,7 +4,7 @@ $(document).ready(function() {
 	if ($("body").find(".accountManagementPanel").length > 0){
     	//Verifica si se encuentra en la pagina de Login
 
-    		$(this).attr("title", "AdeT - Iniciar Sesión");
+    		$(this).attr("title", "OTyP - Iniciar Sesión");
     		//Esto cambia el titulo de la pagina
 
     		$('body').css('background-color', 'grey');
@@ -16,9 +16,9 @@ $(document).ready(function() {
     		$("form:not(.filter) :input:visible:enabled").eq(1).attr("placeholder", "Ingrese contraseña");
     		//Esto cambia el placeholder que no se pudo traducir
 
-    		$("form:not(.filter) :input:visible:enabled").eq(0).attr("value", "admin");
-    		$("form:not(.filter) :input:visible:enabled").eq(1).attr("value", "admin");
-    		$("button.btn[type=submit]").click();
+    		//$("form:not(.filter) :input:visible:enabled").eq(0).attr("value", "admin");
+    		//("form:not(.filter) :input:visible:enabled").eq(1).attr("value", "admin");
+    		//$("button.btn[type=submit]").click();
     		//Esto sirve para autocompletar los campos del Login y apreta Ingresar automaticamente
 
     		$("img[src$='/about/images/Logo-login.png']").wrap("<a href='/'> </a>");
