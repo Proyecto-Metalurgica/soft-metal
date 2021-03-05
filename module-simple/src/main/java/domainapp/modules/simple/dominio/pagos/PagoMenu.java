@@ -22,22 +22,6 @@ import java.util.List;
 
 public class PagoMenu {
 
-    /*@Action()
-    @ActionLayout(named = "Cargar Pago")
-    @MemberOrder(sequence = "1")
-    public Pago create(
-
-            @Parameter(maxLength = 40)
-
-            @ParameterLayout(named="Ingrese fecha de pago") final LocalDate fechaPago,
-            @ParameterLayout(named="Monto") final Double monto,
-            @ParameterLayout(named= "Forma de pago") final FormaPago fpago
-
-    ) {
-
-        return repositoryPago.create(fechaPago,monto,fpago);
-    }*/
-
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, named = "Listado de Pagos")
