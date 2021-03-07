@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
     </ion-buttons>
     <ion-title size="small">
-      Detalle OT Activa
+      Detalle OT Terminada
     </ion-title>
 
   </ion-toolbar>
@@ -38,8 +38,6 @@
         </ion-col>
       </ion-row>
 
-      <ion-button size="small" (click)="actualizarEstadoOT()" expand="full" color="secondary">Actualizar Estado OT
-      </ion-button>
     </ion-card>
 
 
@@ -73,18 +71,6 @@
         <ion-label> Detalle:</ion-label>
         <ion-label>{{listado.detalle}}</ion-label>
       </ion-item>
-
-      <div style="text-align: center">
-        <ion-button size="small" (click)="estadoEspera(listado.$$instanceId)" expand="full" color="secondary">Espera
-        </ion-button>
-        <ion-button size="small" (click)="estadoEjecucion(listado.$$instanceId)" expand="full" color="secondary">
-          Ejecucion</ion-button>
-        <ion-button size="small" (click)="estadoTerminado(listado.$$instanceId)" expand="full" color="secondary">
-          Terminado</ion-button>
-      </div>
-
-
-
 
     </ion-card>
 
