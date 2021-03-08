@@ -75,12 +75,12 @@ public class Cliente implements Comparable<Cliente> {
 
     @Column(allowsNull = "true", length = 13)
     @NonNull
-    @Property()
+    @Property(editing = Editing.ENABLED)
     private String cuil;
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
-    @Property() // editing disabled by default, see isis.properties
+    @Property(editing = Editing.ENABLED)
     @Title(prepend = "Cliente: ")
     private String name;
 
@@ -109,6 +109,17 @@ public class Cliente implements Comparable<Cliente> {
     @javax.jdo.annotations.Column(allowsNull = "true")
     @Property()
     private Boolean activo = true;
+
+  /*  @Action()
+    @ActionLayout(named = "Editar")
+    public Cliente update(
+            @ParameterLayout(named = "Nombre: ")
+            final String name
+    ){
+
+        this.setName(name);
+        return this;
+    }*/
 
 
     public String ReporCuil(){ return this.cuil; }
