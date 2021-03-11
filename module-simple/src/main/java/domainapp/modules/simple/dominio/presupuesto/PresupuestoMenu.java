@@ -47,13 +47,6 @@ public class PresupuestoMenu {
         return presupuestos;
     }
 
-    @Action()
-    public Blob ExportarListado() throws JRException, IOException {
-        EjecutarReportes ejecutar = new EjecutarReportes();
-        return ejecutar.ListadoPresupuestosPDF(repositoryPresupuesto.Listar());
-    }
-
-
 
     @javax.inject.Inject
     PresupuestoRepository repositoryPresupuesto;

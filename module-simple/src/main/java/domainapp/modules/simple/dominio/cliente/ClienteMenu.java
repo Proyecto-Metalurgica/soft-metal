@@ -144,11 +144,6 @@ public class ClienteMenu {
         return clientes;
     }
 
-    @Action()
-    public Blob ExportarListado() throws JRException, IOException {
-        EjecutarReportes ejecutar = new EjecutarReportes();
-        return ejecutar.ListadoClientesPDF(repositoryCliente.ListarActivos());
-    }
 
     @javax.inject.Inject
     ClienteRepository repositoryCliente;
