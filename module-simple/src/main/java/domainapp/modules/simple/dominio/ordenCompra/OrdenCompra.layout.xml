@@ -45,7 +45,7 @@
         </bs3:col>
         <bs3:col span="7">
             <bs3:tabGroup collapseIfOne="false">
-                <bs3:tab name="Payments">
+                <bs3:tab name="Pagos asociados">
                     <bs3:row>
                         <bs3:col span="12">
                             <c:collection id="pagosRecibidos">
