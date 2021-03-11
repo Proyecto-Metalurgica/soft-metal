@@ -38,7 +38,7 @@ public class ProductoMenu {
 
             ) {
 
-        return repositoryProducto.create(nombre,medida,precioUnitario);
+        return repositoryProducto.create(nombre.toUpperCase(),medida,precioUnitario);
     }
 
     @Action(semantics = SemanticsOf.SAFE)

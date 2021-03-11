@@ -18,14 +18,21 @@ public class ProductoRecreate extends FixtureScript {
             "Cenefas",
             "Bajadas",
             "Rejas",
-            "Porton"
+            "Porton",
+            "Puerta",
+            "Campana",
+            "Caño"
     ));
 
     public final List<String> medidas = Collections.unmodifiableList(Arrays.asList(
             "DES 30",
             "6x12,5",
             "3x3",
-            "5x5"
+            "5x5",
+            "210 x 150",
+            "245 x 50 x 245",
+            "100 x 60"
+
 
     ));
 
@@ -33,7 +40,11 @@ public class ProductoRecreate extends FixtureScript {
            2000.00,
             3000.00,
             60000.00,
-            8000.50
+            8000.50,
+            10000.00,
+            15000.00,
+            2500.00
+
 
     ));
 
@@ -73,7 +84,7 @@ public class ProductoRecreate extends FixtureScript {
     protected void execute(final ExecutionContext ec) {
 
         // defaults
-        final int number = defaultParam("number", ec, 1);
+        final int number = defaultParam("number", ec, nombres.size());
 
         // validate
         if(number < 0 || number > nombres.size()) {
