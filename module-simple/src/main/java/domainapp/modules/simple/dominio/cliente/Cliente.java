@@ -80,6 +80,7 @@ public class Cliente implements Comparable<Cliente> {
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = 40)
     @lombok.NonNull
+    @PropertyLayout(named="Nombre")
     @Property(editing = Editing.ENABLED)
     @Title(prepend = "Cliente: ")
     private String name;
