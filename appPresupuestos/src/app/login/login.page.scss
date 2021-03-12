@@ -1,0 +1,36 @@
+  ion-content {
+    --background: #999999 url("/assets/desktop-tools.png") no-repeat center center / cover;
+
+  }
+  .vertical-center{
+       display: ruby;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0px;
+    }
+  
+    #rounded {
+      width: 100%;
+      -moz-border-radius: 50px;
+      -webkit-border-radius: 50px;
+      border-radius: 10px;
+      margin-bottom: 15px;  
+  }
+  .img{
+    margin-top: 160px;
+  }
+  .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+  .alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-top: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+  }
+  .item {
+    width: 100%;
+  }

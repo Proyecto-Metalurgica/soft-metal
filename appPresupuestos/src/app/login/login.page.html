@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="end">
+      <ion-button (click)="cierraApp()">
+        <ion-icon name="close-circle-sharp"></ion-icon>
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Iniciar sesion
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center text-center class="background">
+  
+  
+
+  <form [formGroup]="loginForm" (ngSubmit)="logForm()">
+  <ion-img class="img" src="../../assets/otyp-logo.png"></ion-img>
+  <ion-grid class="vertical-center">
+    <ion-row>
+      <ion-item>
+        <ion-icon name="person-circle" item-start></ion-icon>
+        <ion-input placeholder="Usuario" type="text" formControlName="usuario" clearOnEdit="false">
+        </ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <ion-icon name="lock-closed" item-start></ion-icon>
+        <ion-input placeholder="Contraseña" type="text" formControlName="password" 
+        [type]="passwordType" clearOnEdit="false">
+        </ion-input>
+        <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+      </ion-item>
+    </ion-row>
+
+      <ion-button type="submit" icon-left size="medium" expand="full" shape="round"
+        color="secondary" [disabled]="!loginForm.valid">
+        <ion-icon name="log-in"></ion-icon>
+        Ingresar
+      </ion-button>
+
+
+  </ion-grid>
+</form>
+
+
+</ion-content>

@@ -29,7 +29,7 @@
     <artifactId>myapp</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Apache Isis App - SimpleApp Parent</name>
+    <name>SoftMetal</name>
 
     <packaging>pom</packaging>
 

@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">
+      Detalle OT Terminada
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <ion-label *ngIf="otData != null">
+    <h1 style="text-align: center">{{otData.$$title}}</h1>
+    <ion-card>
+
+      <h1 style="text-align: center; font-size: 18px;">Estado de OT <strong><em>{{ otData.estadoOT}}</em></strong> </h1>
+      
+      <ion-row>
+        <ion-col style="text-align: center;">
+          Fecha Inicio
+        </ion-col>
+
+        <ion-col style="text-align: center;">
+          Fecha Entrega
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="text-align: center;">
+          {{otData.fechaInicio}}
+        </ion-col>
+        <ion-col style="text-align: center;">
+          {{otData.fechaEntrega}}
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+
+
+
+    <ion-card *ngFor="let listado of listadoData">
+      <ion-item>
+        <ion-label><strong>{{listado.$$title}}</strong></ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="resize" size="small"></ion-icon>
+        <ion-label> Medida:</ion-label>
+        <ion-label>{{listado.medida}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="ellipsis-vertical-circle-outline" size="small"></ion-icon>
+
+        <ion-label> Cantidad:</ion-label>
+        <ion-label>{{listado.cantidad}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="checkbox-outline" size="small"></ion-icon>
+        <ion-label> Estado Item:</ion-label>
+        <ion-label>{{listado.estadoOT}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="information-circle" size="small"></ion-icon>
+        <ion-label> Detalle:</ion-label>
+        <ion-label>{{listado.detalle}}</ion-label>
+      </ion-item>
+
+    </ion-card>
+
+  </ion-label>
+</ion-content>

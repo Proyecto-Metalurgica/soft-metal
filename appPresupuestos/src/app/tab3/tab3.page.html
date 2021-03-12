@@ -1,0 +1,45 @@
+<style>
+  :root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
+</style>
+
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons> -->
+    <ion-title size="small">
+      Ordenes de Trabajo Terminadas 
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+
+
+    <ion-item *ngFor="let resultado of resultadosArray">
+
+      <ion-avatar slot="start">
+        <img src="https://img.icons8.com/bubbles/50/000000/task.png" />
+      </ion-avatar>
+
+      <ion-label>
+        <h1>{{resultado.$$title}}</h1>
+        <p>Entrega <strong>{{resultado.fechaEntrega}}</strong></p>
+        <p>Estado <strong><em>{{resultado.estadoOT}}</em></strong></p>
+      </ion-label>
+
+      
+
+      <ion-button (click)="goToOrdenTrabajo(resultado.$$instanceId)" shape="round">VER</ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <!-- <pre>Contenido obtenido: {{ resultadosArray | json }}</pre> -->
+
+</ion-content>

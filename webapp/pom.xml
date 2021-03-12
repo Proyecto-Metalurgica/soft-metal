@@ -123,6 +123,14 @@
             <type>pom</type>
         </dependency>
 
+        <!-- Plugin para evitar CORS con Swagger -->
+        <dependency>
+            <groupId>org.ebaysf.web</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <profiles>
@@ -130,7 +138,7 @@
             <id>isis-swagger</id>
             <activation>
                 <property>
-                    <name>!skip.isis-swagger</name>
+                    <name>skip.isis-swagger</name>
                 </property>
             </activation>
             <build>
@@ -214,13 +222,7 @@
                     <name>jdbc-postgres</name>
                 </property>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <version>9.1-901.jdbc4</version>
-                </dependency>
-            </dependencies>
+
         </profile>
         <profile>
             <id>jdbc-mssql</id>

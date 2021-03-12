@@ -20,12 +20,15 @@ package domainapp.application.services.homepage;
 
 import java.util.List;
 
+import domainapp.modules.simple.dominio.presupuesto.Presupuesto;
+import domainapp.modules.simple.dominio.presupuesto.PresupuestoRepository;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.HomePage;
 
-import domainapp.modules.simple.dom.impl.SimpleObject;
-import domainapp.modules.simple.dom.impl.SimpleObjects;
+
 
 @DomainObject(
         nature = Nature.VIEW_MODEL,
@@ -34,13 +37,16 @@ import domainapp.modules.simple.dom.impl.SimpleObjects;
 public class HomePageViewModel {
 
     public TranslatableString title() {
-        return TranslatableString.tr("{num} objects", "num", getObjects().size());
+        //return TranslatableString.tr("Presupuestos Totales: {num} ", "num", getObjects().size());
+        return TranslatableString.tr("Ultimos Presupuestos");
     }
 
-    public List<SimpleObject> getObjects() {
-        return simpleObjects.listAll();
+    @HomePage()
+    @CollectionLayout(named="Ultimos Presupuestos")
+    public List<Presupuesto> getObjects() {
+        return presupuestoRepository.ListarUltimos();
     }
 
     @javax.inject.Inject
-    SimpleObjects simpleObjects;
+    PresupuestoRepository presupuestoRepository;
 }

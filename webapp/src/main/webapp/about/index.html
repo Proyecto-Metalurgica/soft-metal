@@ -19,99 +19,74 @@
 -->
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Apache Isis&trade; SimpleApp</title>
+        <title>OTyP - Sistema de Gestion de Presupuestos</title>
+        
+        <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
         
         <style type="text/css">
-body {
-    background-color: #1A467B;
-    font-family: Verdana, Helvetica, Arial;
-    font-size: 90%;
-}
 
-li {
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
-table {
-    border-collapse: collapse;
-}
-table, th, td {
-    border: 1px;
-    border-style: solid;
-    border-color: lightgray;
-}
-th, td {
-    padding: 10px;
-}
-#wrapper {
-    background-color: #ffffff;
-    width: 900px;
-    margin: 8px auto;
-    padding: 12px;
-}
+        body {
+            background-color: #1A467B;
+            font-family: Verdana, Helvetica, Arial;
+            font-size: 90%;
+            background-image: url("about/images/desktop-tools.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #header1 {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-family: "Roboto", Helvetica, Arial, sans-serif;
+            color: white;
+            font-size: 40px;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+        }
+        #b1{
+            position: relative;
+            top: 50%;
+            color:white;
+        }
+        #a1, a1:visited{
+            color:white;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+        }
+
         </style>
     </head>
     <body>
-        <div id="wrapper">
-            <img alt="Isis Logo" src="about/images/isis-logo.png" />
-             
-            <p>
-                This app has been generated using Apache Isis'
-                <a href="http://isis.apache.org/guides/ugfun/ugfun.html#_ugfun_getting-started_simple%61pp-archetype" target="_blank">SimpleApp</a> archetype,
-                to create a purposefully minimal application that nevertheless includes fixture data, integration tests and BDD specs.
+        <div>
+             <br/>
                 <br/>
                 <br/>
-                The application's business logic resides in a single (maven) module, <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/module-simple"  target="_blank">module-simple</a>, that in turn contains a single domain entity, <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/module-simple/src/main/java/domainapp/modules/simple/dom/impl/SimpleObject.java"  target="_blank">SimpleObject</a>.  The module has its own <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/module-simple/src/main/java/domainapp/modules/simple/fixture" target="_blank">fixtures</a>, <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/module-simple/src/test/java/domainapp/modules/simple/dom/impl" target="_blank">unit tests</a> and <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/module-simple/src/test/java/domainapp/modules/simple/integtests/tests" target="_blank">integration tests</a>.  New modules can be created by copying this first simple module.
+            <h1 id=header1>
+                OTyP
+                <br/>
+                Sistema de Gestion de Presupuestos
                 <br/>
                 <br/>
-                The app also defines the <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/application"  target="_blank">application</a> (maven) module; this holds <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/application/src/main/java/domainapp/application/fixture"  target="_blank">fixtures</a>, <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/application/src/test/java/domainapp/application/integtests" target="_blank">integration/smoke tests</a> and <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/application/src/test/java/domainapp/application/bdd" target="_blank">BDD specs</a> to exercise the entire application.  It also holds the <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/application/src/main/java/domainapp/application/manifest/DomainAppAppManifest.java" target="_blank">AppManifest</a> used to bootstrap the entire application, as well as application-scoped <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/application/src/main/java/domainapp/application/services" target="_blank">domain services</a> (eg a home page service).
-                <br/>
-                <br/>
-                The app's <a href="https://github.com/apache/isis/tree/master/example/application/simple%61pp/webapp"  target="_blank">webapp</a> (maven) module is used to assemble the application into a WAR file.
-            </p>
-
-            <p>To access the app:</p>
-            <ul>
-                <li>
-                    <p>
-                        <b><a href="wicket/">wicket/</a></b>
-                    </p>
-                    <p>
-                        provides access to a generic UI for end-users,
-                        Apache Isis' <a href="http://isis.apache.org/guides/ugvw/ugvw.html" target="_blank">Wicket Viewer</a>.
-                        As its name suggests, this viewer is built on top of <a href="http://wicket.apache.org" target="_blank">Apache Wicket</a>&trade;.
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        <b>
-                            <a href="swagger-ui/index.html">swagger-ui/</a>
-                        </b>
-                    </p>
-                    <p>
-                        provides access to a Swagger UI which uses a subset of the framework's automatically
-                        generated <a href="restful/">RESTful API</a> (provided by the 
-                        <a href="http://isis.apache.org/guides/ugvro/ugvro.html"  target="_blank">Restful Objects viewer</a>).  There are 
-                        three versions of the Swagger spec files (that drive the UI): 
-                        <a href="restful/swagger/public">public</a> (for use by "third-party" apps), 
-                        <a href="restful/swagger/private">private</a> (for use by internal apps), and 
-                        <a href="restful/swagger/prototyping">prototyping</a> (an extended version of the private
-                        API).  The Swagger spec files are themselves dynamically generated and can be used to generate
-                        client-side stubs.
-                    </p>
-                    <p>The RESTful API can return both simple representations and also richer hypermedia representations
-                        that are conformant with the <a href="http://restfulobjects.org"  target="_blank">Restful Objects</a> spec.
-                        The HTTP <code>Accept</code> header is used to select which representation should be generated.
-                    </p>
-                </li>
-            </ul>
-
-            <p>
-            The default user/password is <b><i>sven/pass</i></b> (as configured in the
-            <a href="https://github.com/apache/isis/blob/master/example/application/simple%61pp/webapp/src/main/webapp/WEB-INF/shiro.ini" target="_blank">shiro.ini</a> file).
-            </p>
-            
+                <b id=b1><a id=a1 href="wicket/">Entrar al Sistema</a></b>
+            </h1>
         </div>
     </body>
 </html>
+
+
