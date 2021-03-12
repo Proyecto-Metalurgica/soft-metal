@@ -111,11 +111,11 @@
         <mb3:menu>
             <mb3:named>Reportes</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="simple.SimpleClienteMenu" id="ExportarListado">
+                <mb3:serviceAction objectType="simple.ReporteMenu" id="generarReporteClientes">
                     <cpt:named>Reportes Clientes</cpt:named>
                 </mb3:serviceAction>
 
-                <mb3:serviceAction objectType="simple.PresupuestoMenu" id="ExportarListado">
+                <mb3:serviceAction objectType="simple.ReporteMenu" id="generarReportePresupuestos">
                     <cpt:named>Reportes Presupuestos</cpt:named>
                 </mb3:serviceAction>
             </mb3:section>

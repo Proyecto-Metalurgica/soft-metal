@@ -102,7 +102,10 @@ public class OrdenCompra implements Comparable<OrdenCompra>  {
             if (!this.pagosRecibidos.isEmpty()) {
                 Double suma = 0.0;
                 for (Pago pago : pagosRecibidos) {
-                    suma += pago.getMonto();
+                    if(pago.getMonto() != null){
+                        suma += pago.getMonto();
+                    }
+
                 }
                 setTotalAbonado(suma);
             } else {

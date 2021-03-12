@@ -79,7 +79,7 @@ public class ClienteMenu {
             @Parameter(maxLength = 40)
             @ParameterLayout(named = "Direccion") final String direccion) {
 
-        return repositoryCliente.create(cuil, name, telefono, email, direccion);
+        return repositoryCliente.create(cuil, name.toUpperCase(), telefono, email, direccion);
     }
 
     @Action(semantics = SemanticsOf.SAFE)
@@ -144,11 +144,6 @@ public class ClienteMenu {
         return clientes;
     }
 
-    @Action()
-    public Blob ExportarListado() throws JRException, IOException {
-        EjecutarReportes ejecutar = new EjecutarReportes();
-        return ejecutar.ListadoClientesPDF(repositoryCliente.ListarActivos());
-    }
 
     @javax.inject.Inject
     ClienteRepository repositoryCliente;
