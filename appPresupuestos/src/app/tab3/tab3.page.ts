@@ -15,12 +15,21 @@ export class Tab3Page {
   public resultadosArray: any = null;
   private autenticacion = '';
 
+  public URLservidor: String;
+  //Si no encuentra URL en la cookie usara la siguiente URL
+  public URLSecundaria: String =  'https://heroku-otyp.herokuapp.com';
+
   ngOnInit() {
     
   }
   ionViewWillEnter(){
     if(window.localStorage.autenticacion){
       this.autenticacion = window.localStorage.autenticacion;
+    }
+    if(window.localStorage.URLservidor){
+      this.URLservidor = window.localStorage.URLservidor;
+    }else{ 
+      this.URLservidor = this.URLSecundaria;
     }
     this.listarTodasLasOT();
  }
@@ -32,7 +41,7 @@ export class Tab3Page {
         'Authorization': 'Basic '+this.autenticacion,
       })
     }
-    const URL = 'http://localhost:8080/restful/services/simple.OrdenTrabajoMenu/actions/listAllInactive/invoke';
+    const URL = this.URLservidor+'/restful/services/simple.OrdenTrabajoMenu/actions/listAllInactive/invoke';
     this.http.get(URL, httpOptions)
       .subscribe((resultados: Array<any>) => {
         var array = resultados;

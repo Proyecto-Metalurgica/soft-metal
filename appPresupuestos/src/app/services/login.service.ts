@@ -13,7 +13,7 @@ export class LoginService {
 
   public URLservidor: String;
   //Si no encuentra URL en la cookie usara la siguiente URL
-  public URLSecundaria: String =  'http://localhost:8080';
+  public URLSecundaria: String =  'https://heroku-otyp.herokuapp.com';
 
   realizaLogin(usuario:String, contrasena:String){
 

@@ -18,11 +18,20 @@ export class Tab4Page {
   param : any;
   private autenticacion = '';
   
+  public URLservidor: String;
+  //Si no encuentra URL en la cookie usara la siguiente URL
+  public URLSecundaria: String =  'https://heroku-otyp.herokuapp.com';
+
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,public toastController: ToastController) {}
   
   ngOnInit() {
     if(window.localStorage.autenticacion){
       this.autenticacion = window.localStorage.autenticacion;
+    }
+    if(window.localStorage.URLservidor){
+      this.URLservidor = window.localStorage.URLservidor;
+    }else{ 
+      this.URLservidor = this.URLSecundaria;
     }
     this.param = this.activatedRoute.snapshot.params;
     if (Object.keys(this.param).length) {
@@ -39,7 +48,7 @@ export class Tab4Page {
         'Authorization': 'Basic '+this.autenticacion,
       })
     }
-    const URL = 'http://localhost:8080/restful/objects/simple.OrdenTrabajo/'+idOT;
+    const URL = this.URLservidor+'/restful/objects/simple.OrdenTrabajo/'+idOT;
     this.http.get(URL, httpOptions)
       .subscribe((resultados) => {
         this.otData = resultados;
@@ -53,7 +62,7 @@ export class Tab4Page {
         'Authorization': 'Basic '+this.autenticacion,
       })
     }
-    const URL = 'http://localhost:8080/restful/objects/simple.OrdenTrabajo/'+idOT+'/collections/itemsOT';
+    const URL = this.URLservidor+'/restful/objects/simple.OrdenTrabajo/'+idOT+'/collections/itemsOT';
     this.http.get(URL, httpOptions)
       .subscribe((resultados: Array<any>) => {
         var array = resultados;

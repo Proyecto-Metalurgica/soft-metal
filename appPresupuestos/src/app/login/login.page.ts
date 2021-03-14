@@ -15,7 +15,7 @@ import { ToastController } from '@ionic/angular';
 export class LoginPage {
 
   private loginForm: FormGroup;
-  URLServidorInicial : string = 'http://localhost:8080';
+  URLServidorInicial : string = 'https://heroku-otyp.herokuapp.com';
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
   usuario = '';
