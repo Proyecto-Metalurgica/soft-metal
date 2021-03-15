@@ -27,28 +27,13 @@
         <welcome-file>about/index.html</welcome-file>
     </welcome-file-list>
 
-    <!-- shiro security configuration -->
-    <listener>
-        <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
-    </listener>
-
-    <filter>
-        <filter-name>ShiroFilter</filter-name>
-        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>ShiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
     <!-- Filtro de la extension dependencia "org.ebaysf.web" para evitar CORS usando Ionic y Swagger -->
     <filter>
         <filter-name>CORS Filter</filter-name>
         <filter-class>org.ebaysf.web.cors.CORSFilter</filter-class>
         <init-param>
             <param-name>cors.allowed.origins</param-name>
-            <param-value>http://apacheisis.ddns.net:8000, http://192.168.0.66:8100,http://localhost,https://localhost,http://localhost:8100,https://localhost:8100,file://</param-value>
+            <param-value>*</param-value>
         </init-param>
         <init-param>
             <param-name>cors.allowed.methods</param-name>
@@ -60,7 +45,7 @@
         </init-param>
         <init-param>
             <param-name>cors.exposed.headers</param-name>
-            <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Authorization</param-value>
+            <param-value>*</param-value>
         </init-param>
         <init-param>
             <param-name>cors.support.credentials</param-name>
@@ -80,6 +65,21 @@
         <url-pattern>/restful/*</url-pattern>
     </filter-mapping>
     <!-- end Filtro-->
+
+    <!-- shiro security configuration -->
+    <listener>
+        <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>ShiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ShiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!-- which configuration directory to read overloaded property files from -->
     <!-- 
