@@ -6,9 +6,10 @@ import { map, switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { ToastController } from '@ionic/angular';
+import { IonRouterOutlet, Platform } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
-
 const { App } = Plugins;
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,6 @@ const { App } = Plugins;
 })
 export class LoginPage {
 
-  
   private loginForm: FormGroup;
   URLServidorInicial : string = 'https://heroku-otyp.herokuapp.com';
   passwordType: string = 'password';
@@ -27,10 +27,16 @@ export class LoginPage {
 
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,
     private router: Router, private formBuilder: FormBuilder, private loginService: LoginService,
-    public toastController: ToastController) {
+    public toastController: ToastController,private platform: Platform, private routerOutlet: IonRouterOutlet) {
     this.loginForm = this.formBuilder.group({
       usuario: ['', Validators.required],
       password: ['', Validators.required],
+    });
+
+    this.platform.backButton.subscribeWithPriority(-1, () => {
+      if (!this.routerOutlet.canGoBack()) {
+        App.exitApp();
+      }
     });
   }
 
@@ -80,12 +86,5 @@ export class LoginPage {
     });
     toast.present();
   }
-
-  initializeApp() {
-    App.addListener('backButton', () => {
-      App.exitApp();
-    });
-  }
-
 
 }
