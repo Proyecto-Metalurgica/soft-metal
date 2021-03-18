@@ -6,6 +6,9 @@ import { map, switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { ToastController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+
+const { App } = Plugins;
 
 @Component({
   selector: 'app-login',
@@ -14,6 +17,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class LoginPage {
 
+  
   private loginForm: FormGroup;
   URLServidorInicial : string = 'https://heroku-otyp.herokuapp.com';
   passwordType: string = 'password';
@@ -76,4 +80,12 @@ export class LoginPage {
     });
     toast.present();
   }
+
+  initializeApp() {
+    App.addListener('backButton', () => {
+      App.exitApp();
+    });
+  }
+
+
 }
